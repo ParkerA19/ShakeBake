@@ -64,6 +64,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvTitle.setText(recipe.title);
         holder.tvUsername.setText(recipe.user.username);
         holder.tvDescription.setText(recipe.description);
+        holder.tvForks.setText(recipe.forkCount + " Forks");
 
         Glide.with(context)
                 .load(recipe.user.profileImageUrl)
@@ -100,10 +101,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 //        @BindView(R.id.tvMessage) TextView tvMessage;
 
         @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvUsername) TextView tvUsername;
         @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
+        @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
-        @BindView(R.id.tvUsername) TextView tvUsername;
+
 
         // TODO: make and item_recipe xml and fill it in with this
 

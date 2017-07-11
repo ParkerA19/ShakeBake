@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
 
@@ -35,4 +37,37 @@ public class MainActivity extends AppCompatActivity {
       //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline ,menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle the presses on the aciton bar items
+        switch (item.getItemId()) {
+            case R.id.miOptions:
+                onOptions();
+                return true;
+            case R.id.miSearch:
+                onSearch();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void onOptions() {
+        return;
+    }
+
+
+    private void onSearch() {
+        return;
+    }
+
+
 }
