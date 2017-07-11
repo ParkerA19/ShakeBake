@@ -85,21 +85,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-//        @Nullable@BindView(R.id.ivImage) ImageView ivImage;
-//        @BindView(R.id.tvUserName) TextView tvUsername;
-//        @BindView(R.id.tvBody) TextView tvBody;
-//        @BindView(R.id.tvTime) TextView tvTime;
-//        @BindView(R.id.tvScreenName) TextView tvScreenName;
-//        @BindView(R.id.ibComment) ImageButton ibComment;
-//        @BindView(R.id.ibRetweet) ImageButton ibRetweet;
-//        @BindView(R.id.ibLike) ImageButton ibLike;
-//        @BindView(R.id.ibMessage) ImageButton ibMessage;
-//        @BindView(R.id.tvComment) TextView tvComment;
-//        @BindView(R.id.tvRetweet) TextView tvRetweet;
-//        @BindView(R.id.tvLike) TextView tvLike;
-//        @BindView(R.id.tvMessage) TextView tvMessage;
-
         @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUsername) TextView tvUsername;
         @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
@@ -107,8 +92,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
 
-
-        // TODO: make and item_recipe xml and fill it in with this
 
 
         public ViewHolder (View itemView) {
