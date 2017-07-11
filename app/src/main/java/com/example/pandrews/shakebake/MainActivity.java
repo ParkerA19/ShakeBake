@@ -1,6 +1,5 @@
 package com.example.pandrews.shakebake;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -89,19 +88,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle the presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.miOptions:
-                onOptions();
-                return true;
             case R.id.miSearch:
                 onSearch();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void onOptions() {
-        startActivity(new Intent(MainActivity.this, SideActivity.class));
     }
 
 

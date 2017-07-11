@@ -8,4 +8,5 @@
     <color name="facebook">#3b5998</color>
     <color name="appBackground">#292727</color>
     <color name="appFont">#712121</color>
+    <color name="appFont2">@color/white</color>
 </resources>
