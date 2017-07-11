@@ -28,7 +28,8 @@
         <activity
             android:name=".SideActivity"
             android:label="@string/title_activity_side"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
 
 </manifest>
