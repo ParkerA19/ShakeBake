@@ -1,5 +1,10 @@
 package com.example.pandrews.shakebake;
 
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
+
+import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +37,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this);
 
-        adapter = new RecipeAdapter(supplyList, this);
+        adapter = new AddRecipeAdapter(supplyList, this);
         rvIngredients.setAdapter(adapter);
         supplyList = new ArrayList<>();
     }
@@ -57,20 +62,17 @@ public class AddRecipeActivity extends AppCompatActivity {
         if (requestCode == 20) {
             //add ingredients to list in add recipe activity
             supplyList = data.getExtras().getStringArrayList("supplyList");
-            // create if statement to populate correct list -- TODO
             rvIngredients.setLayoutManager(new LinearLayoutManager(this));
-            RecipeAdapter rAdapter = new RecipeAdapter(supplyList, this);
+            AddRecipeAdapter rAdapter = new AddRecipeAdapter(supplyList, this);
             rvIngredients.setAdapter(rAdapter);
         } else {
             supplyList = data.getExtras().getStringArrayList("supplyList");
-            // create if statement to populate correct list -- TODO
             rvSteps.setLayoutManager(new LinearLayoutManager(this));
-            RecipeAdapter rAdapter = new RecipeAdapter(supplyList, this);
+            AddRecipeAdapter rAdapter = new AddRecipeAdapter(supplyList, this);
             rvSteps.setAdapter(rAdapter);
         }
     }
  // figure out if intent for result can be replaced with a regular intent so it doesnt crash when you go back to add recipe -- TODO
 }
-
 
 
