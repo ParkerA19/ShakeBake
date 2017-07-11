@@ -1,12 +1,10 @@
-package com.example.jennifershin.login;
+package com.example.pandrews.shakebake;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.pandrews.shakebake.R;
 
 public class LoginActivity extends AppCompatActivity {
 

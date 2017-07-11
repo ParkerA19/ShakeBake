@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appBackground"
     tools:context="com.example.pandrews.shakebake.LoginActivity">
 
     <EditText
@@ -14,10 +15,10 @@
         android:hint="Username or E-mail"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="false"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textColorHint="@android:color/darker_gray"
-        android:textColorLink="@android:color/black"
-        android:layout_centerVertical="true"
+        android:textColorLink="@android:color/white"
+        android:layout_above="@+id/password"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -28,10 +29,10 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:fontFamily="sans-serif"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textColorHint="@android:color/darker_gray"
-        android:textColorLink="@android:color/black"
-        android:layout_below="@+id/email"
+        android:textColorLink="@android:color/white"
+        android:layout_above="@+id/btnForgot"
         android:layout_alignLeft="@+id/email"
         android:layout_alignStart="@+id/email" />
 
@@ -39,31 +40,33 @@
         android:id="@+id/btnLogin"
         android:layout_width="75dp"
         android:layout_height="35dp"
-        android:background="@android:color/black"
+        android:background="@color/appFont"
         android:elevation="0dp"
         android:text="LOG IN"
         android:textAllCaps="false"
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:textStyle="bold"
         android:onClick="onLoginPressed"
-        android:textColor="@android:color/white"
-        android:layout_below="@+id/password"
+        android:textColor="@android:color/black"
+        android:layout_marginRight="13dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/btnLoginFacebook"
         android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp" />
+        android:layout_alignEnd="@+id/password" />
 
     <Button
         android:id="@+id/btnForgot"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onForgotPressed"
         android:text="Forgot your login details?"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@android:color/black"
-        android:onClick="onForgotPressed"
-        android:layout_below="@+id/password"
+        android:textColor="@android:color/darker_gray"
+        android:layout_alignBaseline="@+id/btnLogin"
+        android:layout_alignBottom="@+id/btnLogin"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password" />
 
@@ -72,27 +75,31 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
         android:elevation="0dp"
+        android:onClick="onSignupPressed"
         android:text="Don't have an account? Sign up."
         android:textAllCaps="false"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:onClick="onSignupPressed"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/appFont"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnLoginFacebook"
-        android:layout_width="250dp"
-        android:layout_height="35dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:background="@color/facebook"
         android:elevation="0dp"
         android:text="Login via Facebook"
         android:textAllCaps="false"
-        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textAppearance="@android:style/TextAppearance.Small"
         android:textStyle="bold"
         android:onClick="onLoginFacebookPressed"
-        android:layout_below="@+id/btnForgot"
+        android:textColor="@android:color/white"
+        android:layout_above="@+id/btnSignup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp" />
+        android:layout_marginBottom="36dp" />
 
 </RelativeLayout>
