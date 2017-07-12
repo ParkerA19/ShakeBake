@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
@@ -110,4 +109,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void onSearch() {
         return;
     }
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Recipe recipe = Recipe.fromBundle(data.getExtras());
+//
+//        RecipesPagerAdapter pagerAdapter = (RecipesPagerAdapter) vpPager.getAdapter();
+//        RecipesListFragment.recipes.add(0, recipe);
+//    }
 }
+
+
+//send an intent from this activity (use startactivityforresult) then send the recipe back and use onactivityresult here

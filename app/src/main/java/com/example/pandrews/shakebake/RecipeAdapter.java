@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
 
@@ -61,7 +62,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         // get the data according to the position
-        Recipe recipe = mRecipes.get(position);
+        final Recipe recipe = mRecipes.get(position);
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
@@ -83,6 +84,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         } else {
             holder.ivMedia.setVisibility(View.VISIBLE);
         }
+
+        // set onClickListener for the profile image to open the profile activity
+        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make a new intent
+                Intent intent = new Intent(context, ProfileActivity.class);
+                // put the user into the intent
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
+                // start activity with intent
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
