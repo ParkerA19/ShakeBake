@@ -110,7 +110,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch(id) {
-            case R.id.nav_add_a_recipe:
+            case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
             default:
