@@ -1,6 +1,7 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -127,11 +130,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 // get the tweet and the position
                 Recipe recipe = mRecipes.get(position);
                 // create intent for the new activity
-                //     Intent intent = new Intent(context, DetailsActivity.class);       TODO: create a details activity
+                Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
-                //      intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
                 // show the activity
-                //             context.startActivity(intent);
+                context.startActivity(intent);
             }
 
         }

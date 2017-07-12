@@ -6,11 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pandrews.shakebake.RecipeAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
-
-import java.util.ArrayList;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -38,14 +35,13 @@ public class HomeTimelineFragment extends RecipesListFragment {
         User u2 = new User("Andrea", "agarcia", null, 15, 30);
         User u3 = new User("Jennifer", "jshin", null, 20, 40);
 
+        Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, null, 200, "milk and stuff", "Pour milk \n eat Cereal \n repeat until full");
+        Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, "fruit and juice", "bite \n bite again \n finish \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo \n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooovv\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooovvvvvv\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo\n brooooooooooooooooooooooooooooooo");
+        Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, "fish, rice, seaweed, wasabi", "cover seaweed in rice \n wrap fish with seaweed (which should now be covered in rice.. if this is not the case then you missed the only step so far and should probably try making something else) \n apply wasbi \n eat");
+        Recipe r4 = new Recipe();
 
-        Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, null, 200);
-        Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300);
-        Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220);
 
-        if (recipeAdapter == null) {
-            recipes = new ArrayList<>();
-            recipeAdapter = new RecipeAdapter(recipes, this);
+        if (recipeAdapter != null) {
 
             recipeAdapter.clear();
 
@@ -58,18 +54,8 @@ public class HomeTimelineFragment extends RecipesListFragment {
             recipes.add(r3);
             recipeAdapter.notifyItemInserted(recipes.size() -1);
 
-        } else {
-
-            recipeAdapter.clear();
-
-            recipes.add(r1);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
-
-            recipes.add(r2);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
-
-            recipes.add(r3);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
+            recipes.add(r4);
+            recipeAdapter.notifyItemInserted(recipes.size() -1);
 
             swipeContainer.setRefreshing(false);
         }

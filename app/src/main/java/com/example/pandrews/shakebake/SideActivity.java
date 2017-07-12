@@ -74,7 +74,7 @@ public class SideActivity extends AppCompatActivity
 
         if (id == R.id.nav_add_a_recipe) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new AddRecipeActivity()).commit();
+                    .replace(R.id.content_frame, new MyForksActivity()).commit();
         } else if (id == R.id.nav_my_forks) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, new MyForksActivity()).commit();

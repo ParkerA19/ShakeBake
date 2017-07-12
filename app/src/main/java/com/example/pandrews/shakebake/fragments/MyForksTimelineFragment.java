@@ -7,10 +7,10 @@ import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
 /**
- * Created by pandrews on 7/10/17.
+ * Created by pandrews on 7/11/17.
  */
 
-public class PopularTimelineFragment extends RecipesListFragment {
+public class MyForksTimelineFragment extends RecipesListFragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +57,5 @@ public class PopularTimelineFragment extends RecipesListFragment {
         }
 
     }
-
 
 }

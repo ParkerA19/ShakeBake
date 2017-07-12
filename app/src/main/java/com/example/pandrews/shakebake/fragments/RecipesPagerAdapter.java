@@ -12,7 +12,7 @@ import com.example.pandrews.shakebake.SmartFragmentStatePagerAdapter;
 
 public class RecipesPagerAdapter extends SmartFragmentStatePagerAdapter {
 
-    private String tabTitles[] = new String[] {"Home", "Popular"};
+    private String tabTitles[] = new String[] {"Home", "Popular", "My Forks"};
     private Context context;
 
     public RecipesPagerAdapter(FragmentManager fm, Context context){
@@ -27,13 +27,15 @@ public class RecipesPagerAdapter extends SmartFragmentStatePagerAdapter {
             return new HomeTimelineFragment();
         else if (position == 1)
             return new PopularTimelineFragment();
+        else if (position == 2)
+            return new MyForksTimelineFragment();
         else
             return null;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     // return the title of the tab
