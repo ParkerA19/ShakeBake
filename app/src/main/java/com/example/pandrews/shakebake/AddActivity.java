@@ -1,6 +1,7 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +19,7 @@ public class AddActivity extends AppCompatActivity {
     public ArrayList<String> supplyList = new ArrayList<String>();
     ; //used for both ingredient list and steps list
     LinearLayout.LayoutParams lparams;
+    Button mButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,11 +28,15 @@ public class AddActivity extends AppCompatActivity {
         mLayout = (LinearLayout) findViewById(R.id.mLayout);
         mEditText = (EditText) findViewById(R.id.mEditText);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
+        mButton = (Button) findViewById(R.id.mButton);
         lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         TextView textView = new TextView(this);
         textView.setText("New Text");
         String title = getIntent().getStringExtra("title");
+        String button = getIntent().getStringExtra("button");
         tvTitle.setText(title);
+        mButton.setText(button);
+
     }
 
     public void onClick(View v) {
@@ -48,6 +54,7 @@ public class AddActivity extends AppCompatActivity {
         final Button bDelete = new Button(this);
         textView.setLayoutParams(lparams);
         bDelete.setLayoutParams(lparams);
+        textView.setTextColor(Color.parseColor("#FFFFFF"));
         textView.setText(text);
         bDelete.setBackgroundResource(R.drawable.delete_button);
         return textView;

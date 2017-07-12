@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.pandrews.shakebake.fragments.RecipesListFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
+import com.example.pandrews.shakebake.models.Recipe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id) {
-            case R.id.nav_add_a_recipe:
+            case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
             default:
@@ -109,15 +112,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void onSearch() {
         return;
     }
+    
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Recipe recipe = Recipe.fromBundle(data.getExtras());
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Recipe recipe = Recipe.fromBundle(data.getExtras());
-//
-//        RecipesPagerAdapter pagerAdapter = (RecipesPagerAdapter) vpPager.getAdapter();
-//        RecipesListFragment.recipes.add(0, recipe);
-//    }
+        RecipesPagerAdapter pagerAdapter = (RecipesPagerAdapter) vpPager.getAdapter();
+        RecipesListFragment.recipes.add(0, recipe);
+    }
+
 }
 
 

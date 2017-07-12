@@ -1,5 +1,8 @@
 package com.example.pandrews.shakebake.models;
 
+import android.os.Bundle;
+
+import java.util.ArrayList;
 import org.parceler.Parcel;
 
 /**
@@ -14,6 +17,10 @@ public class Recipe {
     public User user;
     public String mediaurl;
     public int forkCount;
+    public String keywords;
+    public ArrayList<String> stepList;
+    public ArrayList<String> supplyList;
+    public String targetUri;
     public String ingredients;
     public String steps;
     public boolean forked;
@@ -29,6 +36,20 @@ public class Recipe {
         this.forked = b;
 
     }
+
+    //get stuff from bundle
+    public static Recipe fromBundle(Bundle bundle) {
+        Recipe recipe = new Recipe();
+
+        recipe.supplyList= bundle.getStringArrayList("supplyList");
+        recipe.stepList = bundle.getStringArrayList("stepsList");
+        recipe.title = bundle.getString("title");
+        recipe.description = bundle.getString("description");
+        recipe.keywords = bundle.getString("keywords");
+        recipe.targetUri = bundle.getString("targetUri");
+        return recipe;
+    }
+
 
     public Recipe() {
         this.title = "Grapes";

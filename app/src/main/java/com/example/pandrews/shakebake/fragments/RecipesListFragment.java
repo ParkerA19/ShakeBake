@@ -30,7 +30,7 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
 
     // Instance variables
     RecipeAdapter recipeAdapter;
-    ArrayList<Recipe> recipes;
+    public static ArrayList<Recipe> recipes;  //make sure this variable can be static
     RecyclerView rvRecipes;
 
     public SwipeRefreshLayout swipeContainer;
