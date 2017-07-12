@@ -15,11 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,13 +26,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddRecipeActivity" />
-        <activity android:name=".AddActivity"></activity>
+        <activity android:name=".AddActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SideActivity"
             android:label="@string/title_activity_side"
             android:theme="@style/AppTheme" />
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

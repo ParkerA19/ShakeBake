@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void onSearch() {
         return;
     }
-
+    
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         RecipesListFragment.onNewRecipeAvailable(recipes.get(0));
 
     }
+
 }
 
 
