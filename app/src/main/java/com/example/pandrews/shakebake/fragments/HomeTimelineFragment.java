@@ -19,7 +19,6 @@ public class HomeTimelineFragment extends RecipesListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        populateTimeline();
     }
 
     @Nullable
@@ -41,24 +40,22 @@ public class HomeTimelineFragment extends RecipesListFragment {
         Recipe r4 = new Recipe();
 
 
-        if (recipeAdapter != null) {
+        recipeAdapter.clear();
 
-            recipeAdapter.clear();
+        recipes.add(r1);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
 
-            recipes.add(r1);
-            recipeAdapter.notifyItemInserted(recipes.size() -1);
+        recipes.add(r2);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
 
-            recipes.add(r2);
-            recipeAdapter.notifyItemInserted(recipes.size() -1);
+        recipes.add(r3);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
 
-            recipes.add(r3);
-            recipeAdapter.notifyItemInserted(recipes.size() -1);
+        recipes.add(r4);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
 
-            recipes.add(r4);
-            recipeAdapter.notifyItemInserted(recipes.size() -1);
+        swipeContainer.setRefreshing(false);
 
-            swipeContainer.setRefreshing(false);
-        }
     }
 
 
@@ -71,5 +68,9 @@ public class HomeTimelineFragment extends RecipesListFragment {
         rvRecipes.scrollToPosition(0);
     }
 
-
+    @Override
+    public void onStart() {
+        populateTimeline();
+        super.onStart();
+    }
 }
