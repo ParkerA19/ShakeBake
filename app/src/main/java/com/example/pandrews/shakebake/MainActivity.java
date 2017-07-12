@@ -98,6 +98,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
+//            case R.id.nav_my_forks:
+//                onCreateRecipeView(item);
+//                return true;
+//            case R.id.nav_settings:
+//                onCreateRecipeView(item);
+//                return true;
             default:
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
