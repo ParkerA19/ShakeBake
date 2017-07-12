@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pandrews.shakebake.AddRecipeActivity">
+    tools:context="com.example.pandrews.shakebake.AddRecipeActivity"
+    android:background="@color/appBackground">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivPicture"
         android:layout_width="match_parent"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -19,6 +20,16 @@
         android:layout_marginTop="11dp"
         android:layout_below="@+id/tvAddTitle"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_weight="31"
+        app:srcCompat="@color/colorAccent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <LinearLayout
@@ -28,7 +39,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView">
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/ivPicture">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +60,9 @@
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="Add Recipe Title"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="@color/light_font"
+                android:textColorHint="@color/grey_font" />
 
             <EditText
                 android:id="@+id/etRecipeKeywords"
@@ -63,7 +77,9 @@
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="Add Keywords"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="@color/light_font"
+                android:textColorHint="@color/grey_font" />
 
         </LinearLayout>
 
@@ -76,11 +92,14 @@
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="12dp"
-            android:layout_weight="0.03"
+            android:layout_weight="0.01"
             android:background="@android:color/transparent"
             android:ems="10"
             android:hint="Add Description"
-            android:inputType="textPersonName" />
+            android:textColorHint="@color/grey_font"
+            android:inputType="textPersonName"
+            android:textColor="@color/light_font"
+            android:onClick="onAdd"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,13 +112,15 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="onAddIngredient"
-                android:text="Add Ingredients" />
+                android:text="Add Ingredients"
+                android:textColor="@color/light_font"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvIngredients"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
+                android:layout_height="66dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/light_font"/>
 
         </LinearLayout>
 
@@ -114,13 +135,15 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="onAddStep"
-                android:text="Add Recipe Steps" />
+                android:text="Add Recipe Steps"
+                android:textColor="@color/light_font"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvSteps"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
+                android:layout_width="280dp"
+                android:layout_height="60dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/light_font"/>
 
         </LinearLayout>
 
@@ -136,7 +159,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp" />
+        android:layout_marginStart="17dp"
+        android:textColor="@color/light_font"/>
 
     <Button
         android:id="@+id/bAdd"
@@ -147,6 +171,21 @@
         android:layout_alignParentRight="true"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:text="Add" />
+        android:text="Add"
+        android:background="@null"
+        android:onClick="onAdd"
+        android:textColor="@color/light_font"/>
+
+    <Button
+        android:id="@+id/bAddImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:background="@null"
+        android:text="Add Image"
+        android:onClick="onAddImage"
+        android:textColor="@color/light_font"
+        android:layout_alignTop="@+id/ivPicture"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

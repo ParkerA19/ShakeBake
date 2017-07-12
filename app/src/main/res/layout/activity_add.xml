@@ -6,40 +6,53 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mLayout">
+    android:id="@+id/mLayout"
+    android:background="@color/appBackground">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="TextView"
+        android:textColor="@color/light_font"
+        android:textSize="35dp"
         tools:layout_editor_absoluteX="140dp"
         tools:layout_editor_absoluteY="6dp" />
 
+    <EditText
+        android:id="@+id/mEditText"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_font"/>
+
+
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/mEditText"
-            android:layout_width="346dp"
-            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/bDone"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:onClick="onFinish"
+            android:text="Finished"
+            android:textColor="@color/light_font" />
 
+        <Button
+            android:id="@+id/mButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="onClick"
+            android:text="Add Ingredient"
+            android:textColor="@color/light_font" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/mButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Another Ingredient"
-        android:onClick="onClick"/>
-
-    <Button
-        android:id="@+id/bDone"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:text="Finished"
-        android:onClick="onFinish"/>
 </LinearLayout>
 
 

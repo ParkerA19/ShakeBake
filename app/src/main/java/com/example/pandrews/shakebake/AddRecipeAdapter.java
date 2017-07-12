@@ -47,6 +47,7 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView tvStep;
 
         public ViewHolder(View itemView) {

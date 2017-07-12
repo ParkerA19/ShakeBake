@@ -29,9 +29,9 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
     }
 
     // Instance variables
-    RecipeAdapter recipeAdapter;
-    ArrayList<Recipe> recipes;
-    RecyclerView rvRecipes;
+    static RecipeAdapter recipeAdapter;
+    public static ArrayList<Recipe> recipes;  //make sure this variable can be static
+    static RecyclerView rvRecipes;
 
     public SwipeRefreshLayout swipeContainer;
 
@@ -82,5 +82,11 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
         Recipe recipe = recipes.get(position);
 
         Toast.makeText(getContext(), recipe.title, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void onNewRecipeAvailable(Recipe recipe){
+        recipes.add(0, recipe);
+        recipeAdapter.notifyItemInserted(0);
+        rvRecipes.scrollToPosition(0);
     }
 }
