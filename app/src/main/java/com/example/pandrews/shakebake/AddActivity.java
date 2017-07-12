@@ -45,6 +45,7 @@ public class AddActivity extends AppCompatActivity {
 
         //append new item to list for use in add recipe activity
         supplyList.add(mEditText.getText().toString());
+        mEditText.setText("");
     }
 
     private TextView createNewTextView(String text) {
@@ -59,6 +60,8 @@ public class AddActivity extends AppCompatActivity {
         bDelete.setBackgroundResource(R.drawable.delete_button);
         return textView;
     }
+
+    // clear text every time user clicks add ingredient -- TODO
 
     private Button createNewButton() {
         final Button bDelete = new Button(this);

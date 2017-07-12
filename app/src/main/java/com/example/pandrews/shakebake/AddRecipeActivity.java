@@ -125,14 +125,15 @@ public class AddRecipeActivity extends AppCompatActivity {
 //      check intent is going to correct location
         Intent i = new Intent(this, MainActivity.class);
         i.putExtras(recipe);
-        startActivity(i);
+        setResult(RESULT_OK, i);
+//        startActivity(i);
+        finish();
     }
 
  // figure out if intent for result can be replaced with a regular intent so it doesnt crash when you go back to add recipe -- TODO
     // add comments -- TODO
 
-
-
+//solve problem so that when user presses done in android keyboard, app doesnt crash -- TODO
 
 
 

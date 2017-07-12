@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 import com.example.pandrews.shakebake.fragments.RecipesListFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
@@ -20,6 +20,8 @@ import com.example.pandrews.shakebake.models.Recipe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.pandrews.shakebake.fragments.RecipesListFragment.recipes;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -116,10 +118,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(this, data.getExtras().getString("title"), Toast.LENGTH_LONG).show();
         Recipe recipe = Recipe.fromBundle(data.getExtras());
 
         RecipesPagerAdapter pagerAdapter = (RecipesPagerAdapter) vpPager.getAdapter();
-        RecipesListFragment.recipes.add(0, recipe);
+        recipes.add(0, recipe);
+        RecipesListFragment.onNewRecipeAvailable(recipes.get(0));
+
     }
 }
 

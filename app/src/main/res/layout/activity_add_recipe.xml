@@ -120,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="66dp"
                 android:scrollbars="vertical"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/light_font"/>
 
         </LinearLayout>
 
@@ -142,7 +142,8 @@
                 android:id="@+id/rvSteps"
                 android:layout_width="280dp"
                 android:layout_height="60dp"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                android:textColor="@color/light_font"/>
 
         </LinearLayout>
 
@@ -172,6 +173,7 @@
         android:layout_marginRight="20dp"
         android:text="Add"
         android:background="@null"
+        android:onClick="onAdd"
         android:textColor="@color/light_font"/>
 
     <Button

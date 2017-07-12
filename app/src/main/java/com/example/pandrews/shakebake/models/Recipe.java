@@ -2,8 +2,9 @@ package com.example.pandrews.shakebake.models;
 
 import android.os.Bundle;
 
-import java.util.ArrayList;
 import org.parceler.Parcel;
+
+import java.util.ArrayList;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -61,5 +62,4 @@ public class Recipe {
         this.steps = ".....its a grape just eat it";
         this.forked = false;
     }
-
 }
