@@ -1,10 +1,12 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,8 @@ import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private final int REQUEST_CODE = 25;
 
     // Instance variables
     Recipe recipe;
@@ -104,6 +108,22 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.nav_add_a_recipe:
+                onCreateRecipeView(item);
+                return true;
+            default:
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+        }
     }
+
+
+    public void onCreateRecipeView(MenuItem item) {
+        Intent i = new Intent(this, AddRecipeActivity.class);
+        startActivityForResult(i, REQUEST_CODE);
+    }
+
 }

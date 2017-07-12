@@ -15,7 +15,6 @@ public class MyForksTimelineFragment extends RecipesListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        populateTimeline();
     }
 
 //    @Nullable
@@ -37,25 +36,30 @@ public class MyForksTimelineFragment extends RecipesListFragment {
         Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, "wow", "wow wow");
         Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, "wow", "wow wow");
 
-        if (recipeAdapter != null) {
-            recipeAdapter.clear();
+        recipeAdapter.clear();
 
-            recipes.add(r1);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
+        recipes.add(r1);
+        recipeAdapter.notifyItemInserted(recipes.size() - 1);
 
-            recipes.add(r2);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
+        recipes.add(r2);
+        recipeAdapter.notifyItemInserted(recipes.size() - 1);
 
-            recipes.add(r3);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
+        recipes.add(r3);
+        recipeAdapter.notifyItemInserted(recipes.size() - 1);
 
-            recipes.add(r4);
-            recipeAdapter.notifyItemInserted(recipes.size() - 1);
+        recipes.add(r4);
+        recipeAdapter.notifyItemInserted(recipes.size() - 1);
 
 
-            swipeContainer.setRefreshing(false);
-        }
+        swipeContainer.setRefreshing(false);
 
+
+    }
+
+    @Override
+    public void onStart() {
+        populateTimeline();
+        super.onStart();
     }
 
 }

@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final int REQUEST_CODE = 25;
+
     // Instance variables
     RecipesPagerAdapter adapterViewPager;
 
@@ -101,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private final int REQUEST_CODE = 25;
-    //go to addrecipeactivity
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
