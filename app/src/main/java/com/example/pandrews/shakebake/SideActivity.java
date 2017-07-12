@@ -71,21 +71,21 @@ public class SideActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getSupportFragmentManager();
-
-        if (id == R.id.nav_add_a_recipe) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new AddRecipeActivity()).commit();
-        } else if (id == R.id.nav_my_forks) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new MyForksActivity()).commit();
-        } else if (id == R.id.nav_settings) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new SettingsActivity()).commit();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//----uncomment TODO
+//        if (id == R.id.nav_activity_add_recipe) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, new AddRecipeActivity()).commit();
+//        } else if (id == R.id.nav_my_forks) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, new MyForksActivity()).commit();
+//        } else if (id == R.id.nav_settings) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, new SettingsActivity()).commit();
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

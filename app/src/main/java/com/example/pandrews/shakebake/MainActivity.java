@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.example.pandrews.shakebake.fragments.RecipesListFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
+import com.example.pandrews.shakebake.models.Recipe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,4 +117,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
     }
+
+    private final int REQUEST_CODE = 25;
+    //go to addrecipeactivity
+    public void onCreateRecipe(View v) {
+        Intent i = new Intent(this, AddRecipeActivity.class);
+        startActivityForResult(i, REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Recipe recipe = Recipe.fromBundle(data.getExtras());
+
+        RecipesPagerAdapter pagerAdapter = (RecipesPagerAdapter) vpPager.getAdapter();
+        RecipesListFragment.recipes.add(0, recipe);
+    }
 }
+
+
+//send an intent from this activity (use startactivityforresult) then send the recipe back and use onactivityresult here
