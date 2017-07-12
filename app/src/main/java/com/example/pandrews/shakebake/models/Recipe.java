@@ -3,11 +3,13 @@ package com.example.pandrews.shakebake.models;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import org.parceler.Parcel;
 
 /**
  * Created by pandrews on 7/10/17.
  */
 
+@Parcel
 public class Recipe {
 
     public String title;
@@ -19,13 +21,20 @@ public class Recipe {
     public ArrayList<String> stepList;
     public ArrayList<String> supplyList;
     public String targetUri;
+    public String ingredients;
+    public String steps;
+    public boolean forked;
 
-    public Recipe(String t, String d, User u, String m, int fc) {
+    public Recipe(String t, String d, User u, String m, int fc,boolean b, String i, String s) {
         this.title = t;
         this.description = d;
         this.user = u;
         this.mediaurl = m;
         this.forkCount = fc;
+        this.ingredients = i;
+        this.steps = s;
+        this.forked = b;
+
     }
 
     //get stuff from bundle
@@ -41,10 +50,16 @@ public class Recipe {
         return recipe;
     }
 
+
     public Recipe() {
-        this.title = "grapes";
-        this.description = "fruit";
-        this.forkCount = 20;
+        this.title = "Grapes";
+        this.description = "green or red juicy things";
+        this.user = new User();
+        this.mediaurl = null;
+        this.forkCount = 10;
+        this.ingredients = "... grapes";
+        this.steps = ".....its a grape just eat it";
+        this.forked = false;
     }
 
 }
