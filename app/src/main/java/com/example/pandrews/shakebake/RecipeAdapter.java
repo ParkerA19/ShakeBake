@@ -74,10 +74,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
                 .into(holder.ivProfileImage);
 
-        Glide.with(context)
-                .load(recipe.mediaurl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(holder.ivMedia);
+        if (recipe.mediaurl != null) {
+            holder.ivMedia.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(recipe.mediaurl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(holder.ivMedia);
+        } else {
+            holder.ivMedia.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

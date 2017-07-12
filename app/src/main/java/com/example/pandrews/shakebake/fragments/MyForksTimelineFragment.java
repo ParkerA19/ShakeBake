@@ -32,10 +32,10 @@ public class MyForksTimelineFragment extends RecipesListFragment {
         User u4 = new User("Allison", "allison" ,null, 25, 50);
 
 
-        Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200, "wow", "wow wow");
-        Recipe r2 = new Recipe("Pasta", "with pesto alfredo sauce", u2, null, 300, "wow", "wow wow");
-        Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, "wow", "wow wow");
-        Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, "wow", "wow wow");
+        Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, "wow", "wow wow");
+        Recipe r2 = new Recipe("Pasta", "with pesto alfredo sauce", u2, null, 300, false, "wow", "wow wow");
+        Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, "wow", "wow wow");
+        Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, "wow", "wow wow");
 
         if (recipeAdapter != null) {
             recipeAdapter.clear();

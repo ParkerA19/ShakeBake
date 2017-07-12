@@ -16,8 +16,9 @@ public class Recipe {
     public int forkCount;
     public String ingredients;
     public String steps;
+    public boolean forked;
 
-    public Recipe(String t, String d, User u, String m, int fc, String i, String s) {
+    public Recipe(String t, String d, User u, String m, int fc,boolean b, String i, String s) {
         this.title = t;
         this.description = d;
         this.user = u;
@@ -25,6 +26,7 @@ public class Recipe {
         this.forkCount = fc;
         this.ingredients = i;
         this.steps = s;
+        this.forked = b;
 
     }
 
@@ -36,6 +38,7 @@ public class Recipe {
         this.forkCount = 10;
         this.ingredients = "... grapes";
         this.steps = ".....its a grape just eat it";
+        this.forked = false;
     }
 
 }
