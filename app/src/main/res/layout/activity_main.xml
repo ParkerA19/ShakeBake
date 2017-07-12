@@ -43,5 +43,5 @@
             android:backgroundTint="@color/appBackground" />
 
     </LinearLayout>
-    
+
 </android.support.v4.widget.DrawerLayout>
