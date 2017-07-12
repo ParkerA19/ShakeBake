@@ -11,92 +11,77 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
-/**
- * Created by jennifershin on 7/11/17.
- */
+import java.util.ArrayList;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
-public class AddRecipeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+
+public class AddRecipeActivity extends AppCompatActivity {
+    Button bAddIngredient;
+    Button bRecipeSteps;
+    RecyclerView rvIngredients;
+    RecyclerView rvSteps;
+    RecyclerView.LayoutManager layoutManager;
+    RecyclerView.Adapter adapter;
+    ArrayList<String> supplyList;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_side);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_add_recipe);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        bAddIngredient = (Button) findViewById(R.id.bAddIngredients);
+        bRecipeSteps = (Button) findViewById(R.id.bRecipeSteps);
+        rvIngredients = (RecyclerView) findViewById(R.id.rvIngredients);
+        rvSteps = (RecyclerView) findViewById(R.id.rvSteps);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        layoutManager = new LinearLayoutManager(this);
+
+        adapter = new AddRecipeAdapter(supplyList, this);
+        rvIngredients.setAdapter(adapter);
+        supplyList = new ArrayList<>();
+    }
+
+    public void onAddIngredient(View v) {
+        Integer REQUEST_CODE = 20;
+        Intent i = new Intent(this, AddActivity.class);
+        i.putExtra("title", "Add Ingredients");
+        startActivityForResult(i, REQUEST_CODE);
+    }
+
+    public void onAddStep(View v) {
+        Integer REQUEST_CODE = 21;
+        Intent i = new Intent(this, AddActivity.class);
+        i.putExtra("title", "Add Steps");
+        startActivityForResult(i, REQUEST_CODE);
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 20) {
+            //add ingredients to list in add recipe activity
+            supplyList = data.getExtras().getStringArrayList("supplyList");
+            rvIngredients.setLayoutManager(new LinearLayoutManager(this));
+            AddRecipeAdapter rAdapter = new AddRecipeAdapter(supplyList, this);
+            rvIngredients.setAdapter(rAdapter);
         } else {
-            super.onBackPressed();
+            supplyList = data.getExtras().getStringArrayList("supplyList");
+            rvSteps.setLayoutManager(new LinearLayoutManager(this));
+            AddRecipeAdapter rAdapter = new AddRecipeAdapter(supplyList, this);
+            rvSteps.setAdapter(rAdapter);
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.timeline, menu);
-//        getMenuInflater().inflate(R.menu.side, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        // noinspection SimplifiableIfStatement
-//
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch(id) {
-            case R.id.nav_add_a_recipe:
-                Intent h= new Intent(this, AddRecipeActivity.class);
-                startActivity(h);
-                break;
-
-        }
-
-//        if (id == R.id.nav_add_a_recipe) {
-//
-//        } else if (id == R.id.nav_my_forks) {
-//
-//        } else if (id == R.id.nav_settings) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-//
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+ // figure out if intent for result can be replaced with a regular intent so it doesnt crash when you go back to add recipe -- TODO
 }

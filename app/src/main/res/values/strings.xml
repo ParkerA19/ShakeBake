@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">ShakeBake</string>
+    <string name="app_name">Shake \'N Bake</string>
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
 

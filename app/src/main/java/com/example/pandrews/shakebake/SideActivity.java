@@ -2,6 +2,7 @@ package com.example.pandrews.shakebake;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,8 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class SideActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class SideActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +67,32 @@ public class SideActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        switch(id) {
-            case R.id.nav_add_a_recipe:
-                Intent h= new Intent(this, AddRecipeActivity.class);
-                startActivity(h);
-                break;
-
-        }
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//        switch(id) {
+//            case R.id.nav_add_a_recipe:
+//                Intent h= new Intent(this, AddRecipeActivity.class);
+//                startActivity(h);
+//                break;
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//
+//        if (id == R.id.nav_add_a_recipe) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, new MyForksActivity()).commit();
+//        } else if (id == R.id.nav_my_forks) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, new MyForksActivity()).commit();
+//        } else if (id == R.id.nav_settings) {
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.content_frame, new SettingsActivity()).commit();
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
 //        if (id == R.id.nav_add_a_recipe) {
 //
@@ -92,8 +106,10 @@ public class SideActivity extends AppCompatActivity
 //
 //        }
 //
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
+
 }

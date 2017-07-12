@@ -1,6 +1,7 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -71,10 +74,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
                 .into(holder.ivProfileImage);
 
-        Glide.with(context)
-                .load(recipe.mediaurl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(holder.ivMedia);
+        if (recipe.mediaurl != null) {
+            holder.ivMedia.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(recipe.mediaurl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(holder.ivMedia);
+        } else {
+            holder.ivMedia.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -85,21 +93,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-//        @Nullable@BindView(R.id.ivImage) ImageView ivImage;
-//        @BindView(R.id.tvUserName) TextView tvUsername;
-//        @BindView(R.id.tvBody) TextView tvBody;
-//        @BindView(R.id.tvTime) TextView tvTime;
-//        @BindView(R.id.tvScreenName) TextView tvScreenName;
-//        @BindView(R.id.ibComment) ImageButton ibComment;
-//        @BindView(R.id.ibRetweet) ImageButton ibRetweet;
-//        @BindView(R.id.ibLike) ImageButton ibLike;
-//        @BindView(R.id.ibMessage) ImageButton ibMessage;
-//        @BindView(R.id.tvComment) TextView tvComment;
-//        @BindView(R.id.tvRetweet) TextView tvRetweet;
-//        @BindView(R.id.tvLike) TextView tvLike;
-//        @BindView(R.id.tvMessage) TextView tvMessage;
-
         @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUsername) TextView tvUsername;
         @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
@@ -107,8 +100,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
 
-
-        // TODO: make and item_recipe xml and fill it in with this
 
 
         public ViewHolder (View itemView) {
@@ -144,11 +135,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 // get the tweet and the position
                 Recipe recipe = mRecipes.get(position);
                 // create intent for the new activity
-           //     Intent intent = new Intent(context, DetailsActivity.class);       TODO: create a details activity
+                Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
-          //      intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
+                intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
                 // show the activity
-   //             context.startActivity(intent);
+                context.startActivity(intent);
             }
 
         }
