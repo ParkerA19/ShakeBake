@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/miSearch"
-        android:icon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView">
