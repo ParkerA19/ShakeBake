@@ -45,7 +45,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -70,16 +69,22 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvDescription.setText(recipe.description);
         holder.tvForks.setText(recipe.forkCount + " Forks");
 
-        Glide.with(context)
-                .load(recipe.user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(holder.ivProfileImage);
+
+        if (recipe.user.profileImageUrl != null) {
+            holder.ivProfileImage.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(recipe.user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 200, 0))
+                    .into(holder.ivProfileImage);
+        } else {
+            holder.ivProfileImage.setVisibility(View.VISIBLE);
+        }
 
         if (recipe.mediaurl != null) {
             holder.ivMedia.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                     .into(holder.ivMedia);
         } else {
             holder.ivMedia.setVisibility(View.VISIBLE);

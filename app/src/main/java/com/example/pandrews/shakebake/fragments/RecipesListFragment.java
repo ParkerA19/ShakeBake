@@ -89,4 +89,8 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
         recipeAdapter.notifyItemInserted(0);
         rvRecipes.scrollToPosition(0);
     }
+
+    public void displayRecipes() {
+
+    }
 }

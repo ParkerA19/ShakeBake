@@ -9,6 +9,7 @@
     android:id="@+id/drawer_layout2"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
+    android:background="@color/appBackground"
     android:orientation="vertical">
 
     <LinearLayout
@@ -61,6 +62,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/ivProfileImage"
                     android:layout_toRightOf="@+id/ivProfileImage"
+                    android:textColor="@color/appFont2"
                     android:hint="Username"
                     android:text="TextView" />
 
@@ -86,6 +88,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:hint="Title"
+                    android:textColor="@color/appFont2"
                     android:text="TextView" />
 
                 <TextView
@@ -97,6 +100,7 @@
                     android:layout_below="@+id/ivMedia"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/appFont2"
                     android:hint="Forks"
                     android:text="TextView" />
 
@@ -111,6 +115,7 @@
                     android:layout_below="@+id/tvTitle"
                     android:layout_marginTop="5dp"
                     android:hint="Description"
+                    android:textColor="@color/appFont2"
                     android:text="TextView" />
 
                 <TextView
@@ -123,6 +128,7 @@
                     android:layout_alignStart="@+id/tvDescription"
                     android:layout_below="@+id/tvDescription"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/appFont2"
                     android:hint="Ingredients"
                     android:text="TextView" />
 
@@ -136,6 +142,7 @@
                     android:layout_alignStart="@+id/tvIngredients"
                     android:layout_below="@+id/tvIngredients"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/appFont2"
                     android:hint="Steps"
                     android:text="TextView" />
 
