@@ -14,11 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
 
@@ -33,6 +35,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     // Instance variables
     Recipe recipe;
     Context context;
+    User profile;
 
 
 
@@ -55,6 +58,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         // set the context
         context = getApplicationContext();
+
+        // set the account user
+        profile = MainActivity.profile;
 
         // get the recipe from the intent
         recipe = (Recipe) Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
@@ -86,14 +92,42 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         // draw the navigation item
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         // set up the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // access the header view to set the text according to the user details
+        View header = navigationView.getHeaderView(0);
+        TextView name = (TextView) header.findViewById(R.id.tvName);
+        TextView username = (TextView) header.findViewById(R.id.tvUsername);
+        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+
+        // set text
+        name.setText(profile.name);
+        username.setText(profile.username);
+
+        // set profile image
+        Glide.with(getApplicationContext())
+                .load(profile.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
+                .into(Image);
+
+        // setup onClick for the profile view
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make and intent
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                // add the user
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
+                // start activity
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -110,7 +144,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch(id) {
-            case R.id.nav_add_a_recipe:
+            case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
             default:

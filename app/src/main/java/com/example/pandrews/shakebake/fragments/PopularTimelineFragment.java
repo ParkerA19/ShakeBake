@@ -25,10 +25,10 @@ public class PopularTimelineFragment extends RecipesListFragment {
 
     @Override
     public void populateTimeline() {
-        User u1 = new User("Kevin", "kwong", null, 10, 20);
-        User u2 = new User("Jim", "jim", null, 15, 30);
-        User u3 = new User("Greg", "greg", null, 20, 40);
-        User u4 = new User("Allison", "allison" ,null, 25, 50);
+        User u1 = new User("Kevin", "kwong", null, 10, 20, 123);
+        User u2 = new User("Jim", "jim", null, 15, 30, 50);
+        User u3 = new User("Greg", "greg", null, 20, 40, 456);
+        User u4 = new User("Allison", "allison" ,null, 25, 50, 743);
 
 
         Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, "wow", "wow wow");
