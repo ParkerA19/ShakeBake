@@ -11,13 +11,15 @@
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:weightSum="1">
 
         <ImageView android:src="@drawable/ic_menu_camera"
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="200dp"
             android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.47" />
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
@@ -60,7 +62,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="No account yet? Create one"
+            android:text="No account yet? Create one."
             android:gravity="center"
             android:textSize="16dip"/>
 
