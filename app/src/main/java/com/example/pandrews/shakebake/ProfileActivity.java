@@ -38,8 +38,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     User profile;
 
     // set up view for butterknife
-    @Nullable
-    @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+    @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvForks) TextView tvForks;
@@ -121,11 +120,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             }
         });
 
-
-
+        // populate the user headline
         populateUserHeadline(user);
-
-
     }
 
     @Override
@@ -165,5 +161,19 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
+    }
+
+    public void onFollowing(View v) {
+        // make a new intent
+        Intent intent = new Intent(context, FriendsActivity.class);
+        // start activity
+        startActivity(intent);
+    }
+    
+    public void onFollowers(View v) {
+        // make a new intent
+        Intent intent = new Intent(context, FriendsActivity.class);
+        // start activity
+        startActivity(intent);
     }
 }

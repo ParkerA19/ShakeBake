@@ -21,6 +21,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,7 +34,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".FriendsActivity"></activity>
     </application>
 
 </manifest>

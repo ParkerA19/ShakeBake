@@ -15,12 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
-import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
-import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.fragments.FriendsPagerAdapter;
 import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
@@ -29,14 +26,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class FriendsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final int REQUEST_CODE = 25;
 
     // Instance variables
-    RecipesPagerAdapter adapterViewPager;
-
-    public static User profile;
+    User profile;
+    FriendsPagerAdapter adapterViewPager;
 
     @BindView(R.id.viewpager) ViewPager vpPager;
     @BindView(R.id.sliding_tabs) TabLayout tabLayout;
@@ -44,9 +40,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_friends);
+
         // bind with butterknife
         ButterKnife.bind(this);
+
+        // set the profile user
+        profile = MainActivity.profile;
 
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,9 +62,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // set the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        // for now just set a mock user to be the profile in the navigation view
-        profile = new User();
 
         // access the header view to set the text according to the user details
         View header = navigationView.getHeaderView(0);
@@ -100,13 +97,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
 
         // set the adapter for the pager
-        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
+        adapterViewPager = new FriendsPagerAdapter(getSupportFragmentManager(), this);
         vpPager.setAdapter(adapterViewPager);
 
         // setup the TabLayout to use the viewPager -- bound with butterknife
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
-
     }
 
     @Override
@@ -115,25 +111,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle the presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.miSearch:
-                onSearch();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        switch(id) {
+        switch (id) {
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
@@ -148,33 +131,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
-    }
 
+
+    }
 
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
     }
 
-
-    private void onSearch() {
-        return;
-    }
-    
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this, data.getExtras().getString("title"), Toast.LENGTH_LONG).show();
-        Recipe recipe = Recipe.fromBundle(data.getExtras());
-
-        HomeTimelineFragment fragmentHomeTweets = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
-        fragmentHomeTweets.appendRecipe(recipe);
-
-    }
-
-
 }
-
-
-
-//send an intent from this activity (use startactivityforresult) then send the recipe back and use onactivityresult here

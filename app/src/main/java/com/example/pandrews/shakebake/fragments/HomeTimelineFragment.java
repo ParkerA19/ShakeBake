@@ -70,7 +70,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     @Override
     public void onStart() {
-        populateTimeline();
+   //     populateTimeline();
         super.onStart();
     }
 }

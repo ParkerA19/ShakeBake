@@ -82,6 +82,15 @@
                 android:textColor="@color/appFont2"
                 android:text="5 Forks" />
 
+            <TextView
+                android:id="@+id/tvFollowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/appFont2"
+                android:onClick="onFollowers"
+                android:text="5 Followers" />
 
             <TextView
                 android:id="@+id/tvFollowing"
@@ -90,19 +99,8 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/appFont2"
                 android:layout_marginLeft="5dp"
+                android:onClick="onFollowing"
                 android:text="5 Following" />
-
-            <TextView
-                android:id="@+id/tvFollowers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/appFont2"
-                android:text="5 Followers" />
-
-
-
 
         </LinearLayout>
 

@@ -11,27 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.pandrews.shakebake.FriendAdapter;
 import com.example.pandrews.shakebake.R;
-import com.example.pandrews.shakebake.RecipeAdapter;
-import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.models.User;
 
 import java.util.ArrayList;
 
 /**
- * Created by pandrews on 7/10/17.
+ * Created by pandrews on 7/13/17.
  */
 
-public class RecipesListFragment extends Fragment implements RecipeAdapter.RecipeAdapterListener {
+public class FriendsListFragment extends Fragment implements FriendAdapter.FriendAdapterListener {
 
-    public interface RecipeSelectedListener {
+    public interface FriendSelectedListener {
         // handle recipe selection
-        public void onRecipeSelected(Recipe recipe);
+        public void onFriendSelected(User user);
     }
 
     // Instance variables
-    static RecipeAdapter recipeAdapter;
-    public ArrayList<Recipe> recipes;  //make sure this variable can be static
-    static RecyclerView rvRecipes;
+    static FriendAdapter friendAdapter;
+    public ArrayList<User> users;  //make sure this variable can be static
+    static RecyclerView rvFriends;
 
     public SwipeRefreshLayout swipeContainer;
 
@@ -41,9 +41,9 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inflate the layout
-        View v = inflater.inflate(R.layout.fragments_recipes_list, container, false);
+        View v = inflater.inflate(R.layout.fragments_friends_list, container, false);
 
-        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer2);
         // setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,15 +60,15 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
 
 
         // find the RecyclerView
-        rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipe);
+        rvFriends = (RecyclerView) v.findViewById(R.id.rvFriend);
         // init the arraylist (data source)
-        recipes = new ArrayList<>();
+        users = new ArrayList<>();
         // construct the adapter from this data source
-        recipeAdapter = new RecipeAdapter(recipes, this);
+        friendAdapter = new FriendAdapter(users, this);
         // RecyclerView setup (layout manger, user adapter)
-        rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvFriends.setLayoutManager(new LinearLayoutManager(getContext()));
         // set the adapter
-        rvRecipes.setAdapter(recipeAdapter);
+        rvFriends.setAdapter(friendAdapter);
 
         return v;
     }
@@ -79,18 +79,8 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
 
     @Override
     public void onItemSelected(View view, int position) {
-        Recipe recipe = recipes.get(position);
+        User user = users.get(position);
 
-        Toast.makeText(getContext(), recipe.title, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onNewRecipeAvailable(Recipe recipe){
-        recipes.add(0, recipe);
-        recipeAdapter.notifyItemInserted(0);
-        rvRecipes.scrollToPosition(0);
-    }
-
-    public void displayRecipes() {
-
+        Toast.makeText(getContext(), user.name, Toast.LENGTH_SHORT).show();
     }
 }
