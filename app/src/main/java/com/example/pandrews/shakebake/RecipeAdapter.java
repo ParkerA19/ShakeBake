@@ -98,7 +98,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             }
             holder.ivMedia.setImageBitmap(bitmap);
         } else {
-            holder.ivMedia.setVisibility(View.VISIBLE);
+            holder.ivMedia.setVisibility(View.GONE);
 
         }
 

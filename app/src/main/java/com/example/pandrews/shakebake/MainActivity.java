@@ -3,6 +3,7 @@ package com.example.pandrews.shakebake;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -150,6 +151,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 return true;
             case R.id.nav_logout:
+                // Pass in the click listener when displaying the Snackbar
+                Snackbar.make(vpPager, R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.snackbar_action, myOnClickListener)
+                        .setActionTextColor(getResources().getColor(R.color.appFontLogout))
+                        .show(); // Don’t forget to show!
+
                 return true;
             default:
                 drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -158,10 +165,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /*
+    on click listener for the snackbar
+    when you click it will confirm the logout and bring user to the login activity
+     */
+    View.OnClickListener myOnClickListener = new View.OnClickListener() {
+        @Override
+                public void onClick(View v) {
+            logout();;
+        }
+    };
 
+    /*
+    starts the AddRecipeActivity for result
+    called in onNavigationSelected
+     */
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
+    }
+
+    /*
+    takes user back to the logout screen
+    TODO: make it so the back button wont log you back in;
+    TODO: add an are you sure button
+     */
+    public void logout() {
+        // start activity with new intent for the login activity
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
 
@@ -175,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //get recipe from intent and add to hometimeline list
         if (resultCode != RESULT_CANCELED) {
             Recipe recipe = Recipe.fromBundle(data.getExtras());
+            recipe.user = profile;
             HomeTimelineFragment fragmentHome = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
             fragmentHome.appendRecipe(recipe);
         }

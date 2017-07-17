@@ -66,7 +66,7 @@ public class Recipe {
         this.title = "Grapes";
         this.description = "green or red juicy things";
         this.user = new User();
-        this.mediaurl = "https://static.pexels.com/photos/279360/pexels-photo-279360.jpeg";
+        this.mediaurl = "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg";
         this.forkCount = 10;
         this.ingredients.add(0, "... grapes");
         this.steps.add(0, ".....its a grape just eat it");

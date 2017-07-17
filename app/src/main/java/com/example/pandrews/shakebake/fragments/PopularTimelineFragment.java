@@ -43,6 +43,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                popularAdapter.clear();
                 populateTimeline();
             }
         }); //eventually change so that onrefresh does not call populate timeline but instead calls another method that gets more recipes (is line needed since first call is made in onStart-- TODO

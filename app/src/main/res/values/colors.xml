@@ -13,4 +13,5 @@
     <color name="appBackground">#444b6e</color>
     <color name="appFont">#712121</color>
     <color name="appFont2">@color/white</color>
+    <color name="appFontLogout">#FF0000</color>
 </resources>

@@ -82,11 +82,12 @@ public class HomeTimelineFragment extends RecipesListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragments_recipes_list, container, false);
-        //swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                recipeAdapter.clear();
                 populateTimeline();
             }
         });
@@ -122,8 +123,6 @@ public class HomeTimelineFragment extends RecipesListFragment {
         Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r4iList, r4sList);
         Recipe r4 = new Recipe();
 
-
-        // recipeAdapter.clear();
 
         recipes.add(r1);
         recipeAdapter.notifyItemInserted(recipes.size() -1);
