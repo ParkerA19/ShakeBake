@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Home" />
+        <item
             android:id="@+id/nav_activity_add_recipe"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Add a recipe" />
+            android:title="Add a Recipe" />
         <item
-            android:id="@+id/nav_my_forks"
+            android:id="@+id/nav_search"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="My forks" />
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_find_friends"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Find Friends" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Help" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Settings" />
-
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_menu_slideshow"
+        android:title="Log Out" />
 
 </menu>

@@ -82,7 +82,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragments_recipes_list, container, false);
-        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        //swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -110,14 +110,12 @@ public class HomeTimelineFragment extends RecipesListFragment {
         rvRecipes.setAdapter(recipeAdapter);
 
         return v;
-
-        //return super.onCreateView(inflater, container, savedInstanceState);   probably delete later? --TODO
     }
 
     public void populateTimeline() {
-        User u1 = new User("Parker", "pandrews", null, 10, 20);
-        User u2 = new User("Andrea", "agarcia", null, 15, 30);
-        User u3 = new User("Jennifer", "jshin", null, 20, 40);
+        User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
+        User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
+        User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
 
         Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList);
         Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, true, r2iList, r2sList);

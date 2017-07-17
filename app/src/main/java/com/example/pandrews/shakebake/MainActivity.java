@@ -13,12 +13,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.models.User;
+
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Instance variables
     RecipesPagerAdapter adapterViewPager;
 
-    @BindView(R.id.viewpager)
-    ViewPager vpPager;
-    @BindView(R.id.sliding_tabs)
-    TabLayout tabLayout;
+    public static User profile;
+
+    @BindView(R.id.viewpager) ViewPager vpPager;
+    @BindView(R.id.sliding_tabs) TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +57,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         // set the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // for now just set a mock user to be the profile in the navigation view
+        profile = new User();
+
+        // access the header view to set the text according to the user details
+        View header = navigationView.getHeaderView(0);
+        TextView name = (TextView) header.findViewById(R.id.tvName);
+        TextView username = (TextView) header.findViewById(R.id.tvUsername);
+        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+
+        // set text
+        name.setText(profile.name);
+        username.setText(profile.username);
+
+        // set profile image
+        Glide.with(getApplicationContext())
+                .load(profile.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
+                .into(Image);
+
+        // setup onClick for the profile view
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make and intent
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                // add the user
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
+                // start activity
+                startActivity(intent);
+            }
+        });
+
 
         // get the view pager -- bound with butterknife
         // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
@@ -65,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // setup the TabLayout to use the viewPager -- bound with butterknife
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+
     }
 
     @Override
@@ -97,12 +141,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
+//            case R.id.nav_my_forks:
+//                onCreateRecipeView(item);
+//                return true;
+//            case R.id.nav_settings:
+//                onCreateRecipeView(item);
+//                return true;
             default:
                 drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
     }
+
 
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
@@ -113,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void onSearch() {
         return;
     }
-
+    
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -124,4 +175,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentHome.appendRecipe(recipe);
         }
     }
+
+    public void setNavHeader() {
+        User u1 = new User();
+    }
 }
+
+

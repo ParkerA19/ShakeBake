@@ -13,20 +13,23 @@ public class User {
     public String profileImageUrl;
     public int followersCount;
     public int followingCount;
+    public int forkCount;
 
-    public User(String n, String un, String piu, int fs, int fg) {
+    public User(String n, String un, String piu, int fs, int fg, int fc) {
         this.name = n;
         this.username = un;
         this.profileImageUrl = piu;
         this.followersCount = fs;
         this.followingCount = fg;
+        this.forkCount = fc;
     }
 
     public User() {
         this.name = "Zuck";
         this.username = "quack_like_a_zuck";
-        this.profileImageUrl = null;
+        this.profileImageUrl = "https://static.pexels.com/photos/326875/pexels-photo-326875.jpeg";
         this.followersCount = 100;
         this.followingCount = 85;
+        this.forkCount = 220;
     }
 }

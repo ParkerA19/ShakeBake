@@ -79,4 +79,8 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
+
+    public void displayRecipes() {
+
+    }
 }
