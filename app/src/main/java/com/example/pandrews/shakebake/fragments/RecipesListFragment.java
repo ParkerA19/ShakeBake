@@ -3,6 +3,7 @@ package com.example.pandrews.shakebake.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +25,19 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
     public static ArrayList<Recipe> recipes;
     static RecyclerView rvRecipes;
 
+    public SwipeRefreshLayout swipeContainer;
     @Override
     public void onItemSelected(View view, int position) {
     }
-//
-//    public SwipeRefreshLayout swipeContainer;
 
     public interface RecipeSelectedListener {
         // handle recipe selection
         public void onRecipeSelected(Recipe recipe);
     }
+
+
+    // inflation happens inside onCreateView
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,10 +81,13 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
 //        Toast.makeText(getContext(), recipe.title, Toast.LENGTH_SHORT).show();
 //    }
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void onNewRecipeAvailable(Recipe recipe){
+        recipes.add(0, recipe);
+        recipeAdapter.notifyItemInserted(0);
+        rvRecipes.scrollToPosition(0);
 
     }
 
-    public void displayRecipes() {
-
-    }
 }

@@ -38,8 +38,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     User profile;
 
     // set up view for butterknife
-    @Nullable
-    @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+    @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvForks) TextView tvForks;
@@ -77,7 +76,20 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // commit the transaction
         ft.commit();
 
+        // set the navigation view
+        setNavigationView();
 
+        // populate the user headline
+        populateUserHeadline(user);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline, menu);
+        return true;
+    }
+
+    public void setNavigationView() {
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -120,18 +132,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
         });
-
-
-
-        populateUserHeadline(user);
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
     }
 
     public void populateUserHeadline(User user) {
@@ -141,10 +141,12 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         tvFollowers.setText(user.followersCount + " Followers");
         tvFollowing.setText(user.followingCount + " Following");
 
-        Glide.with(this)
-                .load(user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(ivProfileImage);
+        if (user.profileImageUrl != null) {
+            Glide.with(this)
+                    .load(user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivProfileImage);
+        }
     }
 
     @Override
@@ -165,5 +167,19 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
+    }
+
+    public void onFollowing(View v) {
+        // make a new intent
+        Intent intent = new Intent(context, FriendsActivity.class);
+        // start activity
+        startActivity(intent);
+    }
+    
+    public void onFollowers(View v) {
+        // make a new intent
+        Intent intent = new Intent(context, FriendsActivity.class);
+        // start activity
+        startActivity(intent);
     }
 }

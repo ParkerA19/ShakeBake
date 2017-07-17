@@ -67,6 +67,46 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         recipe = (Recipe) Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
         Log.d("DetailsActivity", String.format("Showing details for %s", recipe.title));
 
+        // set the text and images for the recipe
+        populateDetailsHeadline();
+
+        // set the navigation view
+        setNavigationView();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline ,menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.nav_activity_add_recipe:
+                onCreateRecipeView(item);
+                return true;
+            default:
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+        }
+    }
+
+
+    public void onCreateRecipeView(MenuItem item) {
+        Intent i = new Intent(this, AddRecipeActivity.class);
+        startActivityForResult(i, REQUEST_CODE);
+    }
+
+    /*
+    Method to set each text and image view
+    is called in onCreate
+     */
+    public void populateDetailsHeadline() {
         // set all the views
         tvTitle.setText(recipe.title);
         tvDescription.setText(recipe.description);
@@ -77,18 +117,43 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         AddRecipeAdapter sAdapter = new AddRecipeAdapter(recipe.steps, this);
         rvSteps.setAdapter(sAdapter);
 
-        Glide.with(context)
-                .load(recipe.user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(ivProfileImage);
+        if (recipe.user.profileImageUrl != null) {
+            Glide.with(context)
+                    .load(recipe.user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivProfileImage);
+        }
 
-        Glide.with(context)
-                .load(recipe.mediaurl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(ivMedia);
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set the user
+                User user = recipe.user;
+                // set intent
+                Intent intent = new Intent(context, ProfileActivity.class);
+                // populate intent
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+                // start activity
+                startActivity(intent);
+            }
+        });
 
+        if (recipe.mediaurl != null) {
+            Glide.with(context)
+                    .load(recipe.mediaurl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivMedia);
+        }
+    }
 
-
+    /*
+    method to set the toolbar and activate the navigation view
+    sets the text and images within the navigation view
+    puts a toolbar icon at top left that activates the navigation view
+        - can also be done by swiping screen to the right
+    called in onCreate
+     */
+    public void setNavigationView() {
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -132,35 +197,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
             }
         });
 
-
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline ,menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch(id) {
-            case R.id.nav_activity_add_recipe:
-                onCreateRecipeView(item);
-                return true;
-            default:
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-        }
-    }
-
-
-    public void onCreateRecipeView(MenuItem item) {
-        Intent i = new Intent(this, AddRecipeActivity.class);
-        startActivityForResult(i, REQUEST_CODE);
     }
 
 }
