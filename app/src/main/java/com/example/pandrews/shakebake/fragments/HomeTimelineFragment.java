@@ -40,7 +40,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         Recipe r4 = new Recipe();
 
 
-        recipeAdapter.clear();
+     //   recipeAdapter.clear();
 
         recipes.add(r1);
         recipeAdapter.notifyItemInserted(recipes.size() -1);
@@ -70,7 +70,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     @Override
     public void onStart() {
-   //     populateTimeline();
+        populateTimeline();
         super.onStart();
     }
 }

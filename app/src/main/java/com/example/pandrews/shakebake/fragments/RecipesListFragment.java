@@ -90,7 +90,4 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
         rvRecipes.scrollToPosition(0);
     }
 
-    public void displayRecipes() {
-
-    }
 }

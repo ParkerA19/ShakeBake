@@ -134,15 +134,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id) {
+            case R.id.nav_home:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
-//            case R.id.nav_my_forks:
-//                onCreateRecipeView(item);
-//                return true;
-//            case R.id.nav_settings:
-//                onCreateRecipeView(item);
-//                return true;
+            case R.id.nav_search:
+                return true;
+            case R.id.nav_find_friends:
+                return true;
+            case R.id.nav_help:
+                return true;
+            case R.id.nav_settings:
+                return true;
+            case R.id.nav_logout:
+                return true;
             default:
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);

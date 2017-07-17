@@ -76,7 +76,20 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // commit the transaction
         ft.commit();
 
+        // set the navigation view
+        setNavigationView();
 
+        // populate the user headline
+        populateUserHeadline(user);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline, menu);
+        return true;
+    }
+
+    public void setNavigationView() {
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -119,15 +132,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
         });
-
-        // populate the user headline
-        populateUserHeadline(user);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
     }
 
     public void populateUserHeadline(User user) {
@@ -137,10 +141,12 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         tvFollowers.setText(user.followersCount + " Followers");
         tvFollowing.setText(user.followingCount + " Following");
 
-        Glide.with(this)
-                .load(user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(ivProfileImage);
+        if (user.profileImageUrl != null) {
+            Glide.with(this)
+                    .load(user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivProfileImage);
+        }
     }
 
     @Override
