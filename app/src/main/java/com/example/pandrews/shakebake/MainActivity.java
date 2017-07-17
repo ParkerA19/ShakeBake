@@ -12,16 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.pandrews.shakebake.fragments.RecipesListFragment;
+import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.pandrews.shakebake.fragments.RecipesListFragment.recipes;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -88,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
+// added drawer code from default to case if new recipe still doesnt add to list remove this new code-- TODO
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -97,9 +94,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(id) {
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
                 return true;
             default:
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
@@ -118,15 +117,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this, data.getExtras().getString("title"), Toast.LENGTH_LONG).show();
-        Recipe recipe = Recipe.fromBundle(data.getExtras());
-
-        RecipesPagerAdapter pagerAdapter = (RecipesPagerAdapter) vpPager.getAdapter();
-        recipes.add(0, recipe);
-        RecipesListFragment.onNewRecipeAvailable(recipes.get(0));
-
+        //get recipe from intent and add to hometimeline list
+        if (resultCode != RESULT_CANCELED) {
+            Recipe recipe = Recipe.fromBundle(data.getExtras());
+            HomeTimelineFragment fragmentHome = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
+            fragmentHome.appendRecipe(recipe);
+        }
     }
 }
-
-
-//send an intent from this activity (use startactivityforresult) then send the recipe back and use onactivityresult here

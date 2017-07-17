@@ -41,7 +41,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         mLayout.addView(createNewTextView(mEditText.getText().toString()));
-        mLayout.addView(createNewButton());
+        //mLayout.addView(createNewButton());  add and reformat each line -- TODO
 
         //append new item to list for use in add recipe activity
         supplyList.add(mEditText.getText().toString());

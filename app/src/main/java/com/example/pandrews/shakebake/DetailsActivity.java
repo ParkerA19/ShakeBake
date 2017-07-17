@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -42,8 +43,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvForks) TextView tvForks;
     @BindView(R.id.tvDescription) TextView tvDescription;
-    @BindView(R.id.tvIngredients) TextView tvIngredients;
-    @BindView(R.id.tvSteps) TextView tvSteps;
+    @BindView(R.id.rvIngredients) RecyclerView rvIngredients;
+    @BindView(R.id.rvSteps) RecyclerView rvSteps;
 
 
     @Override
@@ -63,10 +64,12 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set all the views
         tvTitle.setText(recipe.title);
         tvDescription.setText(recipe.description);
-        tvIngredients.setText(recipe.ingredients);
+        AddRecipeAdapter iAdapter = new AddRecipeAdapter(recipe.ingredients, this);
+        rvIngredients.setAdapter(iAdapter);
         tvForks.setText(recipe.forkCount + " Forks");
         tvUsername.setText(recipe.user.username);
-        tvSteps.setText(recipe.steps);
+        AddRecipeAdapter sAdapter = new AddRecipeAdapter(recipe.steps, this);
+        rvSteps.setAdapter(sAdapter);
 
         Glide.with(context)
                 .load(recipe.user.profileImageUrl)
@@ -110,7 +113,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch(id) {
-            case R.id.nav_add_a_recipe:
+            case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
             default:

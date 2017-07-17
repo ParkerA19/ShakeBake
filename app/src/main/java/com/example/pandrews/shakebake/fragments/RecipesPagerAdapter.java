@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentManager;
 
 import com.example.pandrews.shakebake.SmartFragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by pandrews on 7/10/17.
  */
@@ -14,6 +17,7 @@ public class RecipesPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     private String tabTitles[] = new String[] {"Home", "Popular", "My Forks"};
     private Context context;
+    public List<RecipesListFragment> recipesList = new ArrayList<>();
 
     public RecipesPagerAdapter(FragmentManager fm, Context context){
         super(fm);
@@ -23,14 +27,18 @@ public class RecipesPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (position == 0)
+        if (position == 0) {
             return new HomeTimelineFragment();
-        else if (position == 1)
+        }
+        else if (position == 1) {
             return new PopularTimelineFragment();
-        else if (position == 2)
+        }
+        else if (position == 2) {
             return new MyForksTimelineFragment();
-        else
+        }
+        else {
             return null;
+        }
     }
 
     @Override
@@ -44,3 +52,15 @@ public class RecipesPagerAdapter extends SmartFragmentStatePagerAdapter {
         return tabTitles[position];
     }
 }
+
+
+
+
+
+
+
+
+
+//    HomeTimelineFragment homeTimeline = new HomeTimelineFragment();
+//            recipesList.add(position, homeTimeline);
+//                    return homeTimeline;

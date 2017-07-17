@@ -17,16 +17,14 @@ public class Recipe {
     public String description;
     public User user;
     public String mediaurl;
-    public int forkCount;
+    public Integer forkCount;
     public String keywords;
-    public ArrayList<String> stepList;
-    public ArrayList<String> supplyList;
+    public ArrayList<String> steps = new ArrayList<>();
     public String targetUri;
-    public String ingredients;
-    public String steps;
+    public ArrayList<String> ingredients = new ArrayList<>();
     public boolean forked;
 
-    public Recipe(String t, String d, User u, String m, int fc,boolean b, String i, String s) {
+    public Recipe(String t, String d, User u, String m, int fc,boolean b, ArrayList<String> i, ArrayList<String> s) {
         this.title = t;
         this.description = d;
         this.user = u;
@@ -42,12 +40,24 @@ public class Recipe {
     public static Recipe fromBundle(Bundle bundle) {
         Recipe recipe = new Recipe();
 
-        recipe.supplyList= bundle.getStringArrayList("supplyList");
-        recipe.stepList = bundle.getStringArrayList("stepsList");
+        recipe.ingredients= bundle.getStringArrayList("supplyList");
+        recipe.steps = bundle.getStringArrayList("stepList");
         recipe.title = bundle.getString("title");
         recipe.description = bundle.getString("description");
         recipe.keywords = bundle.getString("keywords");
-        recipe.targetUri = bundle.getString("targetUri");
+        if (bundle.getString("targetUri") != null) {
+            recipe.targetUri = bundle.getString("targetUri");
+        }
+        recipe.forked = bundle.getBoolean("forked");
+        if (bundle.getString("forkCount") != null) {
+            recipe.forkCount = Integer.parseInt(bundle.getString("forkCount"));
+        } else {
+            recipe.forkCount = 0;
+        }
+        recipe.user = new User();
+        if (bundle.getString("mediaurl") != null) {
+            recipe.mediaurl = bundle.getString("mediaurl");
+        }
         return recipe;
     }
 
@@ -58,8 +68,8 @@ public class Recipe {
         this.user = new User();
         this.mediaurl = null;
         this.forkCount = 10;
-        this.ingredients = "... grapes";
-        this.steps = ".....its a grape just eat it";
+        this.ingredients.add(0, "... grapes");
+        this.steps.add(0, ".....its a grape just eat it");
         this.forked = false;
     }
 }
