@@ -72,10 +72,12 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         holder.tvDescription.setText(recipe.description);
         holder.tvForks.setText(recipe.forkCount + " Forks");
 
-        Glide.with(context)
-                .load(recipe.user.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                .into(holder.ivProfileImage);
+        if (recipe.user.profileImageUrl != null) {
+            Glide.with(context)
+                    .load(recipe.user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(holder.ivProfileImage);
+        }
 
         if (recipe.mediaurl != null) {
             holder.ivMedia.setVisibility(View.VISIBLE);
@@ -84,6 +86,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                     .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
                     .into(holder.ivMedia);
         } else if (recipe.targetUri != null){
+            holder.ivMedia.setVisibility(View.VISIBLE);
             Uri targetUri = Uri.parse(recipe.targetUri);
             Bitmap bitmap = null;
             try {
@@ -93,7 +96,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
             }
             holder.ivMedia.setImageBitmap(bitmap);
         } else {
-            holder.ivMedia.setVisibility(View.VISIBLE);
+            holder.ivMedia.setVisibility(View.GONE);
         }
     }
 

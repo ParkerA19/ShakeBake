@@ -43,6 +43,44 @@ public class HomeTimelineFragment extends RecipesListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragments_recipes_list, container, false);
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        // setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+     //           recipeAdapter.clear();
+                populateTimeline();
+            }
+        });
+
+        // Configure the refeshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+        // find the RecyclerView
+        rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipe);
+        // init the arraylist (data source)
+        recipes = new ArrayList<>();
+        // construct the adapter from this data source
+        recipeAdapter = new RecipeAdapter(recipes, this);
+        // RecyclerView setup (layout manger, user adapter)
+        rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
+        // set the adapter
+        rvRecipes.setAdapter(recipeAdapter);
+
+        return v;
+    }
+
+    public void populateTimeline() {
 
         r1iList.add("milk");
         r1iList.add("stuff");
@@ -76,44 +114,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         r4sList.add("bite again");
         r4sList.add("finish");
 
-    }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragments_recipes_list, container, false);
-        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
-        // setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                recipeAdapter.clear();
-                populateTimeline();
-            }
-        });
-
-        // Configure the refeshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-
-
-        // find the RecyclerView
-        rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipe);
-        // init the arraylist (data source)
-        recipes = new ArrayList<>();
-        // construct the adapter from this data source
-        recipeAdapter = new RecipeAdapter(recipes, this);
-        // RecyclerView setup (layout manger, user adapter)
-        rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
-        // set the adapter
-        rvRecipes.setAdapter(recipeAdapter);
-
-        return v;
-    }
-
-    public void populateTimeline() {
         User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
         User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
         User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
@@ -123,6 +124,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r4iList, r4sList);
         Recipe r4 = new Recipe();
 
+        recipeAdapter.clear();
 
         recipes.add(r1);
         recipeAdapter.notifyItemInserted(recipes.size() -1);

@@ -3,9 +3,9 @@ package com.example.pandrews.shakebake;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     Recipe recipe;
     Context context;
     User profile;
+    ScrollView view;
 
 
 
@@ -48,6 +50,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvDescription) TextView tvDescription;
     @BindView(R.id.rvIngredients) RecyclerView rvIngredients;
     @BindView(R.id.rvSteps) RecyclerView rvSteps;
+    @BindView(R.id.scrollView1) ScrollView scrollView1;
 
 
     @Override
@@ -82,24 +85,71 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     }
 
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id) {
+            case R.id.nav_home:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_search:
+                return true;
+            case R.id.nav_find_friends:
+                return true;
+            case R.id.nav_help:
+                return true;
+            case R.id.nav_settings:
+                return true;
+            case R.id.nav_logout:
+                // Pass in the click listener when displaying the Snackbar
+                Snackbar.make(scrollView1, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.snackbar_action, myOnClickListener)
+                        .setActionTextColor(getResources().getColor(R.color.appFontLogout))
+                        .show(); // Don’t forget to show!
+
                 return true;
             default:
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
     }
 
 
+    /*
+    on click listener for the snackbar
+    when you click it will confirm the logout and bring user to the login activity
+     */
+    View.OnClickListener myOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            logout();
+        }
+    };
+
+    /*
+    starts the AddRecipeActivity for result
+    called in onNavigationSelected
+     */
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
+    }
+
+    /*
+    takes user back to the logout screen
+    called in myOnClickListener
+     */
+    public void logout() {
+        // start activity with new intent for the login activity
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     /*

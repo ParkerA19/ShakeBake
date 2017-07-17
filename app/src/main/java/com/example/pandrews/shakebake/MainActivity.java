@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar
-                Snackbar.make(vpPager, R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                Snackbar.make(vpPager, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
                         .setAction(R.string.snackbar_action, myOnClickListener)
                         .setActionTextColor(getResources().getColor(R.color.appFontLogout))
                         .show(); // Don’t forget to show!
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View.OnClickListener myOnClickListener = new View.OnClickListener() {
         @Override
                 public void onClick(View v) {
-            logout();;
+            logout();
         }
     };
 
@@ -187,8 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /*
     takes user back to the logout screen
-    TODO: make it so the back button wont log you back in;
-    TODO: add an are you sure button
+    called in myOnClickListener
      */
     public void logout() {
         // start activity with new intent for the login activity
