@@ -39,11 +39,10 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".FriendsActivity" />
-<<<<<<< HEAD
         <activity android:name=".SearchActivity"></activity>
-=======
+
         <activity android:name=".InstructionsActivity"></activity>
->>>>>>> Parker
+
     </application>
 
 </manifest>
