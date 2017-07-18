@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -61,6 +62,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // bind with butterknife
         ButterKnife.bind(this);
 
+        // for now just set a mock user to be the profile in the navigation view
+        profile = new User();
+
+        // set the navigation view
+        setNavigationView();
+
+        // set the adapter for the pager
+        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
+        vpPager.setAdapter(adapterViewPager);
+
+        // setup the TabLayout to use the viewPager -- bound with butterknife
+        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(vpPager);
+
+    }
+
+
+    public void setNavigationView() {
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,8 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // for now just set a mock user to be the profile in the navigation view
-        profile = new User();
+
 
         // access the header view to set the text according to the user details
         View header = navigationView.getHeaderView(0);
@@ -123,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorListener = new ShakeEventListener();
 
@@ -146,16 +165,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        // get the view pager -- bound with butterknife
-        // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
-
-        // set the adapter for the pager
-        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
-        vpPager.setAdapter(adapterViewPager);
-
-        // setup the TabLayout to use the viewPager -- bound with butterknife
-        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(vpPager);
+//        // get the view pager -- bound with butterknife
+//        // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+//
+//        // set the adapter for the pager
+//        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
+//        vpPager.setAdapter(adapterViewPager);
+//
+//        // setup the TabLayout to use the viewPager -- bound with butterknife
+//        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+//        tabLayout.setupWithViewPager(vpPager);
 
     }
 
@@ -199,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         searchView.setOnQueryTextListener(queryTextListener);
 
         return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
@@ -237,6 +257,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 return true;
             case R.id.nav_logout:
+                // Pass in the click listener when displaying the Snackbar
+                Snackbar.make(vpPager, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.snackbar_action, myOnClickListener)
+                        .setActionTextColor(getResources().getColor(R.color.appFontLogout))
+                        .show(); // Don’t forget to show!
+
                 return true;
             default:
                 drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -245,10 +271,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /*
+    on click listener for the snackbar
+    when you click it will confirm the logout and bring user to the login activity
+     */
+    View.OnClickListener myOnClickListener = new View.OnClickListener() {
+        @Override
+                public void onClick(View v) {
+            logout();
+        }
+    };
 
+    /*
+    starts the AddRecipeActivity for result
+    called in onNavigationSelected
+     */
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
+    }
+
+    /*
+    takes user back to the logout screen
+    called in myOnClickListener
+     */
+    public void logout() {
+        // start activity with new intent for the login activity
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
 
@@ -262,6 +311,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //get recipe from intent and add to hometimeline list
         if (resultCode != RESULT_CANCELED) {
             Recipe recipe = Recipe.fromBundle(data.getExtras());
+            recipe.user = profile;
             HomeTimelineFragment fragmentHome = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
             fragmentHome.appendRecipe(recipe);
         }

@@ -3,9 +3,9 @@ package com.example.pandrews.shakebake;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvForks) TextView tvForks;
     @BindView(R.id.tvFollowers) TextView tvFollowers;
     @BindView(R.id.tvFollowing) TextView tvFollowing;
+    @BindView(R.id.flContainer) FrameLayout flContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +67,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         screenname = user.username;
 
-        // create the user fragment
-        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenname);
-        // display the user timeline fragment inside the container (dynamically)
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-        // make change
-        ft.replace(R.id.flContainer, userTimelineFragment);
-
-        // commit the transaction
-        ft.commit();
+        setRecipeTimeline(screenname);
 
         // set the navigation view
         setNavigationView();
@@ -87,6 +80,19 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline, menu);
         return true;
+    }
+
+    public void setRecipeTimeline(String screenname) {
+        // create the user fragment
+        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenname);
+        // display the user timeline fragment inside the container (dynamically)
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        // make change
+        ft.replace(R.id.flContainer, userTimelineFragment);
+
+        // commit the transaction
+        ft.commit();
     }
 
     public void setNavigationView() {
@@ -149,33 +155,88 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id) {
+            case R.id.nav_home:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_search:
+                return true;
+            case R.id.nav_find_friends:
+                return true;
+            case R.id.nav_help:
+                return true;
+            case R.id.nav_settings:
+                return true;
+            case R.id.nav_logout:
+                // Pass in the click listener when displaying the Snackbar
+                Snackbar.make(flContainer, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.snackbar_action, myOnClickListener)
+                        .setActionTextColor(getResources().getColor(R.color.appFontLogout))
+                        .show(); // Don’t forget to show!
+
                 return true;
             default:
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
     }
 
 
+    /*
+    on click listener for the snackbar
+    when you click it will confirm the logout and bring user to the login activity
+     */
+    View.OnClickListener myOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            logout();
+        }
+    };
+
+    /*
+    starts the AddRecipeActivity for result
+    called in onNavigationSelected
+     */
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
     }
 
+    /*
+    takes user back to the logout screen
+    called in myOnClickListener
+     */
+    public void logout() {
+        // start activity with new intent for the login activity
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+
+    /*
+    when following is pressed take user to view users they follow
+    goes to a tab layout where they can switch between followers and following
+     */
     public void onFollowing(View v) {
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
         // start activity
         startActivity(intent);
     }
-    
+
+    /*
+   when followers is pressed take user to view users who follow them
+   goes to a tab layout where they can switch between followers and following
+    */
     public void onFollowers(View v) {
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
