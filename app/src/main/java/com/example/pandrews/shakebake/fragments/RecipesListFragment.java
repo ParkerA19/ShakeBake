@@ -81,6 +81,5 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
     }
 
     public void displayRecipes() {
-
     }
 }

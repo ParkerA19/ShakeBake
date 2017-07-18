@@ -64,7 +64,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         profile = MainActivity.profile;
 
         // get the recipe from the intent
-        recipe = (Recipe) Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
+        recipe = Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
         Log.d("DetailsActivity", String.format("Showing details for %s", recipe.title));
 
         // set all the views

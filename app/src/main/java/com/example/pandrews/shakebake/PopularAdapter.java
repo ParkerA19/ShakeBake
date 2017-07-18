@@ -99,11 +99,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         }
 
 
-//    Bitmap bitmap;
-//            try {
-//        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-
-//error said that this method was calling .size() on a null object
         @Override
         public int getItemCount() {
             if (mPopularRecipes != null) {

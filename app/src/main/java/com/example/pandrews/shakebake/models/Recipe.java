@@ -57,6 +57,8 @@ public class Recipe {
         recipe.user = new User();
         if (bundle.getString("mediaurl") != null) {
             recipe.mediaurl = bundle.getString("mediaurl");
+        } else {
+            recipe.mediaurl = null;
         }
         return recipe;
     }

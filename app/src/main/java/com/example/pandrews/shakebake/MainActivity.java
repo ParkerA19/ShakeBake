@@ -1,6 +1,9 @@
 package com.example.pandrews.shakebake;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -12,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,9 +28,10 @@ import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
 
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RecipesPagerAdapter adapterViewPager;
 
     public static User profile;
+
+    //for shake listener
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
 
     @BindView(R.id.viewpager) ViewPager vpPager;
     @BindView(R.id.sliding_tabs) TabLayout tabLayout;
@@ -97,6 +104,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
+
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                //bounds for random number. add a min to create bounds
+                int max = HomeTimelineFragment.recipes.size();
+                Random r = new Random();
+
+                //generates random position. change this line to add bounds to random number
+                int randomRecipePosition = r.nextInt(max);
+
+                Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
+                Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //on shake, got o detail page of random recipe
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
+                getApplicationContext().startActivity(i);
+            }
+        });
+
 
         // get the view pager -- bound with butterknife
         // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
@@ -109,6 +138,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 
     @Override

@@ -82,7 +82,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragments_recipes_list, container, false);
-        //swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
         // setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
