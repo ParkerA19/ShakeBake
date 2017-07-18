@@ -52,6 +52,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -63,6 +64,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+     //           recipeAdapter.clear();
                 populateTimeline();
             }
         });
@@ -77,7 +79,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         // find the RecyclerView
         rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipe);
         // init the arraylist (data source)
-        //recipes = new ArrayList<>();
+        recipes = new ArrayList<>();
         // construct the adapter from this data source
         recipeAdapter = new RecipeAdapter(recipes, this);
         // RecyclerView setup (layout manger, user adapter)
@@ -90,7 +92,56 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     public void populateTimeline() {
 
+        r1iList.add("milk");
+        r1iList.add("stuff");
+
+        r1sList.add("Pour milk");
+        r1sList.add("eat cereal");
+        r1sList.add("repeat until full");
+
+        r2iList.add("fruit");
+        r2iList.add("juice");
+
+        r2sList.add("bite");
+        r2sList.add("bite again");
+        r2sList.add("finish");
+
+        r3iList.add("fish");
+        r3iList.add("rice");
+        r3iList.add("seaweed");
+        r3iList.add("wasabi");
+
+
+        r3sList.add("cover seaweed in rice");
+        r3sList.add("wrap fish with seaweed (which should now be covered in rice.. if this is not the case then you missed the only step so far and should probably try making something else)");
+        r3sList.add("apply wasabi");
+        r3sList.add("eat");
+
+        r4iList.add("fruit");
+        r4iList.add("juice");
+
+        r4sList.add("bite");
+        r4sList.add("bite again");
+        r4sList.add("finish");
+
+
+        User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
+        User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
+        User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
+
+
         Recipe r4 = new Recipe();
+
+        recipeAdapter.clear();
+
+        recipes.add(r1);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
+
+        recipes.add(r2);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
+
+        recipes.add(r3);
+        recipeAdapter.notifyItemInserted(recipes.size() -1);
 
         recipes.add(r4);
         recipeAdapter.notifyItemInserted(recipes.size() -1);

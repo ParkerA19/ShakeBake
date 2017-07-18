@@ -40,6 +40,9 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".SearchActivity"></activity>
+
+        <activity android:name=".InstructionsActivity"></activity>
+
     </application>
 
 </manifest>

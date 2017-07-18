@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/appBackground"
@@ -8,15 +9,17 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:weightSum="1">
 
         <ImageView android:src="@drawable/ic_menu_camera"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.47" />
@@ -67,4 +70,5 @@
             android:textSize="16dip"/>
 
     </LinearLayout>
+
 </ScrollView>
