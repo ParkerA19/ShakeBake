@@ -109,30 +109,46 @@
                     android:layout_alignStart="@+id/tvTitle"
                     android:layout_below="@+id/tvTitle"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:hint="Description"
                     android:textColor="@color/appFont2"
                     android:text="TextView" />
 
-                <FrameLayout
-                    android:id="@+id/rvIngredients"
+                <ImageView
+                    android:id="@+id/ivLine1"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tvDescription"
+                    android:src="@android:color/darker_gray"/>
+
+                <FrameLayout
+                    android:id="@+id/flIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
                     android:layout_alignLeft="@+id/tvTitle"
                     android:layout_alignStart="@+id/tvTitle"
                     android:layout_marginRight="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_below="@+id/tvDescription" />
+                    android:layout_below="@+id/ivLine1" />
+
+                <ImageView
+                    android:id="@+id/ivLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/flIngredients"
+                    android:src="@android:color/darker_gray"/>
 
                 <FrameLayout
-                    android:id="@+id/rvSteps"
+                    android:id="@+id/flSteps"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_below="@+id/rvIngredients"
-                    android:layout_alignEnd="@id/rvIngredients"
-                    android:layout_alignStart="@+id/rvIngredients"
-                    android:layout_alignLeft="@+id/rvIngredients"
-                    android:layout_alignRight="@id/rvIngredients" />
+                    android:layout_height="250dp"
+                    android:layout_alignLeft="@+id/flIngredients"
+                    android:layout_below="@+id/ivLine2"
+                    android:layout_alignEnd="@+id/flIngredients"
+                    android:layout_alignStart="@+id/flIngredients"
+                    android:layout_alignRight="@+id/flIngredients"
+                    android:layout_marginTop="5dp"/>
 
             </RelativeLayout>
 

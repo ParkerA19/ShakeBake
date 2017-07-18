@@ -48,6 +48,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // bind with butterknife
         ButterKnife.bind(this);
 
+        // for now just set a mock user to be the profile in the navigation view
+        profile = new User();
+
+        // set the navigation view
+        setNavigationView();
+
+        // set the adapter for the pager
+        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
+        vpPager.setAdapter(adapterViewPager);
+
+        // setup the TabLayout to use the viewPager -- bound with butterknife
+        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(vpPager);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline, menu);
+        return true;
+    }
+
+    public void setNavigationView() {
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // for now just set a mock user to be the profile in the navigation view
-        profile = new User();
+
 
         // access the header view to set the text according to the user details
         View header = navigationView.getHeaderView(0);
@@ -94,25 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
-
-
-        // get the view pager -- bound with butterknife
-        // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
-
-        // set the adapter for the pager
-        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
-        vpPager.setAdapter(adapterViewPager);
-
-        // setup the TabLayout to use the viewPager -- bound with butterknife
-        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(vpPager);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
     }
 
     @Override

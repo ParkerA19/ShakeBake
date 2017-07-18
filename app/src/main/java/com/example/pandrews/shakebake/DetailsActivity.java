@@ -6,21 +6,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.pandrews.shakebake.fragments.IngredientsFragment;
+import com.example.pandrews.shakebake.fragments.StepsFragment;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
@@ -48,8 +51,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvForks) TextView tvForks;
     @BindView(R.id.tvDescription) TextView tvDescription;
-    @BindView(R.id.rvIngredients) RecyclerView rvIngredients;
-    @BindView(R.id.rvSteps) RecyclerView rvSteps;
+    @BindView(R.id.flIngredients) FrameLayout flIngredients;
+    @BindView(R.id.flSteps) FrameLayout flSteps;
     @BindView(R.id.scrollView1) ScrollView scrollView1;
 
 
@@ -73,8 +76,15 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the text and images for the recipe
         populateDetailsHeadline();
 
+        // set the IngredientsFragment
+        populateIngredients();
+
+        // set the StepsFragment
+        populateSteps();
+
         // set the navigation view
         setNavigationView();
+
 
     }
 
@@ -84,6 +94,138 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         return true;
     }
 
+    /*
+    Method to set each text and image view
+    is called in onCreate
+     */
+    public void populateDetailsHeadline() {
+        // set all the views
+        tvTitle.setText(recipe.title);
+        tvDescription.setText(recipe.description);
+        AddRecipeAdapter iAdapter = new AddRecipeAdapter(recipe.ingredients, this);
+   //     rvIngredients.setAdapter(iAdapter);
+        tvForks.setText(recipe.forkCount + " Forks");
+        tvUsername.setText(recipe.user.username);
+        AddRecipeAdapter sAdapter = new AddRecipeAdapter(recipe.steps, this);
+   //     rvSteps.setAdapter(sAdapter);
+
+        if (recipe.user.profileImageUrl != null) {
+            Glide.with(context)
+                    .load(recipe.user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivProfileImage);
+        }
+
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set the user
+                User user = recipe.user;
+                // set intent
+                Intent intent = new Intent(context, ProfileActivity.class);
+                // populate intent
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+                // start activity
+                startActivity(intent);
+            }
+        });
+
+        if (recipe.mediaurl != null) {
+            Glide.with(context)
+                    .load(recipe.mediaurl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivMedia);
+        }
+    }
+
+    /*
+    Method to put the IngredientsFragment into the initial FrameLayout Containter
+    Called in onCreate
+     */
+    public void populateIngredients(){
+        // Create the IngredientsFragment
+        IngredientsFragment ingredientsFragment = new IngredientsFragment(recipe.ingredients, recipe);
+
+        // Display the IngredientsFragment inside the container (dynamically)
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        // make changes
+        ft.replace(R.id.flIngredients, ingredientsFragment);
+
+        // commit the transaciton
+        ft.commit();
+    }
+
+    /*
+    Method to put the StepsFragment into the second FrameLayout Container
+    Called in onCreate
+     */
+    public void populateSteps() {
+        // Create the StepsFragment
+        StepsFragment stepsFragment = new StepsFragment(recipe.steps, recipe);
+
+        // Display the StepsFragment inside the stepsContainer
+        FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+
+        // make changes
+        ft2.replace(R.id.flSteps, stepsFragment);
+
+        // commit the transaction
+        ft2.commit();
+    }
+
+    /*
+    method to set the toolbar and activate the navigation view
+    sets the text and images within the navigation view
+    puts a toolbar icon at top left that activates the navigation view
+        - can also be done by swiping screen to the right
+    called in onCreate
+     */
+    public void setNavigationView() {
+        // set the toolbar at the top
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // draw the navigation item
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        // set up the navigation view
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // access the header view to set the text according to the user details
+        View header = navigationView.getHeaderView(0);
+        TextView name = (TextView) header.findViewById(R.id.tvName);
+        TextView username = (TextView) header.findViewById(R.id.tvUsername);
+        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+
+        // set text
+        name.setText(profile.name);
+        username.setText(profile.username);
+
+        // set profile image
+        Glide.with(getApplicationContext())
+                .load(profile.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
+                .into(Image);
+
+        // setup onClick for the profile view
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make and intent
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                // add the user
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
+                // start activity
+                startActivity(intent);
+            }
+        });
+
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -152,101 +294,25 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
-    /*
-    Method to set each text and image view
-    is called in onCreate
-     */
-    public void populateDetailsHeadline() {
-        // set all the views
-        tvTitle.setText(recipe.title);
-        tvDescription.setText(recipe.description);
-        AddRecipeAdapter iAdapter = new AddRecipeAdapter(recipe.ingredients, this);
-        rvIngredients.setAdapter(iAdapter);
-        tvForks.setText(recipe.forkCount + " Forks");
-        tvUsername.setText(recipe.user.username);
-        AddRecipeAdapter sAdapter = new AddRecipeAdapter(recipe.steps, this);
-        rvSteps.setAdapter(sAdapter);
 
-        if (recipe.user.profileImageUrl != null) {
-            Glide.with(context)
-                    .load(recipe.user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(ivProfileImage);
-        }
-
-        ivProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // set the user
-                User user = recipe.user;
-                // set intent
-                Intent intent = new Intent(context, ProfileActivity.class);
-                // populate intent
-                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
-                // start activity
-                startActivity(intent);
-            }
-        });
-
-        if (recipe.mediaurl != null) {
-            Glide.with(context)
-                    .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(ivMedia);
-        }
+    // onClick for the flIngredients container
+    public void onIngredients() {
+        // make intent
+        Intent intent = new Intent(context, InstructionsActivity.class);
+        // pass in recipe
+        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
+        // start activity
+        startActivity(intent);
     }
 
-    /*
-    method to set the toolbar and activate the navigation view
-    sets the text and images within the navigation view
-    puts a toolbar icon at top left that activates the navigation view
-        - can also be done by swiping screen to the right
-    called in onCreate
-     */
-    public void setNavigationView() {
-        // set the toolbar at the top
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // draw the navigation item
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        // set up the navigation view
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // access the header view to set the text according to the user details
-        View header = navigationView.getHeaderView(0);
-        TextView name = (TextView) header.findViewById(R.id.tvName);
-        TextView username = (TextView) header.findViewById(R.id.tvUsername);
-        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
-
-        // set text
-        name.setText(profile.name);
-        username.setText(profile.username);
-
-        // set profile image
-        Glide.with(getApplicationContext())
-                .load(profile.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
-                .into(Image);
-
-        // setup onClick for the profile view
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // make and intent
-                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                // add the user
-                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
-                // start activity
-                startActivity(intent);
-            }
-        });
-
+    // onClick for the flSteps container
+    public void onSteps() {
+        // make intent
+        Intent intent = new Intent(context, InstructionsActivity.class);
+        // pass in recipe
+        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
+        // start activity
+        startActivity(intent);
     }
 
 }

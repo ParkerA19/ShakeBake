@@ -67,16 +67,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         screenname = user.username;
 
-        // create the user fragment
-        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenname);
-        // display the user timeline fragment inside the container (dynamically)
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-        // make change
-        ft.replace(R.id.flContainer, userTimelineFragment);
-
-        // commit the transaction
-        ft.commit();
+        setRecipeTimeline(screenname);
 
         // set the navigation view
         setNavigationView();
@@ -89,6 +80,19 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline, menu);
         return true;
+    }
+
+    public void setRecipeTimeline(String screenname) {
+        // create the user fragment
+        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenname);
+        // display the user timeline fragment inside the container (dynamically)
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        // make change
+        ft.replace(R.id.flContainer, userTimelineFragment);
+
+        // commit the transaction
+        ft.commit();
     }
 
     public void setNavigationView() {

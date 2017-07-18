@@ -1,5 +1,6 @@
 package com.example.pandrews.shakebake;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,14 +12,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.pandrews.shakebake.fragments.FriendsPagerAdapter;
+import com.example.pandrews.shakebake.fragments.InstructionsPagerAdapter;
+import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
@@ -27,45 +29,57 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class FriendsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class InstructionsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final int REQUEST_CODE = 25;
 
-    // Instance variables
+    // Instance Variables
     User profile;
-    FriendsPagerAdapter adapterViewPager;
+    Context context;
+    Recipe recipe;
+    int fragPosition;
 
-    @BindView(R.id.viewpager) ViewPager vpPager;
-    @BindView(R.id.sliding_tabs) TabLayout tabLayout;
+    InstructionsPagerAdapter adapterViewPager;
+
+    // set up for ButterKnife
+    @BindView(R.id.instruction_viewpager) ViewPager vpPager;
+    @BindView(R.id.instruction_tabs) TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
+        setContentView(R.layout.activity_instructions);
 
-        // bind with butterknife
+        // Bind with ButterKnife
         ButterKnife.bind(this);
 
-        // set the profile user
+        // set context
+        context = getApplicationContext();
+
+        // set the overall user for navigation view
         profile = MainActivity.profile;
 
-        // set the navigation view
+        // get the recipe from the intent
+        recipe = (Recipe) Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
+        Log.d("InstructionsActivity", String.format("Showing details for %s", recipe.title));
+
+        // get the boolean from the intent to see which fragment to go to
+        fragPosition = getIntent().getIntExtra("int", 0);
+
+        // set up the Navigation View
         setNavigationView();
 
-
         // set the adapter for the pager
-        adapterViewPager = new FriendsPagerAdapter(getSupportFragmentManager(), this);
+        adapterViewPager = new InstructionsPagerAdapter(getSupportFragmentManager(), this, recipe);
         vpPager.setAdapter(adapterViewPager);
 
-        // setup the TabLayout to use the viewPager -- bound with butterknife
-        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        // setup the TabLayout to use the viewPager
         tabLayout.setupWithViewPager(vpPager);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
+        // set the current tab based on which tab was pressed (fragPosition)
+        vpPager.setCurrentItem(fragPosition);
+        
+
     }
 
     public void setNavigationView() {
@@ -75,7 +89,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
 
 
         // set the drawer layout and button to access it
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.instructions_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -83,6 +97,8 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // set the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
 
         // access the header view to set the text according to the user details
         View header = navigationView.getHeaderView(0);
@@ -125,7 +141,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.instructions_drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_search:
@@ -179,6 +195,5 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // start activity with new intent for the login activity
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
-
 
 }
