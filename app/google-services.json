@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "318434030575",
+    "firebase_url": "https://shake-n-bake-5d01f.firebaseio.com",
+    "project_id": "shake-n-bake-5d01f",
+    "storage_bucket": "shake-n-bake-5d01f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318434030575:android:526fd213c5bce133",
+        "android_client_info": {
+          "package_name": "com.example.pandrews.shakebake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318434030575-thi5ptou1qqntomqphhe8ekkdvaaekba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pandrews.shakebake",
+            "certificate_hash": "67781b82f848865a01c92b461c28633ebddee72d"
+          }
+        },
+        {
+          "client_id": "318434030575-5lihip6e9qoht3dskn5b8re74vjtge2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBahGXxbAzG-GarsL-5POhImWV4jbMdiqc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318434030575-5lihip6e9qoht3dskn5b8re74vjtge2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
