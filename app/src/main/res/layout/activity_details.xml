@@ -113,18 +113,26 @@
                     android:textColor="@color/appFont2"
                     android:text="TextView" />
 
-                <android.support.v7.widget.RecyclerView
+                <FrameLayout
                     android:id="@+id/rvIngredients"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="170dp"
                     android:layout_alignLeft="@+id/tvTitle"
                     android:layout_alignStart="@+id/tvTitle"
-                    android:layout_below="@+id/tvTitle" />
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/tvDescription" />
 
-                <android.support.v7.widget.RecyclerView
+                <FrameLayout
                     android:id="@+id/rvSteps"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/rvIngredients"
+                    android:layout_alignEnd="@id/rvIngredients"
+                    android:layout_alignStart="@+id/rvIngredients"
+                    android:layout_alignLeft="@+id/rvIngredients"
+                    android:layout_alignRight="@id/rvIngredients" />
 
             </RelativeLayout>
 
