@@ -15,6 +15,7 @@ import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -22,60 +23,35 @@ import java.util.ArrayList;
 
 public class HomeTimelineFragment extends RecipesListFragment {
 
-    ArrayList<String> r1iList = new ArrayList<>();
-    ArrayList<String> r1sList = new ArrayList<>();
+    public static ArrayList<String> r1iList = new ArrayList<>(Arrays.asList("milk", "stuff"));
+    public static ArrayList<String> r1sList = new ArrayList<>(Arrays.asList("Pour milk", "eat cereal", "repeat until full"));
 
-    ArrayList<String> r2iList = new ArrayList<>();
-    ArrayList<String> r2sList = new ArrayList<>();
+    public static ArrayList<String> r2iList = new ArrayList<>(Arrays.asList("fruit", "juice"));
+    public static ArrayList<String> r2sList = new ArrayList<>(Arrays.asList("bite", "bite again", "finish"));
 
-    ArrayList<String> r3iList = new ArrayList<>();
-    ArrayList<String> r3sList = new ArrayList<>();
+    public static ArrayList<String> r3iList = new ArrayList<>(Arrays.asList("fish", "rice", "seaweed", "wasabi"));
+    public static ArrayList<String> r3sList = new ArrayList<>(Arrays.asList("cover seaweed in rice", "wrap fish with seaweed (which should now be covered in rice.. if this is not the case then you missed the only step so far and should probably try making something else)", "apply wasabi", "eat"));
 
-    ArrayList<String> r4iList = new ArrayList<>();
-    ArrayList<String> r4sList = new ArrayList<>();
+    public static ArrayList<String> r4iList = new ArrayList<>(Arrays.asList("fruit", "juice"));
+    public static ArrayList<String> r4sList = new ArrayList<>(Arrays.asList("bite", "bite again", "finish"));
+
+    public static User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
+    public static User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
+    public static User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
+
+    public static Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList);
+    public static Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, true, r2iList, r2sList);
+    public static Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList);
+
 
     static RecipeAdapter recipeAdapter;
-    public static ArrayList<Recipe> recipes;
+    public static ArrayList<Recipe> recipes = new ArrayList<>(Arrays.asList(r1, r2, r3));
     static RecyclerView rvRecipes;
     public SwipeRefreshLayout swipeContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        r1iList.add("milk");
-        r1iList.add("stuff");
-
-        r1sList.add("Pour milk");
-        r1sList.add("eat cereal");
-        r1sList.add("repeat until full");
-
-        r2iList.add("fruit");
-        r2iList.add("juice");
-
-        r2sList.add("bite");
-        r2sList.add("bite again");
-        r2sList.add("finish");
-
-        r3iList.add("fish");
-        r3iList.add("rice");
-        r3iList.add("seaweed");
-        r3iList.add("wasabi");
-
-
-        r3sList.add("cover seaweed in rice");
-        r3sList.add("wrap fish with seaweed (which should now be covered in rice.. if this is not the case then you missed the only step so far and should probably try making something else)");
-        r3sList.add("apply wasabi");
-        r3sList.add("eat");
-
-        r4iList.add("fruit");
-        r4iList.add("juice");
-
-        r4sList.add("bite");
-        r4sList.add("bite again");
-        r4sList.add("finish");
-
     }
 
     @Nullable
@@ -101,7 +77,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         // find the RecyclerView
         rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipe);
         // init the arraylist (data source)
-        recipes = new ArrayList<>();
+        //recipes = new ArrayList<>();
         // construct the adapter from this data source
         recipeAdapter = new RecipeAdapter(recipes, this);
         // RecyclerView setup (layout manger, user adapter)
@@ -113,26 +89,8 @@ public class HomeTimelineFragment extends RecipesListFragment {
     }
 
     public void populateTimeline() {
-        User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
-        User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
-        User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
 
-        Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList);
-        Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, true, r2iList, r2sList);
-        Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r4iList, r4sList);
         Recipe r4 = new Recipe();
-
-
-        // recipeAdapter.clear();
-
-        recipes.add(r1);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
-
-        recipes.add(r2);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
-
-        recipes.add(r3);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
 
         recipes.add(r4);
         recipeAdapter.notifyItemInserted(recipes.size() -1);
@@ -152,7 +110,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     @Override
     public void onStart() {
-        populateTimeline();
+        //populateTimeline();
         super.onStart();
     }
 }

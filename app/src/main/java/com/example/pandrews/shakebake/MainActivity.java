@@ -1,5 +1,6 @@
 package com.example.pandrews.shakebake;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -12,12 +13,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Instance variables
     RecipesPagerAdapter adapterViewPager;
+    //MenuItem miSearch;
+    //SearchView searchView;  ---- maybe delete these lines -- TODO
 
     public static User profile;
 
@@ -60,6 +65,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        //set up searchbar
+//        miSearch = (MenuItem) findViewById(R.id.miSearch);
+//        searchView = (SearchView) miSearch.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        }); ----- delete or change how searchView lines are bc it causes crash -- TODO
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
                 Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
-                //on shake, got o detail page of random recipe
+                //on shake, get detail page of random recipe
                 Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
                 i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
                 getApplicationContext().startActivity(i);
@@ -156,7 +176,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.miSearch).getActionView();
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+        }
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
