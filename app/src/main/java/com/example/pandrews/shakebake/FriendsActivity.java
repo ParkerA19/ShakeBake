@@ -1,13 +1,11 @@
 package com.example.pandrews.shakebake;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.pandrews.shakebake.fragments.UserTimelineFragment;
+import com.example.pandrews.shakebake.fragments.FriendsPagerAdapter;
 import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
@@ -28,79 +26,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class FriendsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private final int REQUEST_CODE = 25;
 
-    // Instance Variables
-    User user;
-    Context context;
+    // Instance variables
     User profile;
+    FriendsPagerAdapter adapterViewPager;
 
-    // set up view for butterknife
-    @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-    @BindView(R.id.tvName) TextView tvName;
-    @BindView(R.id.tvUsername) TextView tvUsername;
-    @BindView(R.id.tvForks) TextView tvForks;
-    @BindView(R.id.tvFollowers) TextView tvFollowers;
-    @BindView(R.id.tvFollowing) TextView tvFollowing;
+    @BindView(R.id.viewpager) ViewPager vpPager;
+    @BindView(R.id.sliding_tabs) TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_friends);
+
         // bind with butterknife
         ButterKnife.bind(this);
-
-
-        // set the context
-        context = getApplicationContext();
 
         // set the profile user
         profile = MainActivity.profile;
 
-        // set the user and username
-        String screenname;
-        user = Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
-
-        screenname = user.username;
-
-        // create the user fragment
-        UserTimelineFragment userTimelineFragment = UserTimelineFragment.newInstance(screenname);
-        // display the user timeline fragment inside the container (dynamically)
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-        // make change
-        ft.replace(R.id.flContainer, userTimelineFragment);
-
-        // commit the transaction
-        ft.commit();
-
-        // set the navigation view
-        setNavigationView();
-
-        // populate the user headline
-        populateUserHeadline(user);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
-    }
-
-    public void setNavigationView() {
-        // set the toolbar at the top
+        // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // draw the navigation item
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
+
+        // set the drawer layout and button to access it
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        // set up the navigation view
+        // set the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -132,54 +91,53 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
         });
-    }
 
-    public void populateUserHeadline(User user) {
-        tvName.setText(user.name);
-        tvUsername.setText(user.username);
-        tvForks.setText(user.forkCount + " Forks");
-        tvFollowers.setText(user.followersCount + " Followers");
-        tvFollowing.setText(user.followingCount + " Following");
 
-        if (user.profileImageUrl != null) {
-            Glide.with(this)
-                    .load(user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(ivProfileImage);
-        }
+        // get the view pager -- bound with butterknife
+        // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
+
+        // set the adapter for the pager
+        adapterViewPager = new FriendsPagerAdapter(getSupportFragmentManager(), this);
+        vpPager.setAdapter(adapterViewPager);
+
+        // setup the TabLayout to use the viewPager -- bound with butterknife
+        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(vpPager);
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline, menu);
+        return true;
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
-        switch(id) {
+        switch (id) {
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 return true;
+//            case R.id.nav_my_forks:
+//                onCreateRecipeView(item);
+//                return true;
+//            case R.id.nav_settings:
+//                onCreateRecipeView(item);
+//                return true;
             default:
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
-    }
 
+
+    }
 
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    public void onFollowing(View v) {
-        // make a new intent
-        Intent intent = new Intent(context, FriendsActivity.class);
-        // start activity
-        startActivity(intent);
-    }
-    
-    public void onFollowers(View v) {
-        // make a new intent
-        Intent intent = new Intent(context, FriendsActivity.class);
-        // start activity
-        startActivity(intent);
-    }
 }

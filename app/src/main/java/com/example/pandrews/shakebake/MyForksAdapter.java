@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
-import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
 
@@ -27,25 +26,24 @@ import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
- * Created by pandrews on 7/10/17.
+ * Created by andreagarcia on 7/13/17.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-
+public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHolder>{
     // Instance variables
-    ArrayList<Recipe> mRecipes = new ArrayList<>();
+    ArrayList<Recipe> mForkRecipes = new ArrayList<>();
     Context context;
-    private RecipeAdapterListener mlistener;
+    private ForkAdapterListener mlistener;
 
 
     // define an interface required by the viewholder
-    public interface RecipeAdapterListener {
+    public interface ForkAdapterListener {
         public void onItemSelected(View view, int position);
     }
 
     // pass in the Recipes array in the constructor
-    public RecipeAdapter(ArrayList<Recipe> recipes, RecipeAdapterListener listener) {
-        mRecipes = recipes;
+    public MyForksAdapter(ArrayList<Recipe> recipes, ForkAdapterListener listener) {
+        mForkRecipes = recipes;
         mlistener = listener;
     }
 
@@ -66,7 +64,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         // get the data according to the position
-        final Recipe recipe = mRecipes.get(position);
+        Recipe recipe = mForkRecipes.get(position);
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
@@ -74,20 +72,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvDescription.setText(recipe.description);
         holder.tvForks.setText(recipe.forkCount + " Forks");
 
+        Glide.with(context)
+                .load(recipe.user.profileImageUrl)
+                .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                .into(holder.ivProfileImage);
 
-        if (recipe.user.profileImageUrl != null) {
-            Glide.with(context)
-                    .load(recipe.user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 200, 0))
-                    .into(holder.ivProfileImage);
-        }
         if (recipe.mediaurl != null) {
+            holder.ivMedia.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
                     .into(holder.ivMedia);
-
-
         } else if (recipe.targetUri != null){
             Uri targetUri = Uri.parse(recipe.targetUri);
             Bitmap bitmap = null;
@@ -99,40 +94,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             holder.ivMedia.setImageBitmap(bitmap);
         } else {
             holder.ivMedia.setVisibility(View.VISIBLE);
-
         }
-
-        // set onClickListener for the profile image to open the profile activity
-        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // make a new intent
-                Intent intent = new Intent(context, ProfileActivity.class);
-                // put the user into the intent
-                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
-                // start activity with intent
-                context.startActivity(intent);
-            }
-        });
     }
-
-
-//    Bitmap bitmap;
-//            try {
-//        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
 
 
     @Override
     public int getItemCount() {
-        return mRecipes.size();
+        return mForkRecipes.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-        @BindView(R.id.tvUsername) TextView tvUsername;
-        @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
+        @Nullable
+        @BindView(R.id.ivProfileImage)
+        ImageView ivProfileImage;
+        @BindView(R.id.tvUsername)
+        TextView tvUsername;
+        @Nullable
+        @BindView(R.id.ivMedia)
+        ImageView ivMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
@@ -170,7 +151,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             //make sure the position is valid
             if (position != RecyclerView.NO_POSITION) {
                 // get the tweet and the position
-                Recipe recipe = mRecipes.get(position);
+                Recipe recipe = mForkRecipes.get(position);
                 // create intent for the new activity
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
@@ -178,14 +159,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 // show the activity
                 context.startActivity(intent);
             }
-
         }
     }
 
     // Clean all elements of the recycler
     public void clear() {
-        mRecipes.clear();
+        mForkRecipes.clear();
         notifyDataSetChanged();
     }
-
 }

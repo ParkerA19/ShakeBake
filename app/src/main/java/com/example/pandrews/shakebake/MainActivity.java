@@ -1,6 +1,10 @@
 package com.example.pandrews.shakebake;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -9,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +30,8 @@ import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
 
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -35,8 +42,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Instance variables
     RecipesPagerAdapter adapterViewPager;
+    //MenuItem miSearch;
+    //SearchView searchView;  ---- maybe delete these lines -- TODO
 
     public static User profile;
+
+    //for shake listener
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
 
     @BindView(R.id.viewpager) ViewPager vpPager;
     @BindView(R.id.sliding_tabs) TabLayout tabLayout;
@@ -52,6 +65,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        //set up searchbar
+//        miSearch = (MenuItem) findViewById(R.id.miSearch);
+//        searchView = (SearchView) miSearch.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        }); ----- delete or change how searchView lines are bc it causes crash -- TODO
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -95,6 +123,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
+
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                //bounds for random number. add a min to create bounds
+                int max = HomeTimelineFragment.recipes.size();
+                Random r = new Random();
+
+                //generates random position. change this line to add bounds to random number
+                int randomRecipePosition = r.nextInt(max);
+
+                Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
+                Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //on shake, get detail page of random recipe
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
+                getApplicationContext().startActivity(i);
+            }
+        });
+
 
         // get the view pager -- bound with butterknife
         // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
@@ -110,9 +160,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline, menu);
-        return true;
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.miSearch).getActionView();
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+        }
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -127,24 +213,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
+// added drawer code from default to case if new recipe still doesnt add to list remove this new code-- TODO
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id) {
+            case R.id.nav_home:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
-                return true;
-//            case R.id.nav_my_forks:
-//                onCreateRecipeView(item);
-//                return true;
-//            case R.id.nav_settings:
-//                onCreateRecipeView(item);
-//                return true;
-            default:
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            case R.id.nav_search:
+                return true;
+            case R.id.nav_find_friends:
+                return true;
+            case R.id.nav_help:
+                return true;
+            case R.id.nav_settings:
+                return true;
+            case R.id.nav_logout:
+                return true;
+            default:
+                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
         }
@@ -164,21 +259,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this, data.getExtras().getString("title"), Toast.LENGTH_LONG).show();
-        Recipe recipe = Recipe.fromBundle(data.getExtras());
-
-        HomeTimelineFragment fragmentHomeTweets = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
-        fragmentHomeTweets.appendRecipe(recipe);
-
+        //get recipe from intent and add to hometimeline list
+        if (resultCode != RESULT_CANCELED) {
+            Recipe recipe = Recipe.fromBundle(data.getExtras());
+            HomeTimelineFragment fragmentHome = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
+            fragmentHome.appendRecipe(recipe);
+        }
     }
 
     public void setNavHeader() {
         User u1 = new User();
-
     }
 
 }
 
 
-
-//send an intent from this activity (use startactivityforresult) then send the recipe back and use onactivityresult here

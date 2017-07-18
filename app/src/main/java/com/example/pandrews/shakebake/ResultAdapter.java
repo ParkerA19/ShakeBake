@@ -27,25 +27,24 @@ import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
- * Created by pandrews on 7/10/17.
+ * Created by andreagarcia on 7/18/17.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-
+public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     // Instance variables
-    ArrayList<Recipe> mRecipes = new ArrayList<>();
+    ArrayList<Recipe> mResult = new ArrayList<>();
     Context context;
-    private RecipeAdapterListener mlistener;
+    private ResultAdapterListener mlistener;
 
 
     // define an interface required by the viewholder
-    public interface RecipeAdapterListener {
+    public interface ResultAdapterListener {
         public void onItemSelected(View view, int position);
     }
 
     // pass in the Recipes array in the constructor
-    public RecipeAdapter(ArrayList<Recipe> recipes, RecipeAdapterListener listener) {
-        mRecipes = recipes;
+    public ResultAdapter(ArrayList<Recipe> recipes, ResultAdapterListener listener) {
+        mResult = recipes;
         mlistener = listener;
     }
 
@@ -66,7 +65,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         // get the data according to the position
-        final Recipe recipe = mRecipes.get(position);
+        final Recipe recipe = mResult.get(position);
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
@@ -116,22 +115,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         });
     }
 
-
-//    Bitmap bitmap;
-//            try {
-//        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-
-
     @Override
     public int getItemCount() {
-        return mRecipes.size();
+        if (mResult == null){
+            return 0;
+        } else {
+            return mResult.size();
+        }
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-        @BindView(R.id.tvUsername) TextView tvUsername;
+        @Nullable
+        @BindView(R.id.ivProfileImage)
+        ImageView ivProfileImage;
+        @BindView(R.id.tvUsername)
+        TextView tvUsername;
         @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
@@ -170,7 +170,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             //make sure the position is valid
             if (position != RecyclerView.NO_POSITION) {
                 // get the tweet and the position
-                Recipe recipe = mRecipes.get(position);
+                Recipe recipe = mResult.get(position);
                 // create intent for the new activity
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
@@ -184,7 +184,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     // Clean all elements of the recycler
     public void clear() {
-        mRecipes.clear();
+        mResult.clear();
         notifyDataSetChanged();
     }
 

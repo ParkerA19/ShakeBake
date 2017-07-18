@@ -23,19 +23,14 @@
             android:layout_height="50dp" />
 
         <ScrollView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="0dp"
-            android:scrollbars="none" >
+            android:scrollbars="none">
 
 
-
-            <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
@@ -52,7 +47,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    app:srcCompat="@android:color/black" />
+                    app:srcCompat="@drawable/ic_menu_camera" />
 
                 <TextView
                     android:id="@+id/tvUsername"
@@ -118,33 +113,18 @@
                     android:textColor="@color/appFont2"
                     android:text="TextView" />
 
-                <TextView
-                    android:id="@+id/tvIngredients"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvIngredients"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/tvDescription"
-                    android:layout_alignLeft="@+id/tvDescription"
-                    android:layout_alignRight="@+id/tvDescription"
-                    android:layout_alignStart="@+id/tvDescription"
-                    android:layout_below="@+id/tvDescription"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/appFont2"
-                    android:hint="Ingredients"
-                    android:text="TextView" />
+                    android:layout_alignLeft="@+id/tvTitle"
+                    android:layout_alignStart="@+id/tvTitle"
+                    android:layout_below="@+id/tvTitle" />
 
-                <TextView
-                    android:id="@+id/tvSteps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@+id/tvIngredients"
-                    android:layout_alignLeft="@+id/tvIngredients"
-                    android:layout_alignRight="@+id/tvIngredients"
-                    android:layout_alignStart="@+id/tvIngredients"
-                    android:layout_below="@+id/tvIngredients"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/appFont2"
-                    android:hint="Steps"
-                    android:text="TextView" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvSteps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </RelativeLayout>
 
