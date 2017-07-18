@@ -11,7 +11,10 @@
         android:layout_height="wrap_content"
         android:paddingTop="56dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:weightSum="1">
 
         <ImageView android:src="@drawable/ic_menu_camera"
             android:layout_width="wrap_content"
