@@ -59,7 +59,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                forksAdapter.clear();
+                //forksAdapter.clear();
                 populateTimeline();
             }
         });
