@@ -33,10 +33,10 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
 
 
 
-    static Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList);
-    static Recipe r2 = new Recipe("Pasta", "with pesto and alfredo sauce", u2, null, 300, false, r1iList, r1sList);
-    static Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList);
-    static Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList);
+    static Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList,null);
+    static Recipe r2 = new Recipe("Pasta", "with pesto and alfredo sauce", u2, null, 300, false, r1iList, r1sList, r1iList);
+    static Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList, null);
+    static Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList, r1sList);
 
     //instance variables
     static PopularAdapter popularAdapter;
@@ -95,10 +95,10 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
         r1sList.add(0, "wow wow");
 
 
-        Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList);
-        Recipe r2 = new Recipe("Pasta", "with pesto alfredo sauce", u2, null, 300, false, r1iList, r1sList);
-        Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList);
-        Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList);
+        Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList, null);
+        Recipe r2 = new Recipe("Pasta", "with pesto alfredo sauce", u2, null, 300, false, r1iList, r1sList, r1iList);
+        Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList, null);
+        Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList, r1sList);
 
 
         popularAdapter.clear();

@@ -135,9 +135,9 @@ public class UserTimelineFragment extends RecipesListFragment {
         User u2 = new User("Andrea", "agarcia", null, 15, 30, 450);
         User u3 = new User("Jennifer", "jshin", null, 20, 40, 700);
 
-        Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList);
-        Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 300, true, r2iList, r2sList);
-        Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList);
+        Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList, r1sList);
+        Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 300, true, r2iList, r2sList, r2iList);
+        Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList, null);
         Recipe r4 = new Recipe();
 
 

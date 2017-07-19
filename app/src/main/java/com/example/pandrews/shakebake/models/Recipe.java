@@ -18,13 +18,13 @@ public class Recipe {
     public User user;
     public String mediaurl;
     public Integer forkCount;
-    public String keywords;
+    public ArrayList<String> keywords = new ArrayList<>();
     public ArrayList<String> steps = new ArrayList<>();
     public String targetUri;
     public ArrayList<String> ingredients = new ArrayList<>();
     public boolean forked;
 
-    public Recipe(String t, String d, User u, String m, int fc,boolean b, ArrayList<String> i, ArrayList<String> s) {
+    public Recipe(String t, String d, User u, String m, int fc,boolean b, ArrayList<String> i, ArrayList<String> s, ArrayList<String> keys) {
         this.title = t;
         this.description = d;
         this.user = u;
@@ -33,6 +33,7 @@ public class Recipe {
         this.ingredients = i;
         this.steps = s;
         this.forked = b;
+        this.keywords = keys;
 
     }
 
@@ -44,7 +45,7 @@ public class Recipe {
         recipe.steps = bundle.getStringArrayList("stepList");
         recipe.title = bundle.getString("title");
         recipe.description = bundle.getString("description");
-        recipe.keywords = bundle.getString("keywords");
+        recipe.keywords = bundle.getStringArrayList("keywords");
         if (bundle.getString("targetUri") != null) {
             recipe.targetUri = bundle.getString("targetUri");
         }
@@ -73,5 +74,8 @@ public class Recipe {
         this.ingredients.add(0, "... grapes");
         this.steps.add(0, ".....its a grape just eat it");
         this.forked = false;
+        this.keywords.add(0, "juicy");
+        this.keywords.add(1, "green");
+        this.keywords.add(2, "yummy");
     }
 }

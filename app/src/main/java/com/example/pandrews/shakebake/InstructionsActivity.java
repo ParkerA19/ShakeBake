@@ -1,7 +1,10 @@
 package com.example.pandrews.shakebake;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -11,19 +14,25 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.InstructionsPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +49,10 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
     int fragPosition;
 
     InstructionsPagerAdapter adapterViewPager;
+
+    //for shake listener
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
 
     // set up for ButterKnife
     @BindView(R.id.instruction_viewpager) ViewPager vpPager;
@@ -70,7 +83,8 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         setNavigationView();
 
         // set the adapter for the pager
-        adapterViewPager = new InstructionsPagerAdapter(getSupportFragmentManager(), this, recipe);
+        adapterViewPager = new InstructionsPagerAdapter(getSupportFragmentManager(), this, recipe, false);
+
         vpPager.setAdapter(adapterViewPager);
 
         // setup the TabLayout to use the viewPager
@@ -78,8 +92,9 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
 
         // set the current tab based on which container was pressed (fragPosition)
         vpPager.setCurrentItem(fragPosition);
-        
 
+        // set up the shake feature
+        setShake();
     }
 
     public void setNavigationView() {
@@ -194,6 +209,74 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
     public void logout() {
         // start activity with new intent for the login activity
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+    }
+
+    public void setShake() {
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
+
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                //bounds for random number. add a min to create bounds
+                int max = HomeTimelineFragment.recipes.size();
+                Random r = new Random();
+
+                //generates random position. change this line to add bounds to random number
+                int randomRecipePosition = r.nextInt(max);
+
+                Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
+                Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //on shake, get detail page of random recipe
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
+                getApplicationContext().startActivity(i);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timeline, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.miSearch).getActionView();
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+        }
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                //Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+        return super.onCreateOptionsMenu(menu);
+
     }
 
 }

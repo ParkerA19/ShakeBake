@@ -35,13 +35,15 @@ public class HomeTimelineFragment extends RecipesListFragment {
     public static ArrayList<String> r4iList = new ArrayList<>(Arrays.asList("fruit", "juice"));
     public static ArrayList<String> r4sList = new ArrayList<>(Arrays.asList("bite", "bite again", "finish"));
 
+
+
     public static User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
     public static User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
     public static User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
 
-    public static Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList);
-    public static Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, true, r2iList, r2sList);
-    public static Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList);
+    public static Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList, r1iList);
+    public static Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, true, r2iList, r2sList, null);
+    public static Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList, null);
 
 
     static RecipeAdapter recipeAdapter;

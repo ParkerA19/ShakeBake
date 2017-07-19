@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
@@ -25,6 +27,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -71,8 +76,99 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
         holder.tvUsername.setText(recipe.user.username);
-        holder.tvDescription.setText(recipe.description);
-        holder.tvForks.setText(recipe.forkCount + " Forks");
+
+        // based on the forked boolean choose the vector resource for ibFork
+        int forkResource = (recipe.forked) ? vector_fork_fill: vector_fork_stroke;
+        holder.ibFork.setImageResource(forkResource);
+
+        // set the forkCount text
+        String forkString = (recipe.forkCount.equals(0)) ? "" : recipe.forkCount.toString();
+        holder.tvForks.setText(forkString);
+
+        // now set an OnClickListener
+        holder.ibFork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recipe.forked) {
+                    // change the boolean
+                    recipe.forked = false;
+                    // set new image resource
+                    holder.ibFork.setImageResource(vector_fork_stroke);
+                    // set the new forkCount
+                    recipe.forkCount = recipe.forkCount - 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+                    holder.tvForks.setText(tempString);
+                }
+
+                else {
+                    // change the boolean
+                    recipe.forked = true;
+                    // set the new image resource
+                    holder.ibFork.setImageResource(vector_fork_fill);
+                    // set teh new forkCount
+                    recipe.forkCount = recipe.forkCount + 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "": recipe.forkCount.toString();
+                    holder.tvForks.setText(tempString);
+                }
+            }
+        });
+
+        // set the appropriate tags and make then not visible when null
+        if (recipe.keywords != null) {
+            if (recipe.keywords.size() > 0) {
+                holder.tvTag1.setVisibility(View.VISIBLE);
+                holder.tvTag1.setText("#" + recipe.keywords.get(0));
+
+                // set an onClickListener for this tag
+                holder.tvTag1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { holder.tvTag1.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 1) {
+                holder.tvTag2.setVisibility(View.VISIBLE);
+                holder.tvTag2.setText("#" + recipe.keywords.get(1));
+
+                // set an onClickListener for this tag
+                holder.tvTag2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { holder.tvTag2.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 2) {
+                holder.tvTag3.setVisibility(View.VISIBLE);
+                holder.tvTag3.setText("#" + recipe.keywords.get(2));
+
+                // set an onClickListener for this tag
+                holder.tvTag3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            } else { holder.tvTag3.setVisibility(View.GONE); }
+
+
+        } else {
+            holder.tvTag1.setVisibility(View.GONE);
+            holder.tvTag2.setVisibility(View.GONE);
+            holder.tvTag3.setVisibility(View.GONE);
+        }
+
+//        holder.tvDescription.setText(recipe.description);
+
 
 
         if (recipe.user.profileImageUrl != null) {
@@ -135,7 +231,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvDescription) TextView tvDescription;
+//        @BindView(R.id.tvDescription) TextView tvDescription;
+        @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
+        @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
+        @Nullable@BindView(R.id.tvTag3) TextView tvTag3;
+        @BindView(R.id.ibFork) ImageButton ibFork;
 
 
 

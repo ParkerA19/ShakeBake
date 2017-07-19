@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // set the navigation view
         setNavigationView();
 
-        // set up the shake feature
-        setShake();
+
 
         // set the adapter for the pager
         adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
@@ -79,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
 
+        // set up the shake feature
+        setShake();
     }
 
 

@@ -16,21 +16,23 @@ public class InstructionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     private String tabTitles[] = new String[] {"Ingredients", "Steps"};
     private Context context;
     public Recipe spaRecipe;
+    public boolean clickable;
 
-    public InstructionsPagerAdapter(FragmentManager fm, Context context, Recipe recipe){
+    public InstructionsPagerAdapter(FragmentManager fm, Context context, Recipe recipe, boolean click){
         super(fm);
         this.context = context;
         spaRecipe = recipe;
+        clickable = click;
     }
 
 
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new IngredientsFragment(spaRecipe.ingredients, spaRecipe);
+            return new IngredientsFragment(spaRecipe.ingredients, spaRecipe, clickable);
         }
         else if (position == 1) {
-            return new StepsFragment(spaRecipe.steps, spaRecipe);
+            return new StepsFragment(spaRecipe.steps, spaRecipe, clickable);
         }
         else {
             return null;
