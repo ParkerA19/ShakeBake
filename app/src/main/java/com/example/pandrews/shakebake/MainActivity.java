@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // set the navigation view
         setNavigationView();
 
+        // set up the shake feature
+        setShake();
+
         // set the adapter for the pager
         adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
         vpPager.setAdapter(adapterViewPager);
@@ -140,8 +143,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+    }
 
-
+    public void setShake() {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorListener = new ShakeEventListener();
 
@@ -163,20 +167,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getApplicationContext().startActivity(i);
             }
         });
-
-
-//        // get the view pager -- bound with butterknife
-//        // ViewPager vpPager = (ViewPager) findViewById(R.id.viewpager);
-//
-//        // set the adapter for the pager
-//        adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
-//        vpPager.setAdapter(adapterViewPager);
-//
-//        // setup the TabLayout to use the viewPager -- bound with butterknife
-//        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-//        tabLayout.setupWithViewPager(vpPager);
-
     }
+
 
     @Override
     protected void onResume() {

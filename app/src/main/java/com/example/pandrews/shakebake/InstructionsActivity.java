@@ -64,6 +64,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         Log.d("InstructionsActivity", String.format("Showing details for %s", recipe.title));
 
         // get the boolean from the intent to see which fragment to go to
+        // get the position from the intent to see which fragment to go to
         fragPosition = getIntent().getIntExtra("int", 0);
 
         // set up the Navigation View
@@ -77,6 +78,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         tabLayout.setupWithViewPager(vpPager);
 
         // set the current tab based on which tab was pressed (fragPosition)
+        // set the current tab based on which container was pressed (fragPosition)
         vpPager.setCurrentItem(fragPosition);
         
 
