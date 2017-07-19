@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
@@ -64,13 +65,67 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         // get the data according to the position
-        Recipe recipe = mForkRecipes.get(position);
+        final Recipe recipe = mForkRecipes.get(position);
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
         holder.tvUsername.setText(recipe.user.username);
-        holder.tvDescription.setText(recipe.description);
-        holder.tvForks.setText(recipe.forkCount + " Forks");
+
+        // set the appropriate tags and make then not visible when null
+        if (recipe.keywords != null) {
+            if (recipe.keywords.size() > 0) {
+                holder.tvTag1.setVisibility(View.VISIBLE);
+                holder.tvTag1.setText("#" + recipe.keywords.get(0));
+
+                // set an onClickListener for this tag
+                holder.tvTag1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { holder.tvTag1.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 1) {
+                holder.tvTag2.setVisibility(View.VISIBLE);
+                holder.tvTag2.setText("#" + recipe.keywords.get(1));
+
+                // set an onClickListener for this tag
+                holder.tvTag2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { holder.tvTag2.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 2) {
+                holder.tvTag3.setVisibility(View.VISIBLE);
+                holder.tvTag3.setText("#" + recipe.keywords.get(2));
+
+                // set an onClickListener for this tag
+                holder.tvTag3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            } else { holder.tvTag3.setVisibility(View.GONE); }
+
+
+        } else {
+            holder.tvTag1.setVisibility(View.GONE);
+            holder.tvTag2.setVisibility(View.GONE);
+            holder.tvTag3.setVisibility(View.GONE);
+        }
+
+//        holder.tvDescription.setText(recipe.description);
+
+        holder.tvForks.setText(recipe.forkCount + "");
 
         if (recipe.user.profileImageUrl != null) {
             Glide.with(context)
@@ -109,18 +164,15 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Nullable
-        @BindView(R.id.ivProfileImage)
-        ImageView ivProfileImage;
-        @BindView(R.id.tvUsername)
-        TextView tvUsername;
-        @Nullable
-        @BindView(R.id.ivMedia)
-        ImageView ivMedia;
+        @Nullable @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvUsername) TextView tvUsername;
+        @Nullable @BindView(R.id.ivMedia) ImageView ivMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvDescription) TextView tvDescription;
-
+//        @BindView(R.id.tvDescription) TextView tvDescription;
+        @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
+        @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
+        @Nullable@BindView(R.id.tvTag3) TextView tvTag3;
 
 
         public ViewHolder (View itemView) {
