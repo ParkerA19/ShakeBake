@@ -133,7 +133,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         if (recipe.mediaurl != null) {
             Glide.with(context)
                     .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                     .into(ivMedia);
         }
     }
@@ -314,5 +314,4 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // start activity
         startActivity(intent);
     }
-
 }
