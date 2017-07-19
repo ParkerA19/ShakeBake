@@ -133,7 +133,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         if (recipe.mediaurl != null) {
             Glide.with(context)
                     .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
                     .into(ivMedia);
         }
     }
@@ -294,25 +294,5 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
-
-    // onClick for the flIngredients container
-    public void onIngredients() {
-        // make intent
-        Intent intent = new Intent(context, InstructionsActivity.class);
-        // pass in recipe
-        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-        // start activity
-        startActivity(intent);
-    }
-
-    // onClick for the flSteps container
-    public void onSteps() {
-        // make intent
-        Intent intent = new Intent(context, InstructionsActivity.class);
-        // pass in recipe
-        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-        // start activity
-        startActivity(intent);
-    }
 
 }

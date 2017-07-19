@@ -227,8 +227,12 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     goes to a tab layout where they can switch between followers and following
      */
     public void onFollowing(View v) {
+        // set the tab position for FriendsActivity
+        int position = 1;
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
+        // put position into the intent
+        intent.putExtra("int", position);
         // start activity
         startActivity(intent);
     }
@@ -238,8 +242,12 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
    goes to a tab layout where they can switch between followers and following
     */
     public void onFollowers(View v) {
+        // set the tab position for FriendsActivity
+        int position = 0;
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
+        // put position into the intent
+        intent.putExtra("int", position);
         // start activity
         startActivity(intent);
     }

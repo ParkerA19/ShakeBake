@@ -33,6 +33,8 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
 
     // Instance variables
     User profile;
+    int fragmentPosition;
+
     FriendsPagerAdapter adapterViewPager;
 
     @BindView(R.id.viewpager) ViewPager vpPager;
@@ -49,17 +51,13 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // set the profile user
         profile = MainActivity.profile;
 
+        // get the position from the intent to see which tab to go to
+        fragmentPosition = getIntent().getIntExtra("int", 0);
+
         // set the navigation view
         setNavigationView();
 
-
-        // set the adapter for the pager
-        adapterViewPager = new FriendsPagerAdapter(getSupportFragmentManager(), this);
-        vpPager.setAdapter(adapterViewPager);
-
-        // setup the TabLayout to use the viewPager -- bound with butterknife
-        //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(vpPager);
+        setTabLayout();
     }
 
     @Override
@@ -112,6 +110,18 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
         });
+    }
+
+    public void setTabLayout() {
+        // set the adapter for the pager
+        adapterViewPager = new FriendsPagerAdapter(getSupportFragmentManager(), this);
+        vpPager.setAdapter(adapterViewPager);
+
+        // setup the TabLayout to use the viewPager );
+        tabLayout.setupWithViewPager(vpPager);
+
+        // set the current tab based on which container was pressed (fragmentPosition)
+        vpPager.setCurrentItem(fragmentPosition);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

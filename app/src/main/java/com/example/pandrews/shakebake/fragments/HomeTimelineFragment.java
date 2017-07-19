@@ -45,7 +45,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
 
     static RecipeAdapter recipeAdapter;
-    public static ArrayList<Recipe> recipes = new ArrayList<>(Arrays.asList(r1, r2, r3));
+    public static ArrayList<Recipe> recipes = new ArrayList<>(/*Arrays.asList(r1, r2, r3)*/);
     static RecyclerView rvRecipes;
     public SwipeRefreshLayout swipeContainer;
 
@@ -161,7 +161,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     @Override
     public void onStart() {
-        //populateTimeline();
+        populateTimeline();
         super.onStart();
     }
 }
