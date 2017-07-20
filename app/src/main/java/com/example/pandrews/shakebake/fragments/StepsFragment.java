@@ -24,6 +24,7 @@ public class StepsFragment extends Fragment {
     // Instance Varibles
     ArrayList<String> steps;
     Recipe recipe;
+    boolean clickable;
     int fragmentPosition = 1;
 
     static InstructionsAdapter instructionsAdapter;
@@ -32,9 +33,10 @@ public class StepsFragment extends Fragment {
     static RecyclerView rvSteps;
 
     // constructor
-    public StepsFragment(ArrayList<String> Steps, Recipe Recipe){
+    public StepsFragment(ArrayList<String> Steps, Recipe Recipe, boolean click){
         steps = Steps;
         recipe = Recipe;
+        clickable = click;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class StepsFragment extends Fragment {
         // init the arraylist (data source)
         Steps = new ArrayList<>();
         // construct the adapter from this data source
-        instructionsAdapter = new InstructionsAdapter(Steps, recipe, fragmentPosition);
+        instructionsAdapter = new InstructionsAdapter(Steps, recipe, fragmentPosition, clickable);
         // RecyclerView setup (layout manger, user adapter)
         rvSteps.setLayoutManager(new LinearLayoutManager(getContext()));
         // set the adapter

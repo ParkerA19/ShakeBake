@@ -101,9 +101,9 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
                 //Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-
         return v;
     }
+
 
     public void populateTimeline() {
 

@@ -28,12 +28,14 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
     Context context;
     Recipe mRecipe;
     int fragmentPosition;
+    boolean clickable;
 
     // constructor
-    public InstructionsAdapter(ArrayList<String> steps, Recipe recipe, int position) {
+    public InstructionsAdapter(ArrayList<String> steps, Recipe recipe, int position, boolean click) {
         mSteps = steps;
         mRecipe = recipe;
         fragmentPosition = position;
+        clickable = click;
     }
 
     @Override
@@ -71,9 +73,10 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
             // Bind with ButterKnife
             ButterKnife.bind(this, itemView);
 
-            // set the onClickListener
-            itemView.setOnClickListener(this);
-
+            if (clickable) {
+                // set the onClickListener
+                itemView.setOnClickListener(this);
+            }
         }
 
 

@@ -52,7 +52,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
            //     popularAdapter.clear();
                 populateTimeline();
             }
-        }); //eventually change so that onrefresh does not call populate timeline but instead calls another method that gets more recipes (is line needed since first call is made in onStart-- TODO
+        });
 
         // Configure the refeshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -79,7 +79,6 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
-
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
         myRef.addValueEventListener(new ValueEventListener() {

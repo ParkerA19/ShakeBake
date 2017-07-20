@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.IngredientsFragment;
@@ -54,6 +55,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.flIngredients) FrameLayout flIngredients;
     @BindView(R.id.flSteps) FrameLayout flSteps;
     @BindView(R.id.scrollView1) ScrollView scrollView1;
+    @BindView(R.id.tvTag1) TextView tvTag1;
+    @BindView(R.id.tvTag2) TextView tvTag2;
+    @BindView(R.id.tvTag3) TextView tvTag3;
 
 
     @Override
@@ -109,6 +113,58 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         AddRecipeAdapter sAdapter = new AddRecipeAdapter(recipe.steps, this);
    //     rvSteps.setAdapter(sAdapter);
 
+        // set the appropriate tags and make then not visible when null
+        if (recipe.keywords != null) {
+            if (recipe.keywords.size() > 0) {
+                tvTag1.setVisibility(View.VISIBLE);
+                tvTag1.setText("#" + recipe.keywords.get(0));
+
+                // set an onClickListener for this tag
+                tvTag1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { tvTag1.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 1) {
+                tvTag2.setVisibility(View.VISIBLE);
+                tvTag2.setText("#" + recipe.keywords.get(1));
+
+                // set an onClickListener for this tag
+                tvTag2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { tvTag2.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 2) {
+                tvTag3.setVisibility(View.VISIBLE);
+                tvTag3.setText("#" + recipe.keywords.get(2));
+
+                // set an onClickListener for this tag
+                tvTag3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            } else { tvTag3.setVisibility(View.GONE); }
+
+
+        } else {
+            tvTag1.setVisibility(View.GONE);
+            tvTag2.setVisibility(View.GONE);
+            tvTag3.setVisibility(View.GONE);
+        }
+
         if (recipe.user.profileImageUrl != null) {
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
@@ -144,7 +200,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
      */
     public void populateIngredients(){
         // Create the IngredientsFragment
-        IngredientsFragment ingredientsFragment = new IngredientsFragment(recipe.ingredients, recipe);
+        IngredientsFragment ingredientsFragment = new IngredientsFragment(recipe.ingredients, recipe, true);
 
         // Display the IngredientsFragment inside the container (dynamically)
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -162,7 +218,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
      */
     public void populateSteps() {
         // Create the StepsFragment
-        StepsFragment stepsFragment = new StepsFragment(recipe.steps, recipe);
+        StepsFragment stepsFragment = new StepsFragment(recipe.steps, recipe, true);
 
         // Display the StepsFragment inside the stepsContainer
         FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
@@ -172,6 +228,13 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         // commit the transaction
         ft2.commit();
+
+        flSteps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Hey", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /*
