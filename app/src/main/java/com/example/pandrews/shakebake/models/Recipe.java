@@ -24,6 +24,7 @@ public class Recipe {
     public ArrayList<String> ingredients = new ArrayList<>();
     public boolean forked;
 
+
     public Recipe(String t, String d, User u, String m, int fc,boolean b, ArrayList<String> i, ArrayList<String> s) {
         this.title = t;
         this.description = d;
@@ -63,6 +64,37 @@ public class Recipe {
         return recipe;
     }
 
+//    public static Recipe fromJSON(JSONObject jsonObject) throws JSONException {
+//        Recipe recipe = new Recipe();
+//
+//        for (int i = 0; i < jsonObject.getJSONArray("supplyList").length(); i++) {
+//            recipe.ingredients.add(jsonObject.getJSONArray("supplyList").get(i).toString());
+//        }
+//        for (int j = 0; j < jsonObject.getJSONArray("stepList").length(); j++) {
+//            recipe.steps.add(jsonObject.getJSONArray("stepList").get(j).toString());
+//        }
+//
+//        recipe.title = jsonObject.getString("title");
+//        recipe.description = jsonObject.getString("description");
+//        recipe.keywords = jsonObject.getString("keywords");
+//        if (jsonObject.getString("targetUri") != null) {
+//            recipe.targetUri = jsonObject.getString("targetUri");
+//        }
+//        recipe.forked = jsonObject.getBoolean("forked");
+//        if (jsonObject.getString("forkCount") != null) {
+//            recipe.forkCount = Integer.parseInt(jsonObject.getString("forkCount"));
+//        } else {
+//            recipe.forkCount = 0;
+//        }
+//        recipe.user = new User();
+//        if (jsonObject.getString("mediaurl") != null) {
+//            recipe.mediaurl = jsonObject.getString("mediaurl");
+//        } else {
+//            recipe.mediaurl = null;
+//        }
+//        return recipe;
+//    }
+
 
     public Recipe() {
         this.title = "Grapes";
@@ -74,4 +106,5 @@ public class Recipe {
         this.steps.add(0, ".....its a grape just eat it");
         this.forked = false;
     }
+
 }

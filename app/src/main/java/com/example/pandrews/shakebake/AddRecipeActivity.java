@@ -2,23 +2,21 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
-
-import java.util.ArrayList;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class AddRecipeActivity extends AppCompatActivity {
     Button bAddIngredient;
@@ -138,10 +136,29 @@ public class AddRecipeActivity extends AppCompatActivity {
 //solve problem so that when user presses done in android keyboard, app doesnt crash -- TODO
 
 
+//this code adds recipes to the database
+    //delete data change listener and just set a call to the database in refresh to go through and add more recipes
+    //also maybe add id tags to recipes so in the call to refresh, code is not searching entire database and just most recent recipes  -- TODO
 
 
-
-
+//    FirebaseDatabase database =  FirebaseDatabase.getInstance();
+//    DatabaseReference myRef = database.getReference("Recipe 2");
+//        myRef.setValue(r2);
+//        myRef.addValueEventListener(new ValueEventListener() {
+//        @Override
+//        public void onDataChange(DataSnapshot dataSnapshot) {
+//            //called once with initial value and again when data here is updated
+//            //crashes because original value is a recipe and not string. change to make compatible with recipe or get recipe.title -- TODO
+//
+//            //String value = dataSnapshot.getValue(String.class);
+//            Log.d(TAG, "Value is: ");
+//        }
+//
+//        @Override
+//        public void onCancelled(DatabaseError databaseError) {
+//            Log.w(TAG, "Failed to read value.", databaseError.toException());
+//        }
+//    });
 
 
 

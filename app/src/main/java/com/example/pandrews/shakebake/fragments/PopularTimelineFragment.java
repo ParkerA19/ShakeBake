@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import com.example.pandrews.shakebake.PopularAdapter;
 import com.example.pandrews.shakebake.R;
 import com.example.pandrews.shakebake.models.Recipe;
-import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -23,26 +26,13 @@ import java.util.Arrays;
 
 public class PopularTimelineFragment extends RecipesListFragment implements PopularAdapter.PopularAdapterListener {
 
-    static ArrayList<String> r1iList = new ArrayList<>(Arrays.asList("wow"));
-    static ArrayList<String> r1sList = new ArrayList<>(Arrays.asList("wow", "wow"));
-
-    static User u1 = new User("Kevin", "kwong", null, 10, 20, 123);
-    static User u2 = new User("Jim", "jim", null, 15, 30, 50);
-    static User u3 = new User("Greg", "greg", null, 20, 40, 456);
-    static User u4 = new User("Allison", "allison" ,null, 25, 50, 743);
-
-
-
-    static Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList);
-    static Recipe r2 = new Recipe("Pasta", "with pesto and alfredo sauce", u2, null, 300, false, r1iList, r1sList);
-    static Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList);
-    static Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList);
-
     //instance variables
     static PopularAdapter popularAdapter;
-    public static ArrayList<Recipe> popular = new ArrayList<>(Arrays.asList(r1, r2, r3, r4));
+    public static ArrayList<Recipe> popular;
     static RecyclerView rvPopular;
     public SwipeRefreshLayout swipeContainer;
+    public ArrayList<String> popularTitles;
+
 
 
     @Override
@@ -74,7 +64,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
         // find the RecyclerView
         rvPopular = (RecyclerView) v.findViewById(R.id.rvPopular);
         // init the arraylist (data source)
-        //popular = new ArrayList<>();
+        popular = new ArrayList<>();
         // construct the adapter from this data source
         popularAdapter = new PopularAdapter(popular, this);
         // RecyclerView setup (layout manger, user adapter)
@@ -82,10 +72,66 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
         // set the adapter
         rvPopular.setAdapter(popularAdapter);
 
+        //init title list
+        popularTitles = new ArrayList<>();
+
+
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    //modify line below for min fork threshold
+                    if (newRecipe.forkCount >= 300) {
+                        appendRecipe(newRecipe);
+                        //keep track of recipes already added
+                        popularTitles.add(newRecipe.title);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
         return v;
     }
 
     public void populateTimeline() {
+
+        //new reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    //modify line below for min fork threshold.
+                    //checks here if recipe is already being shown & checks forks
+                    if (!popularTitles.contains(newRecipe.title) & newRecipe.forkCount == 220) {
+                        appendRecipe(newRecipe);
+                        popularTitles.add(newRecipe.title);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
         swipeContainer.setRefreshing(false);
 
     }
@@ -94,6 +140,14 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
     public void onStart() {
         //populateTimeline();
         super.onStart();
+    }
+
+    public static void appendRecipe(Recipe recipe) {
+        // add a recipe
+        popular.add(0, recipe);
+        // inserted at position 0
+        popularAdapter.notifyItemInserted(0);
+        rvPopular.scrollToPosition(0);
     }
 
 }

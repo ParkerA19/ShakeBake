@@ -43,7 +43,11 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
 
     @Override
     public int getItemCount() {
-        return supplyList.size();
+        if (supplyList == null) {
+            return 0;
+        } else {
+            return supplyList.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

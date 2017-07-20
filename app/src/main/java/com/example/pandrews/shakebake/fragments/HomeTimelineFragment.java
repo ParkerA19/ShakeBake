@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import com.example.pandrews.shakebake.R;
 import com.example.pandrews.shakebake.RecipeAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
-import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -23,36 +26,19 @@ import java.util.Arrays;
 
 public class HomeTimelineFragment extends RecipesListFragment {
 
-    public static ArrayList<String> r1iList = new ArrayList<>(Arrays.asList("milk", "stuff"));
-    public static ArrayList<String> r1sList = new ArrayList<>(Arrays.asList("Pour milk", "eat cereal", "repeat until full"));
-
-    public static ArrayList<String> r2iList = new ArrayList<>(Arrays.asList("fruit", "juice"));
-    public static ArrayList<String> r2sList = new ArrayList<>(Arrays.asList("bite", "bite again", "finish"));
-
-    public static ArrayList<String> r3iList = new ArrayList<>(Arrays.asList("fish", "rice", "seaweed", "wasabi"));
-    public static ArrayList<String> r3sList = new ArrayList<>(Arrays.asList("cover seaweed in rice", "wrap fish with seaweed (which should now be covered in rice.. if this is not the case then you missed the only step so far and should probably try making something else)", "apply wasabi", "eat"));
-
-    public static ArrayList<String> r4iList = new ArrayList<>(Arrays.asList("fruit", "juice"));
-    public static ArrayList<String> r4sList = new ArrayList<>(Arrays.asList("bite", "bite again", "finish"));
-
-    public static User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
-    public static User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
-    public static User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
-
-    public static Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList);
-    public static Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, null, 300, true, r2iList, r2sList);
-    public static Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList);
-
+    private DatabaseReference mDatabase;
 
     static RecipeAdapter recipeAdapter;
-    public static ArrayList<Recipe> recipes = new ArrayList<>(/*Arrays.asList(r1, r2, r3)*/);
+//    public static ArrayList<Recipe> recipes = new ArrayList<>(Arrays.asList(r1, r2, r3));
+    public static ArrayList<Recipe> recipes;
     static RecyclerView rvRecipes;
     public SwipeRefreshLayout swipeContainer;
+    public ArrayList<String> recipeTitles;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -78,6 +64,8 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
         // find the RecyclerView
         rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipe);
+        // init the arraylist (data source)
+        recipes = new ArrayList<>();
         // construct the adapter from this data source
         recipeAdapter = new RecipeAdapter(recipes, this);
         // RecyclerView setup (layout manger, user adapter)
@@ -85,14 +73,62 @@ public class HomeTimelineFragment extends RecipesListFragment {
         // set the adapter
         rvRecipes.setAdapter(recipeAdapter);
 
+        //init title list
+        recipeTitles = new ArrayList<>();
+
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    appendRecipe(newRecipe);
+                    //keep track of recipes already added
+                    recipeTitles.add(newRecipe.title);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
         return v;
     }
 
     public void populateTimeline() {
-        Recipe r4 = new Recipe();
 
-        recipes.add(r4);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
+
+        //new reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+        //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    //modify line below for min fork threshold.
+                    //checks here if recipe is already being shown & checks forks
+                    if (!recipeTitles.contains(newRecipe.title)) {
+                        appendRecipe(newRecipe);
+                        recipeTitles.add(newRecipe.title);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
         swipeContainer.setRefreshing(false);
 
@@ -109,7 +145,6 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     @Override
     public void onStart() {
-        populateTimeline();
         super.onStart();
     }
 }

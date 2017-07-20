@@ -103,7 +103,11 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
 
     @Override
     public int getItemCount() {
-        return mForkRecipes.size();
+        if (mForkRecipes == null) {
+            return 0;
+        } else {
+            return mForkRecipes.size();
+        }
     }
 
 

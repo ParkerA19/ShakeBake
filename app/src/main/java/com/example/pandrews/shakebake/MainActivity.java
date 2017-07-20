@@ -28,6 +28,7 @@ import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.parceler.Parcels;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Instance variables
     RecipesPagerAdapter adapterViewPager;
+    private FirebaseAnalytics mFirebaseAnalytics;
     //MenuItem miSearch;
     //SearchView searchView;  ---- maybe delete these lines -- TODO
 
@@ -78,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // setup the TabLayout to use the viewPager -- bound with butterknife
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+
+        //initialize analytics
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
     }
 
