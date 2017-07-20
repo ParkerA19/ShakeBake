@@ -143,8 +143,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         rvRecipes.scrollToPosition(0);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    public void onFork(View view) {
+
     }
 }

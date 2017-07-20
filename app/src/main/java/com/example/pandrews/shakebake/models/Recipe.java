@@ -25,6 +25,12 @@ public class Recipe {
     public boolean forked;
 
 
+//    public Recipe() {
+//    }
+//    public void setTitle(String title){
+//        this.title = title;
+//    }
+
     public Recipe(String t, String d, User u, String m, int fc,boolean b, ArrayList<String> i, ArrayList<String> s, ArrayList<String> keys) {
         this.title = t;
         this.description = d;
@@ -67,14 +73,14 @@ public class Recipe {
 
 
     public Recipe() {
-        this.title = "Grapes";
-        this.description = "green or red juicy things";
+//        this.title = "Grapes";
+//        this.description = "green or red juicy things";
         this.user = new User();
-        this.mediaurl = "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg";
-        this.forkCount = 10;
-        this.ingredients.add(0, "... grapes");
-        this.steps.add(0, ".....its a grape just eat it");
-        this.forked = false;
+//        this.mediaurl = "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg";
+//        this.forkCount = 10;
+//        this.ingredients.add(0, "... grapes");
+//        this.steps.add(0, ".....its a grape just eat it");
+//        this.forked = false;
         this.keywords.add(0, "juicy");
         this.keywords.add(1, "green");
         this.keywords.add(2, "yummy");

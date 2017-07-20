@@ -29,6 +29,8 @@ import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -312,6 +314,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             recipe.user = profile;
             HomeTimelineFragment fragmentHome = (HomeTimelineFragment) adapterViewPager.getRegisteredFragment(0);
             fragmentHome.appendRecipe(recipe);
+            FirebaseDatabase database =  FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(recipe.title);
+            myRef.setValue(recipe);
         }
     }
 

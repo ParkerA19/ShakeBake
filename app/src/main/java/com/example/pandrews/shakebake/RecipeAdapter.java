@@ -82,7 +82,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.ibFork.setImageResource(forkResource);
 
         // set the forkCount text
-        String forkString = (recipe.forkCount.equals(0)) ? "" : recipe.forkCount.toString();
+        String forkString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
         holder.tvForks.setText(forkString);
 
         // now set an OnClickListener
@@ -172,12 +172,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
 
         if (recipe.user.profileImageUrl != null) {
+            holder.ivProfileImage.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
                     .bitmapTransform(new RoundedCornersTransformation(context, 200, 0))
                     .into(holder.ivProfileImage);
         }
         if (recipe.mediaurl != null) {
+            holder.ivMedia.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(recipe.mediaurl)
                     .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
