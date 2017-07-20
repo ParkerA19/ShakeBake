@@ -132,7 +132,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         ImageView ivProfileImage;
         @BindView(R.id.tvUsername)
         TextView tvUsername;
-        @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
+        @Nullable@BindView(R.id.vvMedia) ImageView ivMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
         @BindView(R.id.tvDescription) TextView tvDescription;
