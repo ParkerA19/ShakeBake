@@ -10,7 +10,7 @@
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="facebook">#3b5998</color>
-    <color name="appBackground">#c6c8cf</color>
+    <color name="appBackground">#ec9453</color>
     <color name="appFont">#712121</color>
     <color name="appFont2">@color/white</color>
     <color name="appFontLogout">#FF0000</color>
