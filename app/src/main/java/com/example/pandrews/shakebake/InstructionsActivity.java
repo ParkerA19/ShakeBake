@@ -45,7 +45,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
     // Instance Variables
     User profile;
     Context context;
-    Recipe recipe;
+    public Recipe recipe;
     int fragPosition;
 
     InstructionsPagerAdapter adapterViewPager;
@@ -184,7 +184,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         }
     }
 
-    /*
+    /**
     on click listener for the snackbar
     when you click it will confirm the logout and bring user to the login activity
      */
@@ -195,7 +195,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         }
     };
 
-    /*
+    /**
     starts the AddRecipeActivity for result
     called in onNavigationSelected
      */
@@ -204,7 +204,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    /*
+    /**
     takes user back to the logout screen
     called in myOnClickListener
      */

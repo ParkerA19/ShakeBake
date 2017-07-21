@@ -83,7 +83,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         String forkString = (recipe.forkCount.equals(0)) ? "" : recipe.forkCount.toString();
         holder.tvForks.setText(forkString);
 
-        // now set an OnClickListener
+        // now set an OnClickListener for the Fork
         holder.ibFork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,6 +192,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 //
 //        }
 
+        // Use Glide to load Profile Image
         if (recipe.user.profileImageUrl != null) {
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
@@ -217,7 +218,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-        Uri uri=Uri.parse(path);
+        Uri uri=Uri.parse(recipe.mediaurl);
 
         holder.vvMedia.setVideoURI(uri);
         holder.vvMedia.requestFocus();
@@ -239,7 +240,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
     }
 
-
+    /**
+    ViewHolder class
+    Where the binding of all the Views is done (ButterKnife)
+    Also sets onClick for each recipe to take user to DetailActivity
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
