@@ -198,7 +198,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
      */
     public void logout() {
         // start activity with new intent for the login activity
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
     }
 
 
