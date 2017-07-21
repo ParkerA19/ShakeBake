@@ -24,6 +24,7 @@ public class Recipe {
     public ArrayList<String> ingredients = new ArrayList<>();
     public boolean forked;
 
+
     public Recipe(String t, String d, User u, String m, int fc,boolean b, ArrayList<String> i, ArrayList<String> s, ArrayList<String> keys) {
         this.title = t;
         this.description = d;
@@ -78,4 +79,5 @@ public class Recipe {
         this.keywords.add(1, "green");
         this.keywords.add(2, "yummy");
     }
+
 }

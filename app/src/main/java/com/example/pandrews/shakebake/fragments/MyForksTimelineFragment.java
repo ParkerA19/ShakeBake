@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import com.example.pandrews.shakebake.MyForksAdapter;
 import com.example.pandrews.shakebake.R;
 import com.example.pandrews.shakebake.models.Recipe;
-import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import static com.example.pandrews.shakebake.fragments.HomeTimelineFragment.r2;
 
 /**
  * Created by pandrews on 7/11/17.
@@ -25,29 +27,21 @@ import static com.example.pandrews.shakebake.fragments.HomeTimelineFragment.r2;
 
 public class MyForksTimelineFragment extends RecipesListFragment implements MyForksAdapter.ForkAdapterListener {
 
-    static User u1 = new User("Kevin", "kwong", null, 10, 20, 123);
-    static User u2 = new User("Jim", "jim", null, 15, 30, 50);
-    static User u3 = new User("Greg", "greg", null, 20, 40, 456);
-    static User u4 = new User("Allison", "allison" ,null, 25, 50, 743);
-
-    static ArrayList<String> r1iList = new ArrayList<>(Arrays.asList("wow"));
-    static ArrayList<String> r1sList = new ArrayList<>(Arrays.asList("wow", "wow"));
-
-    static Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList, null);
-    static Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList, null);
-    static Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList, null);
-
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     // Instance variables
     static MyForksAdapter forksAdapter;
-    public static ArrayList<Recipe> forks = new ArrayList<>(Arrays.asList(r1, r2, r3, r4));
+    public static ArrayList<Recipe> forks;
     static RecyclerView rvForks;
     public SwipeRefreshLayout swipeContainer;
+    public ArrayList<String> forksTitles;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+
     }
 
     @Nullable
@@ -59,7 +53,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                forksAdapter.clear();
+                //forksAdapter.clear();
                 populateTimeline();
             }
         });
@@ -82,38 +76,62 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
         // set the adapter
         rvForks.setAdapter(forksAdapter);
 
+        //init title list
+        forksTitles = new ArrayList<>();
+
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    appendRecipe(newRecipe);
+                    //keep track of recipes already added
+                    forksTitles.add(newRecipe.title);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
         return v;
     }
 
+
     public void populateTimeline() {
 
-        User u1 = new User("Kevin", "kwong", null, 10, 20, 123);
-        User u2 = new User("Jim", "jim", null, 15, 30, 50);
-        User u3 = new User("Greg", "greg", null, 20, 40, 456);
-        User u4 = new User("Allison", "allison" ,null, 25, 50, 743);
 
+        //new reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
 
-        r1iList.add(0,"wow");
-        r1sList.add(0, "wow wow");
+        //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    //modify line below for min fork threshold.
+                    //checks here if recipe is already being shown & checks forks
+                    if (!forksTitles.contains(newRecipe.title)) {
+                        appendRecipe(newRecipe);
+                        forksTitles.add(newRecipe.title);
+                    }
+                }
+            }
 
-        Recipe r1 = new Recipe("Peaches", "good fruit", u1, null, 200,true, r1iList, r1sList, r1iList);
-        Recipe r2 = new Recipe("Pasta", "with pesto alfredo sauce", u2, null, 300, false, r1iList, r1sList, r1sList);
-        Recipe r3 = new Recipe("Shrimp", "mmmmmmm", u3, null, 220, true, r1iList, r1sList, r1sList);
-        Recipe r4 = new Recipe("Bananas", "yellow fruit", u4, null, 400, false, r1iList, r1sList, null);
-
-        forksAdapter.clear();
-
-        forks.add(r1);
-        forksAdapter.notifyItemInserted(forks.size() - 1);
-
-        forks.add(r2);
-        forksAdapter.notifyItemInserted(forks.size() - 1);
-
-        forks.add(r3);
-        forksAdapter.notifyItemInserted(forks.size() - 1);
-
-        forks.add(r4);
-        forksAdapter.notifyItemInserted(forks.size() - 1);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
         swipeContainer.setRefreshing(false);
 
@@ -122,11 +140,20 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
 
     @Override
     public void onStart() {
-        populateTimeline();
+        //populateTimeline();
         super.onStart();
     }
 
     @Override
     public void onItemSelected(View view, int position) {
     }
+
+    public static void appendRecipe(Recipe recipe) {
+        // add a tweet
+        forks.add(0, recipe);
+        // inserted at position 0
+        forksAdapter.notifyItemInserted(0);
+        rvForks.scrollToPosition(0);
+    }
+
 }

@@ -25,6 +25,7 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
     static RecipesPagerAdapter recipesPagerAdapter;
     public static ArrayList<Recipe> recipes;
     static RecyclerView rvRecipes;
+//    public Integer value;
 
     public SwipeRefreshLayout swipeContainer;
 
@@ -70,6 +71,30 @@ public class RecipesListFragment extends Fragment implements RecipeAdapter.Recip
 //        rvRecipes.setAdapter(recipeAdapter);
 //
 //        return v;
+
+//        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("recipeCount");
+//        myRef.setValue(9);
+//        myRef.addValueEventListener(new ValueEventListener() {
+//        @Override
+//        public void onDataChange(DataSnapshot dataSnapshot) {
+//            //called once with initial value and again when data here is updated
+//            //crashes because original value is a recipe and not string. change to make compatible with recipe or get recipe.title -- TODO
+//
+//            value = dataSnapshot.getValue(Integer.class);
+//            //Log.d(TAG, "Value is: ");
+//        }
+//
+//        @Override
+//        public void onCancelled(DatabaseError databaseError) {
+//            //Log.w(TAG, "Failed to read value.", databaseError.toException());
+//        }
+//    });
+//
+//
+//
+//        int recipeCount = value;
+
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
