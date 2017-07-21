@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -218,11 +219,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-        Uri uri=Uri.parse(recipe.mediaurl);
-
-        holder.vvMedia.setVideoURI(uri);
-        holder.vvMedia.requestFocus();
-        holder.vvMedia.start();
+        if (recipe.mediaurl != null) {
+            Uri uri = Uri.parse(recipe.mediaurl);
+            holder.vvMedia.setVisibility(View.VISIBLE);
+            holder.vvMedia.setVideoURI(uri);
+            holder.vvMedia.requestFocus();
+            holder.vvMedia.start();
+        } else {
+            Log.d("null video" , "Null video");
+        }
     }
 
 
