@@ -33,13 +33,6 @@ public class IngredientsFragment extends Fragment {
     public static ArrayList<String> Steps;
     static RecyclerView rvSteps;
 
-    // constructor
-    public IngredientsFragment(ArrayList<String> Ingredients, Recipe Recipe, boolean click){
-        ingredients = Ingredients;
-        recipe = Recipe;
-        clickable = click;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,5 +70,21 @@ public class IngredientsFragment extends Fragment {
     public void onStart() {
         populateTimeline();
         super.onStart();
+    }
+
+    public void setIngredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public void setClickable(boolean clickable) {
+        this.clickable = clickable;
+    }
+
+    public void setFragmentPosition(int fragmentPosition) {
+        this.fragmentPosition = fragmentPosition;
     }
 }

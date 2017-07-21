@@ -3,7 +3,6 @@ package com.example.pandrews.shakebake.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +12,11 @@ import android.view.ViewGroup;
 import com.example.pandrews.shakebake.R;
 import com.example.pandrews.shakebake.RecipeAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
-import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,7 +26,15 @@ import java.util.ArrayList;
 
 public class UserTimelineFragment extends RecipesListFragment {
 
+    private DatabaseReference mDatabase;
+
+    static RecipeAdapter recipeAdapter;
+    //    public static ArrayList<Recipe> recipes = new ArrayList<>(Arrays.asList(r1, r2, r3));
+    public static ArrayList<Recipe> recipes;
+    static RecyclerView rvRecipes;
     public SwipeRefreshLayout swipeContainer;
+    public ArrayList<String> recipeTitles;
+
 
 
     public static UserTimelineFragment newInstance(String screenName) {
@@ -73,6 +84,33 @@ public class UserTimelineFragment extends RecipesListFragment {
         // set the adapter
         rvRecipes.setAdapter(recipeAdapter);
 
+        //init title list
+        recipeTitles = new ArrayList<>();
+
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+
+
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+                    appendRecipe(newRecipe);
+                    //keep track of recipes already added
+                    recipeTitles.add(newRecipe.title);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
         return v;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -86,76 +124,41 @@ public class UserTimelineFragment extends RecipesListFragment {
     public void populateTimeline() {
 
 
-        ArrayList<String> r1iList = new ArrayList<>();
-        ArrayList<String> r1sList = new ArrayList<>();
+        //new reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
 
-        ArrayList<String> r2iList = new ArrayList<>();
-        ArrayList<String> r2sList = new ArrayList<>();
+        //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+                    //modify line below for min fork threshold.
+                    //checks here if recipe is already being shown & checks forks
+                    if (!recipeTitles.contains(newRecipe.title)) {
+                        appendRecipe(newRecipe);
+                        recipeTitles.add(newRecipe.title);
+                    }
+                }
+            }
 
-        ArrayList<String> r3iList = new ArrayList<>();
-        ArrayList<String> r3sList = new ArrayList<>();
-
-        ArrayList<String> r4iList = new ArrayList<>();
-        ArrayList<String> r4sList = new ArrayList<>();
-
-        r1iList.add("milk");
-        r1iList.add("stuff");
-
-        r1sList.add("Pour milk");
-        r1sList.add("eat cereal");
-        r1sList.add("repeat until full");
-
-        r2iList.add("fruit");
-        r2iList.add("juice");
-
-        r2sList.add("bite");
-        r2sList.add("bite again");
-        r2sList.add("finish");
-        r2sList.add("broooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-
-        r3iList.add("fish");
-        r3iList.add("rice");
-        r3iList.add("seaweed");
-        r3iList.add("wasabi");
-
-
-        r3sList.add("cover seaweed in rice");
-        r3sList.add("wrap fish with seaweed (which should now be covered in rice.. if this is not the case then you missed the only step so far and should probably try making something else)");
-        r3sList.add("apply wasabi");
-        r3sList.add("eat");
-
-        r4iList.add("fruit");
-        r4iList.add("juice");
-
-        r4sList.add("bite");
-        r4sList.add("bite again");
-        r4sList.add("finish");
-
-        User u1 = new User("Parker", "pandrews", null, 10, 20, 300);
-        User u2 = new User("Andrea", "agarcia", null, 15, 30, 450);
-        User u3 = new User("Jennifer", "jshin", null, 20, 40, 700);
-
-        Recipe r1 = new Recipe("Cereal", "Cinammon Toast Crunch", u1, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 200, false, r1iList, r1sList, r1sList);
-        Recipe r2 = new Recipe("Mangos", "round juicy fruit", u2, "https://pbs.twimg.com/media/Bv6uxxaCcAEjWHD.jpg", 300, true, r2iList, r2sList, r2iList);
-        Recipe r3 = new Recipe("Sushi", "Dead Fish", u3, null, 220, true, r3iList, r3sList, null);
-        Recipe r4 = new Recipe();
-
-
-        recipeAdapter.clear();
-
-        recipes.add(r1);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
-
-        recipes.add(r2);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
-
-        recipes.add(r3);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
-
-        recipes.add(r4);
-        recipeAdapter.notifyItemInserted(recipes.size() -1);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
         swipeContainer.setRefreshing(false);
 
+    }
+
+    public static void appendRecipe(Recipe recipe) {
+        // add a tweet
+        recipes.add(0, recipe);
+        // inserted at position 0
+        recipeAdapter.notifyItemInserted(0);
+        rvRecipes.scrollToPosition(0);
     }
 }

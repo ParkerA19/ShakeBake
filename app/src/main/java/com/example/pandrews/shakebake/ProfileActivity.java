@@ -193,7 +193,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
 
-    /*
+    /**
     on click listener for the snackbar
     when you click it will confirm the logout and bring user to the login activity
      */
@@ -204,7 +204,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
     };
 
-    /*
+    /**
     starts the AddRecipeActivity for result
     called in onNavigationSelected
      */
@@ -213,7 +213,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    /*
+    /**
     takes user back to the logout screen
     called in myOnClickListener
      */
@@ -222,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
-    /*
+    /**
     when following is pressed take user to view users they follow
     goes to a tab layout where they can switch between followers and following
      */
@@ -237,7 +237,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         startActivity(intent);
     }
 
-    /*
+    /**
    when followers is pressed take user to view users who follow them
    goes to a tab layout where they can switch between followers and following
     */

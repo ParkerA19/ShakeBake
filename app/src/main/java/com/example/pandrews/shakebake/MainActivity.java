@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /*
+    /**
     on click listener for the snackbar
     when you click it will confirm the logout and bring user to the login activity
      */
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
-    /*
+    /**
     starts the AddRecipeActivity for result
     called in onNavigationSelected
      */
@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    /*
+    /**
     takes user back to the logout screen
     called in myOnClickListener
      */
