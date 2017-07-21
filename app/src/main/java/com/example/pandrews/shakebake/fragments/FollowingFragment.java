@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.example.pandrews.shakebake.models.User;
 
-import static com.example.pandrews.shakebake.fragments.RecipesListFragment.recipeAdapter;
-
 /**
  * Created by pandrews on 7/13/17.
  */
@@ -34,22 +32,22 @@ public class FollowingFragment extends FriendsListFragment {
         User u4 = new User();
 
 
-        recipeAdapter.clear();
+        friendAdapter.clear();
 
         users.add(u);
-        recipeAdapter.notifyItemInserted(users.size() -1);
+        friendAdapter.notifyItemInserted(users.size() -1);
 
         users.add(u1);
-        recipeAdapter.notifyItemInserted(users.size() -1);
+        friendAdapter.notifyItemInserted(users.size() -1);
 
         users.add(u2);
-        recipeAdapter.notifyItemInserted(users.size() -1);
+        friendAdapter.notifyItemInserted(users.size() -1);
 
         users.add(u3);
-        recipeAdapter.notifyItemInserted(users.size() -1);
+        friendAdapter.notifyItemInserted(users.size() -1);
 
         users.add(u4);
-        recipeAdapter.notifyItemInserted(users.size() -1);
+        friendAdapter.notifyItemInserted(users.size() -1);
 
         swipeContainer.setRefreshing(false);
 

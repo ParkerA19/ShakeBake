@@ -89,19 +89,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/appFont2"
                 android:onClick="onFollowers"
-                android:text="5 Followers" />
+                android:text="5 Followers"
+                android:textColor="@color/appFont2" />
 
             <TextView
                 android:id="@+id/tvFollowing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:textColor="@color/appFont2"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:onClick="onFollowing"
-                android:text="5 Following" />
+                android:text="5 Following"
+                android:textColor="@color/appFont2" />
 
         </LinearLayout>
 
