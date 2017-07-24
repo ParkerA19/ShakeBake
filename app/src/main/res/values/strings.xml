@@ -33,4 +33,6 @@
     <string name="snackbar_action">Logout</string>
     <string name="snackbar_text">Are You Sure?</string>
     <string name="title_activity_opening">OpeningActivity</string>
+
+    <string name="name_hint"><font size="11">Name</font></string>
 </resources>

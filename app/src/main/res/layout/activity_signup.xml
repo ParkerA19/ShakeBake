@@ -18,21 +18,21 @@
         android:focusableInTouchMode="true"
         android:weightSum="1">
 
+
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_menu_camera"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
         <!--  Name Label -->
-
         <ImageView
             android:id="@+id/signupBackground"
             android:layout_width="290dp"
-            android:layout_height="290dp"
+            android:layout_height="270dp"
             android:layout_weight="1"
             android:layout_below="@id/logo"
             android:layout_centerInParent="true"
@@ -46,17 +46,24 @@
             android:layout_alignEnd="@id/signupBackground"
             android:layout_alignStart="@id/signupBackground"
             android:layout_marginBottom="8dp"
-            android:layout_alignRight="@id/signupBackground">
+            android:layout_marginTop="8dp"
+            android:layout_alignRight="@id/signupBackground"
+            android:layout_alignLeft="@id/signupBackground">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
 
             <EditText
                 android:id="@+id/input_name"
-                android:backgroundTint="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
                 android:fontFamily="roboto"
-                android:imeOptions="actionNext"
                 android:hint="Name"
+                android:imeOptions="actionNext"
                 android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
@@ -71,12 +78,18 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
             <EditText
                 android:id="@+id/input_username"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="roboto"
+                android:layout_weight="1"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:hint="Username" />
@@ -92,6 +105,12 @@
             android:layout_alignEnd="@id/signupBackground"
             android:layout_below="@id/tilUsername"
             android:layout_marginBottom="8dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,6 +131,7 @@
             android:layout_marginTop="8dp"
             android:layout_below="@id/tilEmail"
             android:layout_marginBottom="8dp">
+
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

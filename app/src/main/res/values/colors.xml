@@ -15,4 +15,5 @@
     <color name="appFont2">@color/white</color>
     <color name="appFontLogout">#FF0000</color>
     <color name="temporaryOrange">#FF8C00</color>
+    <color name="hintColor">#878787</color>
 </resources>
