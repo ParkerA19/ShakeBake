@@ -2,8 +2,12 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
@@ -24,7 +29,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
 import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
@@ -168,11 +172,23 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
 
         holder.tvForks.setText(recipe.forkCount + "");
 
+        // Use Glide to load Profile Image
         if (recipe.user.profileImageUrl != null) {
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(holder.ivProfileImage);
+                    .asBitmap()
+                    .centerCrop()
+                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
+
+
         }
 
         // set onClickListener for the profile image to open the profile activity
@@ -242,6 +258,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
         @Nullable@BindView(R.id.tvTag3) TextView tvTag3;
         @BindView(R.id.ibFork) ImageButton ibFork;
+        @BindView(R.id.cardView) CardView cardView;
 
 
         public ViewHolder (View itemView) {

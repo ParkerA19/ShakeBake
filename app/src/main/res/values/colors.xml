@@ -16,4 +16,6 @@
     <color name="appFontLogout">#FF0000</color>
     <color name="temporaryOrange">#FF8C00</color>
     <color name="hintColor">#878787</color>
+    <color name="Main_text_color_black">#191919</color>
+    <color name="Main_text_color_light_black">#323232</color>
 </resources>
