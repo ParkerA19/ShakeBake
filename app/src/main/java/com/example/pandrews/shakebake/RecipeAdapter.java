@@ -2,9 +2,13 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 
@@ -24,7 +29,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
 import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
@@ -196,8 +200,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         if (recipe.user.profileImageUrl != null) {
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 200, 0))
-                    .into(holder.ivProfileImage);
+                    .asBitmap()
+                    .centerCrop()
+                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
+
+
         }
 
         // set onClickListener for the profile image to open the profile activity
@@ -218,11 +233,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-        Uri uri=Uri.parse(recipe.mediaurl);
-
-        holder.vvMedia.setVideoURI(uri);
-        holder.vvMedia.requestFocus();
-        holder.vvMedia.start();
+        if (recipe.mediaurl != null) {
+            Uri uri = Uri.parse(recipe.mediaurl);
+            holder.vvMedia.setVisibility(View.VISIBLE);
+            holder.vvMedia.setVideoURI(uri);
+            holder.vvMedia.requestFocus();
+            holder.vvMedia.start();
+        } else {
+            Log.d("null video" , "Null video");
+        }
     }
 
 
