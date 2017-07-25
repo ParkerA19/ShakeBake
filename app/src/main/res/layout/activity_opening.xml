@@ -4,8 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBackground"
+    android:background="@drawable/background"
     tools:context="com.example.pandrews.shakebake.OpeningActivity">
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="69dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:background="@color/white"
+        android:fontFamily="roboto"
+        android:text="Sign Up"
+        android:textColor="@color/appBackground"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="438dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnLogin"
+        android:layout_toStartOf="@+id/btnLogin" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -25,21 +43,4 @@
         tools:layout_editor_absoluteX="198dp"
         tools:layout_editor_absoluteY="438dp" />
 
-    <Button
-        android:id="@+id/btnSignup"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="70dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/btnLogin"
-        android:layout_toStartOf="@+id/btnLogin"
-        android:background="@color/white"
-        android:fontFamily="roboto"
-        android:text="Sign Up"
-        android:textColor="@color/appBackground"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="438dp" />
 </RelativeLayout>
