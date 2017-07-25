@@ -37,7 +37,9 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
 
     @Override
     public void onBindViewHolder(AddRecipeAdapter.ViewHolder holder, int position) {
-        holder.tvStep.setText(supplyList.get(position).toString());
+        if (supplyList != null) {
+            holder.tvStep.setText(supplyList.get(position));
+        }
     }
 
 

@@ -33,6 +33,7 @@ public class UserTimelineFragment extends RecipesListFragment {
     public static ArrayList<Recipe> recipes;
     static RecyclerView rvRecipes;
     public SwipeRefreshLayout swipeContainer;
+    public ArrayList<String> userTitles;
     public ArrayList<String> recipeTitles;
 
 
@@ -85,6 +86,7 @@ public class UserTimelineFragment extends RecipesListFragment {
         rvRecipes.setAdapter(recipeAdapter);
 
         //init title list
+        userTitles = new ArrayList<>();
         recipeTitles = new ArrayList<>();
 
         //create database reference
@@ -123,17 +125,21 @@ public class UserTimelineFragment extends RecipesListFragment {
 
     public void populateTimeline() {
 
-
+        //create listener. this one adds all recipes currently in database w/fork count above 300
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
+        //this listener looks for new recipes added by checking list of titles in populateTimeline so it's called on refresh
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    appendRecipe(newRecipe);
+                    //keep track of recipes already added
+                    userTitles.add(newRecipe.title);
+
                     newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
                     //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
@@ -162,3 +168,4 @@ public class UserTimelineFragment extends RecipesListFragment {
         rvRecipes.scrollToPosition(0);
     }
 }
+

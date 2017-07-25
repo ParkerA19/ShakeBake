@@ -8,16 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class AddActivity extends AppCompatActivity {
     TextView tvTitle;
-    private LinearLayout mLayout;
+    private ScrollView mLayout;
+    private LinearLayout linearLayout;
     private EditText mEditText;
     public ArrayList<String> supplyList = new ArrayList<String>();
-    ; //used for both ingredient list and steps list
+    //used for both ingredient list and steps list
     LinearLayout.LayoutParams lparams;
     Button mButton;
 
@@ -25,7 +27,8 @@ public class AddActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        mLayout = (LinearLayout) findViewById(R.id.mLayout);
+        mLayout = (ScrollView) findViewById(R.id.mLayout);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         mEditText = (EditText) findViewById(R.id.mEditText);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         mButton = (Button) findViewById(R.id.mButton);
@@ -36,11 +39,10 @@ public class AddActivity extends AppCompatActivity {
         String button = getIntent().getStringExtra("button");
         tvTitle.setText(title);
         mButton.setText(button);
-
     }
 
     public void onClick(View v) {
-        mLayout.addView(createNewTextView(mEditText.getText().toString()));
+        linearLayout.addView(createNewTextView(mEditText.getText().toString()));
         //mLayout.addView(createNewButton());  add and reformat each line -- TODO
 
         //append new item to list for use in add recipe activity
@@ -49,15 +51,13 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private TextView createNewTextView(String text) {
-        //final RelativeLayout.LayoutParams lparams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
         final TextView textView = new TextView(this);
-        final Button bDelete = new Button(this);
+        //final Button bDelete = new Button(this);
         textView.setLayoutParams(lparams);
-        bDelete.setLayoutParams(lparams);
+        //bDelete.setLayoutParams(lparams);
         textView.setTextColor(Color.parseColor("#FFFFFF"));
         textView.setText(text);
-        bDelete.setBackgroundResource(R.drawable.delete_button);
+        //bDelete.setBackgroundResource(R.drawable.delete_button);
         return textView;
     }
 

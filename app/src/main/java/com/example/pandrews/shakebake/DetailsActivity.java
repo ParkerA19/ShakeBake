@@ -125,7 +125,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(0));
+                        context.startActivity(i);
                     }
                 });
 
@@ -139,7 +142,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(1));
+                        context.startActivity(i);
                     }
                 });
 
@@ -153,7 +159,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(2));
+                        context.startActivity(i);
                     }
                 });
 

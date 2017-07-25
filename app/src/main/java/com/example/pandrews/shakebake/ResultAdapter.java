@@ -2,29 +2,33 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
 
 /**
  * Created by andreagarcia on 7/18/17.
@@ -32,7 +36,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     // Instance variables
-    ArrayList<Recipe> mResult = new ArrayList<>();
+    ArrayList<Recipe> mRecipes = new ArrayList<>();
     Context context;
     private ResultAdapterListener mlistener;
 
@@ -44,7 +48,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     // pass in the Recipes array in the constructor
     public ResultAdapter(ArrayList<Recipe> recipes, ResultAdapterListener listener) {
-        mResult = recipes;
+        mRecipes = recipes;
         mlistener = listener;
     }
 
@@ -65,40 +69,205 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         // get the data according to the position
-        final Recipe recipe = mResult.get(position);
+        final Recipe recipe = mRecipes.get(position);
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
         holder.tvUsername.setText(recipe.user.username);
-        holder.tvDescription.setText(recipe.description);
-        holder.tvForks.setText(recipe.forkCount + " Forks");
 
+        // based on the forked boolean choose the vector resource for ibFork
+        int forkResource = (recipe.forked) ? vector_fork_fill: vector_fork_stroke;
+        holder.ibFork.setImageResource(forkResource);
+
+        // set the forkCount text
+        String forkString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+        holder.tvForks.setText(forkString);
+
+
+
+
+
+
+//        //create database reference
+//        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference();
+//
+//
+//        //create listener. this one adds all recipes currently in database w/fork count above 300
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+//                    appendRecipe(newRecipe);
+//                    //keep track of recipes already added
+//                    userTitles.add(newRecipe.title);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+//            }
+//        });
+//
+
+
+
+
+
+
+        // now set an OnClickListener
+        holder.ibFork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recipe.forked) {
+                    // change the boolean
+                    recipe.forked = false;
+                    // set new image resource
+                    holder.ibFork.setImageResource(vector_fork_stroke);
+                    // set the new forkCount
+                    recipe.forkCount = recipe.forkCount - 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+                    holder.tvForks.setText(tempString);
+                    //change forked value on database
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
+
+                }
+
+                else {
+                    // change the boolean
+                    recipe.forked = true;
+                    // set the new image resource
+                    holder.ibFork.setImageResource(vector_fork_fill);
+                    // set teh new forkCount
+                    recipe.forkCount = recipe.forkCount + 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "": recipe.forkCount.toString();
+                    holder.tvForks.setText(tempString);
+                    //change forked value on database
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
+
+                }
+            }
+        });
+
+        // set the appropriate tags and make then not visible when null
+        if (recipe.keywords != null) {
+            if (recipe.keywords.size() > 0) {
+                holder.tvTag1.setVisibility(View.VISIBLE);
+                holder.tvTag1.setText("#" + recipe.keywords.get(0));
+
+                // set an onClickListener for this tag
+                holder.tvTag1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { holder.tvTag1.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 1) {
+                holder.tvTag2.setVisibility(View.VISIBLE);
+                holder.tvTag2.setText("#" + recipe.keywords.get(1));
+
+                // set an onClickListener for this tag
+                holder.tvTag2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else { holder.tvTag2.setVisibility(View.GONE); }
+
+            if (recipe.keywords.size() > 2) {
+                holder.tvTag3.setVisibility(View.VISIBLE);
+                holder.tvTag3.setText("#" + recipe.keywords.get(2));
+
+                // set an onClickListener for this tag
+                holder.tvTag3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            } else { holder.tvTag3.setVisibility(View.GONE); }
+
+
+        } else {
+            holder.tvTag1.setVisibility(View.GONE);
+            holder.tvTag2.setVisibility(View.GONE);
+            holder.tvTag3.setVisibility(View.GONE);
+        }
+
+//        holder.tvDescription.setText(recipe.description);
+
+
+
+
+//        if (recipe.mediaurl != null) {
+//            Glide.with(context)
+//                    .load(recipe.mediaurl)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+//                    .into(holder.vvMedia);
+//
+//
+//        }
+//        else if (recipe.targetUri != null){
+//            Uri targetUri = Uri.parse(recipe.targetUri);
+//            Bitmap bitmap = null;
+//            try {
+//                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            holder.ivMedia.setImageBitmap(bitmap);
+//        } else {
+//            holder.ivMedia.setVisibility(View.GONE);
+//
+//        }
 
         if (recipe.user.profileImageUrl != null) {
+            holder.ivProfileImage.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
                     .bitmapTransform(new RoundedCornersTransformation(context, 200, 0))
                     .into(holder.ivProfileImage);
         }
         if (recipe.mediaurl != null) {
-            Glide.with(context)
-                    .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-                    .into(holder.ivMedia);
+            holder.vvMedia.setVisibility(View.VISIBLE);
+            //change later -- TODO
+//            Uri mediaUri = Uri.parse(recipe.mediaurl);
+//            holder.vvMedia.setVideoURI(mediaUri);
+//            holder.vvMedia.requestFocus();
+//            holder.vvMedia.start();
+
+            //introduce some onCLick method to start video once user clicks vvMedia
+//            Glide.with(context)
+//                    .load(recipe.mediaurl)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+//                    .into(holder.vvMedia);
 
 
-        } else if (recipe.targetUri != null){
-            Uri targetUri = Uri.parse(recipe.targetUri);
-            Bitmap bitmap = null;
-            try {
-                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            holder.ivMedia.setImageBitmap(bitmap);
-        } else {
-            holder.ivMedia.setVisibility(View.VISIBLE);
-
+        }
+        //change to set videos instead of images -- TODO
+//        else if (recipe.targetUri != null){
+//            Uri targetUri = Uri.parse(recipe.targetUri);
+//            Bitmap bitmap = null;
+//            try {
+//                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            holder.vvMedia.setImageBitmap(bitmap);
+//        }
+        else {
+            holder.vvMedia.setVisibility(View.GONE);
         }
 
         // set onClickListener for the profile image to open the profile activity
@@ -113,29 +282,48 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                 context.startActivity(intent);
             }
         });
+
+
+        // set the video view and video url
+        String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+        String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
+
+        Uri uri=Uri.parse(path);
+
+        holder.vvMedia.setVideoURI(uri);
+        holder.vvMedia.requestFocus();
+        holder.vvMedia.start();
     }
+
+
+//    Bitmap bitmap;
+//            try {
+//        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+
 
     @Override
     public int getItemCount() {
-        if (mResult == null){
+        if (mRecipes == null) {
             return 0;
         } else {
-            return mResult.size();
+            return mRecipes.size();
         }
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @Nullable
-        @BindView(R.id.ivProfileImage)
-        ImageView ivProfileImage;
-        @BindView(R.id.tvUsername)
-        TextView tvUsername;
-        @Nullable@BindView(R.id.vvMedia) ImageView ivMedia;
+        @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvUsername) TextView tvUsername;
+        @Nullable@BindView(R.id.vvMedia) VideoView vvMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvDescription) TextView tvDescription;
+        //        @BindView(R.id.tvDescription) TextView tvDescription;
+        @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
+        @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
+        @Nullable@BindView(R.id.tvTag3) TextView tvTag3;
+        @BindView(R.id.ibFork)
+        ImageButton ibFork;
 
 
 
@@ -170,7 +358,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             //make sure the position is valid
             if (position != RecyclerView.NO_POSITION) {
                 // get the tweet and the position
-                Recipe recipe = mResult.get(position);
+                Recipe recipe = mRecipes.get(position);
                 // create intent for the new activity
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
@@ -184,8 +372,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     // Clean all elements of the recycler
     public void clear() {
-        mResult.clear();
+        mRecipes.clear();
         notifyDataSetChanged();
     }
-
 }
