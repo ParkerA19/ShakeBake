@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.flContainer) FrameLayout flContainer;
     @BindView(R.id.scrollView2) ScrollView scrollView2;
     @BindView(R.id.rlUserHeader) RelativeLayout rlUserHeader;
+    @BindView(R.id.cvCard) CardView cvCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +98,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         // populate the user headline
         populateUserHeadline(user);
-
-        scrollView2.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
 
     }
 

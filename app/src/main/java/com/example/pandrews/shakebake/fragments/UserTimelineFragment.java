@@ -156,6 +156,8 @@ public class UserTimelineFragment extends RecipesListFragment {
             }
         });
 
+        swipeContainer.setRefreshing(false);
+
     }
 
     public static void appendRecipe(Recipe recipe) {

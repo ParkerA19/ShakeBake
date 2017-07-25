@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
 
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.white));
+
         //initialize analytics
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
