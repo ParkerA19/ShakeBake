@@ -46,7 +46,8 @@
             android:layout_alignEnd="@id/signupBackground"
             android:layout_alignStart="@id/signupBackground"
             android:layout_marginBottom="8dp"
-            android:layout_alignRight="@id/signupBackground">
+            android:layout_alignRight="@id/signupBackground"
+            android:layout_alignLeft="@id/signupBackground">
 
             <EditText
                 android:id="@+id/input_name"
@@ -86,7 +87,9 @@
             android:layout_marginTop="8dp"
             android:layout_alignEnd="@id/signupBackground"
             android:layout_below="@id/tilUsername"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_alignLeft="@id/signupBackground"
+            android:layout_alignRight="@id/signupBackground">
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,7 +107,9 @@
             android:layout_alignEnd="@id/signupBackground"
             android:layout_marginTop="8dp"
             android:layout_below="@id/tilEmail"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_alignLeft="@id/signupBackground"
+            android:layout_alignRight="@id/signupBackground">
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
