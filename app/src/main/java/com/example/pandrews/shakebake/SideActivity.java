@@ -74,6 +74,7 @@ public class SideActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getSupportFragmentManager();
         return true;
     }
+
 //----uncomment TODO
 //        if (id == R.id.nav_activity_add_recipe) {
 //            fragmentManager.beginTransaction()
