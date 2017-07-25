@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#712121</color>
+    <color name="colorAccent">#ec9453</color>
     <color name="colorGreenFeature">#00FF00</color>
     <color name="white">#FFFFFF</color>
     <color name="light_font">#FBFBFB</color>
@@ -10,9 +10,10 @@
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="facebook">#3b5998</color>
-    <color name="appBackground">#c6c8cf</color>
-    <color name="appFont">#712121</color>
+    <color name="appBackground">#e17e46</color>
+    <color name="appFont">#ec9453</color>
     <color name="appFont2">@color/white</color>
     <color name="appFontLogout">#FF0000</color>
     <color name="temporaryOrange">#FF8C00</color>
+    <color name="hintColor">#878787</color>
 </resources>

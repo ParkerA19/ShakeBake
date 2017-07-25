@@ -1,11 +1,14 @@
 package com.example.pandrews.shakebake;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,8 +46,42 @@ public class SignupActivity extends AppCompatActivity {
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                finish();
+                Intent i= new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
+
+        // clear focus on next
+        _nameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_NEXT){
+                    //Clear focus here from edittext
+                    _nameText.clearFocus();
+                }
+                return false;
+            }
+        });
+
+        _usernameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_NEXT){
+                    //Clear focus here from edittext
+                    _usernameText.clearFocus();
+                }
+                return false;
+            }
+        });
+
+        _emailText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_NEXT){
+                    //Clear focus here from edittext
+                    _emailText.clearFocus();
+                }
+                return false;
             }
         });
     }
@@ -87,7 +124,8 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish();
+        Intent i= new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
     }
 
     public void onSignupFailed() {

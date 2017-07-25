@@ -2,6 +2,7 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -99,9 +100,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         return true;
     }
 
-    /*
-    Method to set each text and image view
-    is called in onCreate
+    /**
+     * Method to set each text and image view
+     * is called in onCreate
      */
     public void populateDetailsHeadline() {
         // set all the views
@@ -202,15 +203,24 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 //                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
 //                    .into(vvMedia);
 //        }
+
+        Uri uri=Uri.parse(recipe.mediaurl);
+
+        vvMedia.setVideoURI(uri);
+        vvMedia.requestFocus();
+        vvMedia.start();
     }
 
-    /*
-    Method to put the IngredientsFragment into the initial FrameLayout Containter
-    Called in onCreate
+    /**
+     * Method to put the IngredientsFragment into the initial FrameLayout Containter
+     * Called in onCreate
      */
     public void populateIngredients(){
-        // Create the IngredientsFragment
-        IngredientsFragment ingredientsFragment = new IngredientsFragment(recipe.ingredients, recipe, true);
+        // Create the IngredientsFragment and set the recipe and ingredients
+        IngredientsFragment ingredientsFragment = new IngredientsFragment();
+        ingredientsFragment.setRecipe(recipe);
+        ingredientsFragment.setIngredients(recipe.ingredients);
+        ingredientsFragment.setClickable(true);
 
         // Display the IngredientsFragment inside the container (dynamically)
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -227,8 +237,11 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     Called in onCreate
      */
     public void populateSteps() {
-        // Create the StepsFragment
-        StepsFragment stepsFragment = new StepsFragment(recipe.steps, recipe, true);
+        // Create the StepsFragment and set the recipe and steps
+        StepsFragment stepsFragment = new StepsFragment();
+        stepsFragment.setRecipe(recipe);
+        stepsFragment.setSteps(recipe.steps);
+        stepsFragment.setClickable(true);
 
         // Display the StepsFragment inside the stepsContainer
         FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
@@ -364,6 +377,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
      */
     public void logout() {
         // start activity with new intent for the login activity
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
     }
 }

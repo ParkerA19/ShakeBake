@@ -43,7 +43,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View stepsView = inflater.inflate(R.layout.item_step, parent, false);
+        View stepsView = inflater.inflate(R.layout.item_instruction, parent, false);
         ViewHolder viewHolder = new ViewHolder(stepsView);
         return viewHolder;
     }

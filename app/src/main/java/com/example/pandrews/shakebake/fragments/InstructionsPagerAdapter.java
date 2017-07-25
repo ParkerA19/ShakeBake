@@ -29,10 +29,18 @@ public class InstructionsPagerAdapter extends SmartFragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new IngredientsFragment(spaRecipe.ingredients, spaRecipe, clickable);
+            IngredientsFragment ingredientsFragment = new IngredientsFragment();
+            ingredientsFragment.setRecipe(spaRecipe);
+            ingredientsFragment.setIngredients(spaRecipe.ingredients);
+            ingredientsFragment.setClickable(clickable);
+            return ingredientsFragment;
         }
         else if (position == 1) {
-            return new StepsFragment(spaRecipe.steps, spaRecipe, clickable);
+            StepsFragment stepsFragment = new StepsFragment();
+            stepsFragment.setRecipe(spaRecipe);
+            stepsFragment.setSteps(spaRecipe.steps);
+            stepsFragment.setClickable(clickable);
+            return stepsFragment;
         }
         else {
             return null;

@@ -29,7 +29,7 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
         context = parent.getContext();
 //        supplyList = new ArrayList<String>();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.item_step, parent, false);
+        View v = inflater.inflate(R.layout.item_instruction, parent, false);
         tvStep = (TextView) parent.findViewById(R.id.tvStep);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;

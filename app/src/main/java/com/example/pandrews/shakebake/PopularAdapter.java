@@ -222,7 +222,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
             String path="android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
             String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-            Uri uri=Uri.parse(path);
+            Uri uri=Uri.parse(recipe.mediaurl);
 
             holder.vvMedia.setVideoURI(uri);
             holder.vvMedia.requestFocus();

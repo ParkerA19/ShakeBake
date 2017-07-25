@@ -95,6 +95,11 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
                         //keep track of recipes already added
                         forksTitles.add(newRecipe.title);
                     }
+                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
+
+                    appendRecipe(newRecipe);
+                    //keep track of recipes already added
+                    forksTitles.add(newRecipe.title);
                 }
             }
 
@@ -120,6 +125,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
                     //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
                     if (!forksTitles.contains(newRecipe.title) & newRecipe.forked) {

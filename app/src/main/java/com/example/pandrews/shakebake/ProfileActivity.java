@@ -2,11 +2,14 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,9 +20,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.UserTimelineFragment;
 import com.example.pandrews.shakebake.models.User;
 
@@ -27,9 +33,20 @@ import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+
+    // put back into activity_profile.xml
+//    <android.support.design.widget.NavigationView
+//    android:id="@+id/nav_view"
+//    android:layout_width="wrap_content"
+//    android:layout_height="match_parent"
+//    android:layout_gravity="start"
+//    android:fitsSystemWindows="true"
+//    app:headerLayout="@layout/nav_header_side"
+//    app:menu="@menu/activity_side_drawer" />
+
 
     private final int REQUEST_CODE = 25;
 
@@ -42,10 +59,15 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvUsername) TextView tvUsername;
-    @BindView(R.id.tvForks) TextView tvForks;
+    @BindView(R.id.tvPosts) TextView tvPosts;
+    @BindView(R.id.tvPostCount) TextView tvPostCount;
     @BindView(R.id.tvFollowers) TextView tvFollowers;
+    @BindView(R.id.tvFollowersCount) TextView tvFollowersCount;
     @BindView(R.id.tvFollowing) TextView tvFollowing;
+    @BindView(R.id.tvFollowingCount) TextView tvFollowingCount;
     @BindView(R.id.flContainer) FrameLayout flContainer;
+    @BindView(R.id.scrollView2) ScrollView scrollView2;
+    @BindView(R.id.rlUserHeader) RelativeLayout rlUserHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +96,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         // populate the user headline
         populateUserHeadline(user);
+
+        scrollView2.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
+
     }
 
     @Override
@@ -98,7 +123,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void setNavigationView() {
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
+
 
         // draw the navigation item
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout3);
@@ -114,7 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         View header = navigationView.getHeaderView(0);
         TextView name = (TextView) header.findViewById(R.id.tvName);
         TextView username = (TextView) header.findViewById(R.id.tvUsername);
-        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+        final ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
 
         // set text
         name.setText(profile.name);
@@ -123,8 +150,17 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // set profile image
         Glide.with(getApplicationContext())
                 .load(profile.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
-                .into(Image);
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(Image) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        Image.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
 
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {
@@ -143,15 +179,29 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void populateUserHeadline(User user) {
         tvName.setText(user.name);
         tvUsername.setText(user.username);
-        tvForks.setText(user.forkCount + " Forks");
-        tvFollowers.setText(user.followersCount + " Followers");
-        tvFollowing.setText(user.followingCount + " Following");
+//        tvPosts.setText("Posts");
+//        tvFollowers.setText("Followers");
+//        tvFollowing.setText("Following");
+        tvPostCount.setText(user.forkCount + "");
+        tvFollowersCount.setText(user.followersCount + "");
+        tvFollowingCount.setText(user.followingCount + "");
+
+
 
         if (user.profileImageUrl != null) {
             Glide.with(this)
                     .load(user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(ivProfileImage);
+                    .asBitmap()
+                    .centerCrop()
+                    .into(new BitmapImageViewTarget(ivProfileImage) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
         }
     }
 
@@ -193,7 +243,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
 
-    /*
+    /**
     on click listener for the snackbar
     when you click it will confirm the logout and bring user to the login activity
      */
@@ -204,7 +254,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         }
     };
 
-    /*
+    /**
     starts the AddRecipeActivity for result
     called in onNavigationSelected
      */
@@ -213,16 +263,16 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    /*
+    /**
     takes user back to the logout screen
     called in myOnClickListener
      */
     public void logout() {
         // start activity with new intent for the login activity
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
     }
 
-    /*
+    /**
     when following is pressed take user to view users they follow
     goes to a tab layout where they can switch between followers and following
      */
@@ -237,7 +287,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         startActivity(intent);
     }
 
-    /*
+    /**
    when followers is pressed take user to view users who follow them
    goes to a tab layout where they can switch between followers and following
     */

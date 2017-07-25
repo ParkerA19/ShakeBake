@@ -87,6 +87,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
                     appendRecipe(newRecipe);
                     //keep track of recipes already added
                     recipeTitles.add(newRecipe.title);
@@ -115,6 +116,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
                     //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
                     if (!recipeTitles.contains(newRecipe.title)) {
