@@ -2,29 +2,31 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.models.User;
 
 import org.parceler.Parcels;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
 
 /**
  * Created by andreagarcia on 7/13/17.
@@ -71,6 +73,44 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         holder.tvTitle.setText(recipe.title);
         holder.tvUsername.setText(recipe.user.username);
 
+        // based on the forked boolean choose the vector resource for ibFork
+        int forkResource = (recipe.forked) ? vector_fork_fill: vector_fork_stroke;
+        holder.ibFork.setImageResource(forkResource);
+
+        // set the forkCount text
+        String forkString = (recipe.forkCount.equals(0)) ? "" : recipe.forkCount.toString();
+        holder.tvForks.setText(forkString);
+
+        // now set an OnClickListener
+        holder.ibFork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recipe.forked) {
+                    // change the boolean
+                    recipe.forked = false;
+                    // set new image resource
+                    holder.ibFork.setImageResource(vector_fork_stroke);
+                    // set the new forkCount
+                    recipe.forkCount = recipe.forkCount - 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+                    holder.tvForks.setText(tempString);
+                }
+
+                else {
+                    // change the boolean
+                    recipe.forked = true;
+                    // set the new image resource
+                    holder.ibFork.setImageResource(vector_fork_fill);
+                    // set teh new forkCount
+                    recipe.forkCount = recipe.forkCount + 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "": recipe.forkCount.toString();
+                    holder.tvForks.setText(tempString);
+                }
+            }
+        });
+
         // set the appropriate tags and make then not visible when null
         if (recipe.keywords != null) {
             if (recipe.keywords.size() > 0) {
@@ -81,7 +121,10 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                 holder.tvTag1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(0));
+                        context.startActivity(i);
                     }
                 });
 
@@ -95,7 +138,10 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                 holder.tvTag2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(1));
+                        context.startActivity(i);
                     }
                 });
 
@@ -109,7 +155,10 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                 holder.tvTag3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(2));
+                        context.startActivity(i);
                     }
                 });
 
@@ -134,25 +183,48 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                     .into(holder.ivProfileImage);
         }
 
-        if (recipe.mediaurl != null) {
-            holder.ivMedia.setVisibility(View.VISIBLE);
-            Glide.with(context)
-                    .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(holder.ivMedia);
-        } else if (recipe.targetUri != null){
-            holder.ivMedia.setVisibility(View.VISIBLE);
-            Uri targetUri = Uri.parse(recipe.targetUri);
-            Bitmap bitmap = null;
-            try {
-                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        // set onClickListener for the profile image to open the profile activity
+        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // make a new intent
+                Intent intent = new Intent(context, ProfileActivity.class);
+                // put the user into the intent
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
+                // start activity with intent
+                context.startActivity(intent);
             }
-            holder.ivMedia.setImageBitmap(bitmap);
-        } else {
-            holder.ivMedia.setVisibility(View.GONE);
-        }
+        });
+
+//        if (recipe.mediaurl != null) {
+//            holder.ivMedia.setVisibility(View.VISIBLE);
+//            Glide.with(context)
+//                    .load(recipe.mediaurl)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+//                    .into(holder.ivMedia);
+//        } else if (recipe.targetUri != null){
+//            holder.ivMedia.setVisibility(View.VISIBLE);
+//            Uri targetUri = Uri.parse(recipe.targetUri);
+//            Bitmap bitmap = null;
+//            try {
+//                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            holder.ivMedia.setImageBitmap(bitmap);
+//        } else {
+//            holder.ivMedia.setVisibility(View.GONE);
+//        }
+
+        // set the video view and video url
+        String path="android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
+        String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
+
+        Uri uri=Uri.parse(path);
+
+        holder.vvMedia.setVideoURI(uri);
+        holder.vvMedia.requestFocus();
+        holder.vvMedia.start();
     }
 
 
@@ -170,13 +242,14 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
 
         @Nullable @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUsername) TextView tvUsername;
-        @Nullable @BindView(R.id.ivMedia) ImageView ivMedia;
+        @Nullable @BindView(R.id.vvMedia) VideoView vvMedia;
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
 //        @BindView(R.id.tvDescription) TextView tvDescription;
         @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
         @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
         @Nullable@BindView(R.id.tvTag3) TextView tvTag3;
+        @BindView(R.id.ibFork) ImageButton ibFork;
 
 
         public ViewHolder (View itemView) {

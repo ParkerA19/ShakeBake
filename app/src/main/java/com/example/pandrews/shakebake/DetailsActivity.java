@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.IngredientsFragment;
@@ -47,7 +48,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
 
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-    @Nullable@BindView(R.id.ivMedia) ImageView ivMedia;
+    @Nullable@BindView(R.id.vvMedia) VideoView vvMedia;
     @BindView(R.id.tvTitle) TextView tvTitle;
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvForks) TextView tvForks;
@@ -123,7 +124,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(0));
+                        context.startActivity(i);
                     }
                 });
 
@@ -137,7 +141,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(1));
+                        context.startActivity(i);
                     }
                 });
 
@@ -151,7 +158,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(2));
+                        context.startActivity(i);
                     }
                 });
 
@@ -186,12 +196,12 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
             }
         });
 
-        if (recipe.mediaurl != null) {
-            Glide.with(context)
-                    .load(recipe.mediaurl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-                    .into(ivMedia);
-        }
+//        if (recipe.mediaurl != null) {
+//            Glide.with(context)
+//                    .load(recipe.mediaurl)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+//                    .into(vvMedia);
+//        }
     }
 
     /*
@@ -355,26 +365,5 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public void logout() {
         // start activity with new intent for the login activity
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-    }
-
-
-    // onClick for the flIngredients container
-    public void onIngredients() {
-        // make intent
-        Intent intent = new Intent(context, InstructionsActivity.class);
-        // pass in recipe
-        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-        // start activity
-        startActivity(intent);
-    }
-
-    // onClick for the flSteps container
-    public void onSteps() {
-        // make intent
-        Intent intent = new Intent(context, InstructionsActivity.class);
-        // pass in recipe
-        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-        // start activity
-        startActivity(intent);
     }
 }

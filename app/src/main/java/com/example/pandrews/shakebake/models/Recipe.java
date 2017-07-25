@@ -18,7 +18,7 @@ public class Recipe {
     public User user;
     public String mediaurl;
     public Integer forkCount;
-    public ArrayList<String> keywords = new ArrayList<>();
+    public ArrayList<String> keywords;
     public ArrayList<String> steps = new ArrayList<>();
     public String targetUri;
     public ArrayList<String> ingredients = new ArrayList<>();
@@ -81,9 +81,10 @@ public class Recipe {
 //        this.ingredients.add(0, "... grapes");
 //        this.steps.add(0, ".....its a grape just eat it");
 //        this.forked = false;
-        this.keywords.add(0, "juicy");
-        this.keywords.add(1, "green");
-        this.keywords.add(2, "yummy");
+//        this.keywords.add(0, "juicy");
+//        this.keywords.add(1, "green");
+//        this.keywords.add(2, "yummy");
+//        keywords = new String[];
     }
 
 }

@@ -1,192 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.pandrews.shakebake.AddRecipeActivity"
+    android:id="@+id/nav_activity_add_recipe"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/appBackground"
-    android:id="@+id/nav_activity_add_recipe">
+    android:fitsSystemWindows="true"
+    android:fillViewport="true"
 
-    <ImageView
-        android:id="@+id/ivPicture"
+    tools:context="com.example.pandrews.shakebake.AddRecipeActivity">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_height="150dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@android:color/background_dark"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="16dp"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/tvAddTitle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/bar"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_weight="31"
-        app:srcCompat="@color/colorAccent"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <Button
+            android:id="@+id/bAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ivProfileImage"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@null"
+            android:onClick="onAdd"
+            android:text="Add"
+            android:textColor="@color/light_font" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout"
-        android:layout_below="@+id/ivPicture">
+        <Button
+            android:id="@+id/bAddImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivPicture"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp"
+            android:background="@null"
+            android:onClick="onAddImage"
+            android:text="Add Image"
+            android:textColor="@color/light_font" />
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/ivPicture"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/etRecipeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="17dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:hint="Add Recipe Title"
-                android:inputType="textPersonName"
-                android:textColor="@color/light_font"
-                android:textColorHint="@color/grey_font" />
-
-            <EditText
-                android:id="@+id/etRecipeKeywords"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="17dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:hint="Add Keywords"
-                android:inputType="textPersonName"
-                android:textColor="@color/light_font"
-                android:textColorHint="@color/grey_font" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/etRecipeDescription"
-            android:layout_width="346dp"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="17dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="12dp"
-            android:layout_weight="0.01"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:hint="Add Description"
-            android:textColorHint="@color/grey_font"
-            android:inputType="textPersonName"
-            android:textColor="@color/light_font"
-            android:onClick="onAdd"/>
+            android:layout_alignParentTop="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@android:color/background_dark"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="16dp" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="400dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ivPicture"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etRecipeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="Add Recipe Title"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/light_font"
+                    android:textColorHint="@color/grey_font" />
+
+                <EditText
+                    android:id="@+id/etRecipeKeywords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="Add Keywords"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/light_font"
+                    android:textColorHint="@color/grey_font" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etRecipeDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="12dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:hint="Add Description"
+                android:inputType="textPersonName"
+                android:onClick="onAdd"
+                android:textColor="@color/light_font"
+                android:textColorHint="@color/grey_font" />
 
             <Button
                 android:id="@+id/bAddIngredients"
-                android:layout_width="104dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:onClick="onAddIngredient"
                 android:text="Add Ingredients"
-                android:textColor="@color/light_font"/>
+                android:textColor="@color/light_font" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/flIngredients"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="wrap_content"
                 android:scrollbars="vertical"
-                android:textColor="@color/light_font"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:textColor="@color/light_font" />
 
             <Button
                 android:id="@+id/bRecipeSteps"
-                android:layout_width="106dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/flIngredients"
                 android:background="@null"
                 android:onClick="onAddStep"
                 android:text="Add Recipe Steps"
-                android:textColor="@color/light_font"/>
+                android:textColor="@color/light_font" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvSteps"
-                android:layout_width="280dp"
-                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bRecipeSteps"
                 android:scrollbars="vertical"
-                android:textColor="@color/light_font"/>
+                android:textColor="@color/light_font" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:clickable="true"
+            app:fabSize="mini"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
-        android:id="@+id/tvAddTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add a Recipe"
-        android:textSize="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:textColor="@color/light_font"/>
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/bAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ivProfileImage"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Add"
-        android:background="@null"
-        android:onClick="onAdd"
-        android:textColor="@color/light_font"/>
-
-    <Button
-        android:id="@+id/bAddImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:background="@null"
-        android:text="Add Image"
-        android:onClick="onAddImage"
-        android:textColor="@color/light_font"
-        android:layout_alignTop="@+id/ivPicture"
-        android:layout_centerHorizontal="true" />
-
-</RelativeLayout>
+</ScrollView>

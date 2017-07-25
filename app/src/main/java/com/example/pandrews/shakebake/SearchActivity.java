@@ -14,10 +14,12 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.View;
 
-import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
-import com.example.pandrews.shakebake.fragments.MyForksTimelineFragment;
-import com.example.pandrews.shakebake.fragments.PopularTimelineFragment;
 import com.example.pandrews.shakebake.models.Recipe;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -58,29 +60,30 @@ public class SearchActivity extends AppCompatActivity implements ResultAdapter.R
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
 
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
         } else {
-            for (int i = 0; i <= HomeTimelineFragment.recipes.size() -1; i++) {
-            //take string query and compare to each recipe. for now only titles
 
-            //if (query.toLowerCase() == HomeTimelineFragment.recipes.get(i).title.toLowerCase())
-            if(query.toLowerCase().equalsIgnoreCase(HomeTimelineFragment.recipes.get(i).title)){
-                resultRecipes.add(HomeTimelineFragment.recipes.get(i));
+            //create database reference
+            FirebaseDatabase database =  FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference();
+
+            //create listener. this one adds all recipes currently in database w/fork count above 300
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                        if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {    //later add | newRecipe.keywords.contains(query) into logic to search keywords
+                            resultRecipes.add(newRecipe);
+                        }
+                    }
                 }
-            }
-            for (int j = 0; j <= MyForksTimelineFragment.forks.size()-1; j++) {
-                if(query.toLowerCase().equalsIgnoreCase(MyForksTimelineFragment.forks.get(j).title)) {
-                    resultRecipes.add(MyForksTimelineFragment.forks.get(j));
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //Log.w(TAG, "Failed to read value.", databaseError.toException());
                 }
-            }
-            for (int k = 0; k <= PopularTimelineFragment.popular.size()-1; k++)  {
-                if(query.toLowerCase().equalsIgnoreCase(PopularTimelineFragment.popular.get(k).title)) {
-                    resultRecipes.add(PopularTimelineFragment.popular.get(k));
-                }
-            }
+            });
 
             rvResult = (RecyclerView) findViewById(R.id.rvResult);
             resultAdapter = new ResultAdapter(resultRecipes, this);
@@ -100,23 +103,28 @@ public class SearchActivity extends AppCompatActivity implements ResultAdapter.R
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, build results list by searching all three recipe lists
-                    for (int i = 0; i <= HomeTimelineFragment.recipes.size() -1; i++) {
-                        //take string query and compare to each recipe. for now only titles
-                        if(query.toLowerCase().equalsIgnoreCase(HomeTimelineFragment.recipes.get(i).title)){
-                            resultRecipes.add(HomeTimelineFragment.recipes.get(i));
+                    //create database reference
+                    FirebaseDatabase database =  FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference();
+
+                    //create listener. this one adds all recipes currently in database w/fork count above 300
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                                if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {            //later add | newRecipe.keywords.contains(query) into logic to search keywords
+                                    resultRecipes.add(newRecipe);
+                                }
+                            }
                         }
-                    }
-                    for (int j = 0; j <= MyForksTimelineFragment.forks.size()-1; j++) {
-                        if(query.toLowerCase().equalsIgnoreCase(MyForksTimelineFragment.forks.get(j).title)) {
-                            resultRecipes.add(MyForksTimelineFragment.forks.get(j));
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //Log.w(TAG, "Failed to read value.", databaseError.toException());
                         }
-                    }
-                    for (int k = 0; k <= PopularTimelineFragment.popular.size()-1; k++)  {
-                        if(query.toLowerCase().equalsIgnoreCase(PopularTimelineFragment.popular.get(k).title)) {
-                            resultRecipes.add(PopularTimelineFragment.popular.get(k));
-                        }
-                    }
+                    });
+
 
                     rvResult = (RecyclerView) findViewById(R.id.rvResult);
                     resultAdapter = new ResultAdapter(resultRecipes, this);
