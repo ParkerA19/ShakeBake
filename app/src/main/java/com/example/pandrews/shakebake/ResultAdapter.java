@@ -83,40 +83,6 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         String forkString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
         holder.tvForks.setText(forkString);
 
-
-
-
-
-
-//        //create database reference
-//        FirebaseDatabase database =  FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference();
-//
-//
-//        //create listener. this one adds all recipes currently in database w/fork count above 300
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-//                    appendRecipe(newRecipe);
-//                    //keep track of recipes already added
-//                    userTitles.add(newRecipe.title);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                //Log.w(TAG, "Failed to read value.", databaseError.toException());
-//            }
-//        });
-//
-
-
-
-
-
-
         // now set an OnClickListener
         holder.ibFork.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,10 +170,6 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             holder.tvTag2.setVisibility(View.GONE);
             holder.tvTag3.setVisibility(View.GONE);
         }
-
-//        holder.tvDescription.setText(recipe.description);
-
-
 
 
 //        if (recipe.mediaurl != null) {

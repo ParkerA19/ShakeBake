@@ -2,12 +2,15 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,16 +29,20 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.IngredientsFragment;
 import com.example.pandrews.shakebake.fragments.StepsFragment;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
+import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
 
 public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -60,6 +68,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvTag1) TextView tvTag1;
     @BindView(R.id.tvTag2) TextView tvTag2;
     @BindView(R.id.tvTag3) TextView tvTag3;
+    @BindView(R.id.ibFork) ImageButton ibFork;
 
 
     @Override
@@ -110,11 +119,120 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         tvDescription.setText(recipe.description);
         AddRecipeAdapter iAdapter = new AddRecipeAdapter(recipe.ingredients, this);
    //     rvIngredients.setAdapter(iAdapter);
-        tvForks.setText(recipe.forkCount + " Forks");
+
+        // add the ibFork ImageButton
+        populateForkButton();
+
         tvUsername.setText(recipe.user.username);
         AddRecipeAdapter sAdapter = new AddRecipeAdapter(recipe.steps, this);
    //     rvSteps.setAdapter(sAdapter);
 
+        populateKeywords();
+
+        // set profile image
+        if (recipe.user.profileImageUrl != null) {
+
+            Glide.with(getApplicationContext())
+                    .load(profile.profileImageUrl)
+                    .asBitmap()
+                    .centerCrop()
+                    .into(new BitmapImageViewTarget(ivProfileImage) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
+        }
+
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set the user
+                User user = recipe.user;
+                // set intent
+                Intent intent = new Intent(context, ProfileActivity.class);
+                // populate intent
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+                // start activity
+                startActivity(intent);
+            }
+        });
+
+//        if (recipe.mediaurl != null) {
+//            Glide.with(context)
+//                    .load(recipe.mediaurl)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+//                    .into(vvMedia);
+//        }
+
+        Uri uri=Uri.parse(recipe.mediaurl);
+
+        vvMedia.setVideoURI(uri);
+        vvMedia.requestFocus();
+        vvMedia.start();
+    }
+
+    /**
+     * Method that sets up the ibFork ImageButton
+     * Sets appropriate image based on the boolean recipe.forked
+     * Sets TextView tvForks based on the integer recipe.forkCount
+     * called in populateDetailsHeadline
+     */
+    public void populateForkButton() {
+        // based on the forked boolean choose the vector resource for ibFork
+        int forkResource = (recipe.forked) ? vector_fork_fill : vector_fork_stroke;
+        ibFork.setImageResource(forkResource);
+
+        // set the forkCount text
+        String forkString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+        tvForks.setText(forkString);
+
+
+        // now set an OnClickListener for the Fork
+        ibFork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recipe.forked) {
+                    // change the boolean
+                    recipe.forked = false;
+                    // set new image resource
+                    ibFork.setImageResource(vector_fork_stroke);
+                    // set the new forkCount
+                    recipe.forkCount = recipe.forkCount - 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+                    tvForks.setText(tempString);
+                    //change forked value on database
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
+                } else {
+                    // change the boolean
+                    recipe.forked = true;
+                    // set the new image resource
+                    ibFork.setImageResource(vector_fork_fill);
+                    // set teh new forkCount
+                    recipe.forkCount = recipe.forkCount + 1;
+                    // set the new forkCount text
+                    String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
+                    tvForks.setText(tempString);
+                    //change forked value on database
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
+
+
+                }
+            }
+        });
+    }
+
+    /**
+     * Method to make the keywords shown and set the onClick methods
+     * called in populateDetailsHeadline
+     */
+    public void populateKeywords() {
         // set the appropriate tags and make then not visible when null
         if (recipe.keywords != null) {
             if (recipe.keywords.size() > 0) {
@@ -175,40 +293,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
             tvTag2.setVisibility(View.GONE);
             tvTag3.setVisibility(View.GONE);
         }
-
-        if (recipe.user.profileImageUrl != null) {
-            Glide.with(context)
-                    .load(recipe.user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-                    .into(ivProfileImage);
-        }
-
-        ivProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // set the user
-                User user = recipe.user;
-                // set intent
-                Intent intent = new Intent(context, ProfileActivity.class);
-                // populate intent
-                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
-                // start activity
-                startActivity(intent);
-            }
-        });
-
-//        if (recipe.mediaurl != null) {
-//            Glide.with(context)
-//                    .load(recipe.mediaurl)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-//                    .into(vvMedia);
-//        }
-
-        Uri uri=Uri.parse(recipe.mediaurl);
-
-        vvMedia.setVideoURI(uri);
-        vvMedia.requestFocus();
-        vvMedia.start();
     }
 
     /**
@@ -286,7 +370,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         View header = navigationView.getHeaderView(0);
         TextView name = (TextView) header.findViewById(R.id.tvName);
         TextView username = (TextView) header.findViewById(R.id.tvUsername);
-        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+        final ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
 
         // set text
         name.setText(profile.name);
@@ -295,8 +379,17 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set profile image
         Glide.with(getApplicationContext())
                 .load(profile.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
-                .into(Image);
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(Image) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        Image.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
 
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {

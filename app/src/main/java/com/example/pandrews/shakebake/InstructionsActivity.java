@@ -90,6 +90,8 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
 
         // setup the TabLayout to use the viewPager
         tabLayout.setupWithViewPager(vpPager);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.white));
+
 
         // set the current tab based on which tab was pressed (fragPosition)
         // set the current tab based on which container was pressed (fragPosition)
