@@ -9,7 +9,7 @@
     android:id="@+id/drawer_layout2"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@drawable/background"
+    android:background="@color/off_white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -59,7 +59,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toEndOf="@+id/ivProfileImage"
                     android:layout_toRightOf="@+id/ivProfileImage"
-                    android:textColor="@color/appFont2"
+                    android:textColor="@color/appBackground"
                     android:hint="Username"
                     android:text="TextView" />
 
@@ -87,7 +87,7 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="24sp"
                     android:hint="Title"
-                    android:textColor="@color/appFont2"
+                    android:textColor="@color/appBackground"
                     android:text="TextView" />
 
                 <ImageButton
@@ -114,7 +114,7 @@
                     android:layout_toLeftOf="@+id/ibFork"
                     android:layout_toStartOf="@+id/ibFork"
                     android:text="TextView"
-                    android:textColor="@color/appFont2"
+                    android:textColor="@color/appBackground"
                     android:textSize="20sp" />
 
                 <TextView
@@ -165,7 +165,7 @@
                     android:layout_marginTop="5dp"
                     android:hint="Description"
                     android:text="TextView"
-                    android:textColor="@color/appFont2"
+                    android:textColor="@color/appBackground"
                     android:textSize="20sp" />
 
                 <ImageView

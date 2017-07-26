@@ -158,6 +158,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
                 // start activity
                 startActivity(intent);
+                // set the animation
+                overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
             }
         });
 
