@@ -16,6 +16,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -97,6 +98,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
                         // set the new forkCount text
                         String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
                         holder.tvForks.setText(tempString);
+                        FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
+                        FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
                     }
 
                     else {
@@ -109,6 +112,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
                         // set the new forkCount text
                         String tempString = (recipe.forkCount == 0) ? "": recipe.forkCount.toString();
                         holder.tvForks.setText(tempString);
+                        FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
+                        FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
                     }
                 }
             });

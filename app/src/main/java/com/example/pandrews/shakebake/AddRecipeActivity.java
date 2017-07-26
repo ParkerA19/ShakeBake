@@ -29,6 +29,9 @@ public class AddRecipeActivity extends AppCompatActivity {
     TextView etRecipeDescription;
     TextView etRecipeKeywords;
 
+    //from inflated view
+    TextView tvIngredient;
+
     EditText etIngredient;
     LinearLayout llIngredientList;
     LinearLayout llSteps;
@@ -177,25 +180,19 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
 
-    private View createNewTextView(String text, Integer count) {
-//        final TextView textView = new TextView(this);
-//        //final Button bDelete = new Button(this);
-//        textView.setLayoutParams(layoutParams);
-//        //bDelete.setLayoutParams(lparams);
-//        textView.setTextColor(Color.parseColor("#FFFFFF"));
-//        textView.setText(text);
+    public View createNewTextView(String text, Integer count) {
         View view = getLayoutInflater().inflate(R.layout.item_ingredient, null);
         view.setLayoutParams(layoutParams);
-        TextView tvIngredient = (TextView) view.findViewById(R.id.tvIngredient);
+        tvIngredient = (TextView) view.findViewById(R.id.tvIngredient);
         tvIngredient.setText(text);
         TextView tvNumber = (TextView) view.findViewById(R.id.tvNumber);
         tvNumber.setText(count.toString());
+        ImageButton ibDelete = (ImageButton) view.findViewById(R.id.ibDelete);
 
-        //bDelete.setBackgroundResource(R.drawable.delete_button);
         return view;
     }
 
-    private ArrayList<String> createKeywords(String keywords){
+    public ArrayList<String> createKeywords(String keywords){
         ArrayList<String> keyword_list = new ArrayList<String>();
         for(String word : keywords.trim().split(" ")) {
             keyword_list.add(word);
@@ -203,4 +200,13 @@ public class AddRecipeActivity extends AppCompatActivity {
         return keyword_list;
     }
 
+    public void onDelete(View view) {
+        //remove row by calling getParent on button
+        View viewParent = (View) view.getParent();
+        //((ViewManager)view.getParent()).removeView(view);
+        //((ViewManager)llIngredientList).removeView(viewParent);
+        //((ViewManager)view.getParent().getParent().removeView(view));
+        llIngredientList.removeView((View) viewParent);
+        supplyList.remove(tvIngredient.getText().toString());
+    }
 }

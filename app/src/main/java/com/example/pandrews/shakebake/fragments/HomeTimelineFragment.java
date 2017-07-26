@@ -82,7 +82,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -111,7 +111,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
         DatabaseReference myRef = database.getReference();
 
         //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

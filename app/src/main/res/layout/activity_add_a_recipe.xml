@@ -1,176 +1,554 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_a_recipe"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/appBackground"
-    android:fitsSystemWindows="true"
-    android:fillViewport="true"
-    android:scrollbarStyle="insideOverlay"
-    android:isScrollContainer="true"
-    tools:context="com.example.pandrews.shakebake.AddRecipeActivity">
 
-    <RelativeLayout
+
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent">-->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/buttons"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_alignParentBottom="true">-->
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Custom Button1"/>-->
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Custom Button2"/>-->
+    <!--</LinearLayout>-->
+
+    <!--<ScrollView-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_above="@id/buttons">-->
+        <!--&lt;!&ndash;Scrollable content here&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+            <!--<TextView-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:text="test text"-->
+                <!--android:textSize="40dp"/>-->
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+
+<!--</RelativeLayout>-->
+
+
+
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--002-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--003-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--004-->
+    <!--android:layout_width="match_parent"-->
+    <!--005-->
+    <!--android:layout_height="match_parent" >-->
+    <!--006-->
+
+    <!--007-->
+    <!--&lt;!&ndash; Header aligned to top &ndash;&gt;-->
+    <!--008-->
+<!--<RelativeLayout-->
+    <!--009-->
+    <!--android:id="@+id/header"-->
+    <!--010-->
+    <!--android:layout_width="match_parent"-->
+    <!--011-->
+    <!--android:layout_height="wrap_content"-->
+    <!--012-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--013-->
+    <!--android:background="#FC9"-->
+    <!--014-->
+    <!--android:gravity="center" >-->
+    <!--015-->
+
+    <!--016-->
+<!--<TextView-->
+    <!--017-->
+    <!--android:layout_width="wrap_content"-->
+    <!--018-->
+    <!--android:layout_height="wrap_content"-->
+    <!--019-->
+    <!--android:layout_margin="5dp"-->
+    <!--020-->
+    <!--android:text="Fixed Header"-->
+    <!--021-->
+    <!--android:textColor="#000"-->
+    <!--022-->
+    <!--android:textSize="20sp" />-->
+    <!--023-->
+    <!--</RelativeLayout>-->
+    <!--024-->
+
+    <!--025-->
+    <!--&lt;!&ndash; Footer aligned to bottom &ndash;&gt;-->
+    <!--026-->
+<!--<RelativeLayout-->
+    <!--027-->
+    <!--android:id="@+id/footer"-->
+    <!--028-->
+    <!--android:layout_width="match_parent"-->
+    <!--029-->
+    <!--android:layout_height="wrap_content"-->
+    <!--030-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--031-->
+    <!--android:background="#FC0"-->
+    <!--032-->
+    <!--android:gravity="center" >-->
+    <!--033-->
+
+    <!--034-->
+<!--<TextView-->
+    <!--035-->
+    <!--android:layout_width="wrap_content"-->
+    <!--036-->
+    <!--android:layout_height="wrap_content"-->
+    <!--037-->
+    <!--android:layout_margin="5dp"-->
+    <!--038-->
+    <!--android:text="Fixed Footer"-->
+    <!--039-->
+    <!--android:textColor="#000"-->
+    <!--040-->
+    <!--android:textSize="20sp" />-->
+    <!--041-->
+    <!--</RelativeLayout>-->
+    <!--042-->
+
+    <!--043-->
+    <!--&lt;!&ndash; Scrollable Item below header and above footer &ndash;&gt;-->
+    <!--044-->
+<!--<ScrollView-->
+    <!--045-->
+    <!--android:id="@+id/scrollableContents"-->
+    <!--046-->
+    <!--android:layout_width="fill_parent"-->
+    <!--047-->
+    <!--android:layout_height="fill_parent"-->
+    <!--048-->
+    <!--android:layout_above="@id/footer"-->
+    <!--049-->
+    <!--android:background="#005"-->
+    <!--050-->
+    <!--android:layout_below="@id/header" >-->
+    <!--051-->
+
+    <!--052-->
+<!--<LinearLayout-->
+    <!--053-->
+    <!--android:layout_width="fill_parent"-->
+    <!--054-->
+    <!--android:layout_height="wrap_content"-->
+    <!--055-->
+    <!--android:gravity="center_horizontal"-->
+    <!--056-->
+    <!--android:orientation="vertical" >-->
+    <!--057-->
+
+    <!--058-->
+<!--<TextView-->
+    <!--059-->
+    <!--android:layout_width="wrap_content"-->
+    <!--060-->
+    <!--android:layout_height="wrap_content"-->
+    <!--061-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--062-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--063-->
+    <!--android:text="Item 1"-->
+    <!--064-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--065-->
+    <!--android:textSize="19sp" />-->
+    <!--066-->
+
+    <!--067-->
+<!--<TextView-->
+    <!--068-->
+    <!--android:layout_width="wrap_content"-->
+    <!--069-->
+    <!--android:layout_height="wrap_content"-->
+    <!--070-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--071-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--072-->
+    <!--android:text="Item 2"-->
+    <!--073-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--074-->
+    <!--android:textSize="19sp" />-->
+    <!--075-->
+
+    <!--076-->
+<!--<TextView-->
+    <!--077-->
+    <!--android:layout_width="wrap_content"-->
+    <!--078-->
+    <!--android:layout_height="wrap_content"-->
+    <!--079-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--080-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--081-->
+    <!--android:text="Item 3"-->
+    <!--082-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--083-->
+    <!--android:textSize="19sp" />-->
+    <!--084-->
+
+    <!--085-->
+<!--<TextView-->
+    <!--086-->
+    <!--android:layout_width="wrap_content"-->
+    <!--087-->
+    <!--android:layout_height="wrap_content"-->
+    <!--088-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--089-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--090-->
+    <!--android:text="Item 4"-->
+    <!--091-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--092-->
+    <!--android:textSize="19sp" />-->
+    <!--093-->
+
+    <!--094-->
+<!--<TextView-->
+    <!--095-->
+    <!--android:layout_width="wrap_content"-->
+    <!--096-->
+    <!--android:layout_height="wrap_content"-->
+    <!--097-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--098-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--099-->
+    <!--android:text="Item 5"-->
+    <!--100-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--101-->
+    <!--android:textSize="19sp" />-->
+    <!--102-->
+
+    <!--103-->
+<!--<TextView-->
+    <!--104-->
+    <!--android:layout_width="wrap_content"-->
+    <!--105-->
+    <!--android:layout_height="wrap_content"-->
+    <!--106-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--107-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--108-->
+    <!--android:text="Item 6"-->
+    <!--109-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--110-->
+    <!--android:textSize="19sp" />-->
+    <!--111-->
+
+    <!--112-->
+<!--<TextView-->
+    <!--113-->
+    <!--android:layout_width="wrap_content"-->
+    <!--114-->
+    <!--android:layout_height="wrap_content"-->
+    <!--115-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--116-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--117-->
+    <!--android:text="Item 7"-->
+    <!--118-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--119-->
+    <!--android:textSize="19sp" />-->
+    <!--120-->
+
+    <!--121-->
+<!--<TextView-->
+    <!--122-->
+    <!--android:layout_width="wrap_content"-->
+    <!--123-->
+    <!--android:layout_height="wrap_content"-->
+    <!--124-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--125-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--126-->
+    <!--android:text="Item 8"-->
+    <!--127-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--128-->
+    <!--android:textSize="19sp" />-->
+    <!--129-->
+
+    <!--130-->
+<!--<TextView-->
+    <!--131-->
+    <!--android:layout_width="wrap_content"-->
+    <!--132-->
+    <!--android:layout_height="wrap_content"-->
+    <!--133-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--134-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--135-->
+    <!--android:text="Item 9"-->
+    <!--136-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--137-->
+    <!--android:textSize="19sp" />-->
+    <!--138-->
+
+    <!--139-->
+<!--<TextView-->
+    <!--140-->
+    <!--android:layout_width="wrap_content"-->
+    <!--141-->
+    <!--android:layout_height="wrap_content"-->
+    <!--142-->
+    <!--android:layout_marginBottom="22dp"-->
+    <!--143-->
+    <!--android:layout_marginTop="22dp"-->
+    <!--144-->
+    <!--android:text="Item 10"-->
+    <!--145-->
+    <!--android:textColor="#CCCCCC"-->
+    <!--146-->
+    <!--android:textSize="19sp" />-->
+    <!--147-->
+
+    <!--148-->
+    <!--</LinearLayout>-->
+    <!--149-->
+
+    <!--150-->
+    <!--</ScrollView>-->
+    <!--151-->
+
+    <!--152-->
+    <!--</RelativeLayout>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_add_a_recipe"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="@null"
+tools:context="com.example.pandrews.shakebake.AddRecipeActivity">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:fitsSystemWindows="true"
+        android:fillViewport="true"
+        android:scrollbarStyle="insideOverlay"
+        android:isScrollContainer="true"
+        android:paddingBottom="5dp"
+        android:layout_above="@+id/relativeLayout">
 
-        <Button
-            android:id="@+id/bAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@null"
-            android:onClick="onAdd"
-            android:text="Add"
-            android:textColor="@color/light_font" />
-
-        <Button
-            android:id="@+id/bAddImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/ivPicture"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="34dp"
-            android:background="@null"
-            android:onClick="onAddImage"
-            android:text="Add Image"
-            android:textColor="@color/light_font" />
-
-        <ImageView
-            android:id="@+id/ivPicture"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@android:color/background_dark"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="16dp" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/ivPicture"
-            android:orientation="vertical"
-            android:weightSum="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/etRecipeTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ems="10"
-                    android:hint="Add Recipe Title"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/light_font"
-                    android:textColorHint="@color/grey_font" />
-
-                <EditText
-                    android:id="@+id/etRecipeKeywords"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:ems="10"
-                    android:hint="Add Keywords"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/light_font"
-                    android:textColorHint="@color/grey_font" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/etRecipeDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="17dp"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:hint="Add Description"
-                android:inputType="textPersonName"
-                android:onClick="onAdd"
-                android:textColor="@color/light_font"
-                android:textColorHint="@color/grey_font" />
-
-            <LinearLayout
-                android:id="@+id/llIngredientList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llIngredients"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/bAddIngredients"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onAddAnIngredient"
-                    app:srcCompat="@android:drawable/ic_input_add" />
-
-                <EditText
-                    android:id="@+id/etIngredient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.27"
-                    android:ems="10"
-                    android:hint="Add Ingredient"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llSteps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"></LinearLayout>
+            android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/bRecipeSteps"
+                android:id="@+id/bAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/flIngredients"
+                android:layout_alignTop="@+id/ivPicture"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="34dp"
                 android:background="@null"
-                android:onClick="onAddStep"
-                android:text="Add Recipe Steps"
+                android:onClick="onAddImage"
+                android:text="Add Image"
                 android:textColor="@color/light_font" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/ivPicture"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:color/background_dark"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="16dp" />
 
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/ivPicture"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etRecipeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:ems="10"
+                        android:hint="Add Recipe Title"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/light_font"
+                        android:textColorHint="@color/grey_font" />
+
+                    <EditText
+                        android:id="@+id/etRecipeKeywords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginStart="17dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:ems="10"
+                        android:hint="Add Keywords"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/light_font"
+                        android:textColorHint="@color/grey_font" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etRecipeDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="Add Description"
+                    android:inputType="textPersonName"
+                    android:onClick="onAdd"
+                    android:textColor="@color/light_font"
+                    android:textColorHint="@color/grey_font" />
+
+                <LinearLayout
+                    android:id="@+id/llIngredientList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/bAddIngredients"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onAddAnIngredient"
+                        app:srcCompat="@android:drawable/ic_input_add" />
+
+                    <EditText
+                        android:id="@+id/etIngredient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.27"
+                        android:ems="10"
+                        android:hint="Add Ingredient"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSteps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+                <Button
+                    android:id="@+id/bRecipeSteps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/flIngredients"
+                    android:background="@null"
+                    android:onClick="onAddStep"
+                    android:text="Add Recipe Steps"
+                    android:textColor="@color/light_font" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout">
+
+    <Button
+        android:id="@+id/bAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background"
+        android:onClick="onAdd"
+        android:text="Add"
+        android:textColor="@color/light_font" />
     </RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>

@@ -83,9 +83,8 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-
-        //create listener. this one adds all recipes currently in database w/fork count above 300
-        myRef.addValueEventListener(new ValueEventListener() {
+        //create listener. this one adds all recipes with forked=true
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -93,21 +92,19 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
                     if (newRecipe.forked) {
                         appendRecipe(newRecipe);
                         //keep track of recipes already added
-                        forksTitles.add(newRecipe.title);
+                        forksTitles.add(0, newRecipe.title);
                     }
                     newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
-
-                    appendRecipe(newRecipe);
-                    //keep track of recipes already added
-                    forksTitles.add(newRecipe.title);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Log.w(TAG, "Failed to read value.", databaseError.toException());
+
             }
         });
+
         return v;
     }
 
@@ -119,18 +116,21 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
 
-        //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
-        myRef.addValueEventListener(new ValueEventListener() {
+        //this listener looks for new recipes added by checking list of titles in populateTimeline so it's called on refresh
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
                     newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
-                    //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
                     if (!forksTitles.contains(newRecipe.title) & newRecipe.forked) {
                         appendRecipe(newRecipe);
-                        forksTitles.add(newRecipe.title);
+                        forksTitles.add(0, newRecipe.title);
+                    }
+                    if (forksTitles.contains(newRecipe.title) & !newRecipe.forked) {
+                        removeRecipe(newRecipe);
+                        forksTitles.remove(newRecipe.title);
                     }
                 }
             }
@@ -161,6 +161,15 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
         forks.add(0, recipe);
         // inserted at position 0
         forksAdapter.notifyItemInserted(0);
+        rvForks.scrollToPosition(0);
+    }
+
+    public void removeRecipe(Recipe recipe) {
+        Integer removedRecipe = forksTitles.indexOf(recipe.title);
+        // remove a recipe
+        forks.remove(recipe);
+        // inserted at position 0
+        forksAdapter.notifyItemRemoved(removedRecipe);
         rvForks.scrollToPosition(0);
     }
 
