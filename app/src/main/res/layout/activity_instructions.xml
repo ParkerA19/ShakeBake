@@ -7,8 +7,8 @@ android:layout_height="match_parent"
 xmlns:tools="http://schemas.android.com/tools"
 android:id="@+id/instructions_drawer_layout"
 android:fitsSystemWindows="true"
-tools:openDrawer="start"
-android:orientation="vertical"
+tools:openDrawer="start"        android:background="@drawable/background"
+    android:orientation="vertical"
 tools:context="com.example.pandrews.shakebake.InstructionsActivity">
 
 
@@ -27,14 +27,14 @@ tools:context="com.example.pandrews.shakebake.InstructionsActivity">
         android:id="@+id/instruction_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background2"
         app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/instruction_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:backgroundTint="@color/appBackground" />
+        android:background="@drawable/background"/>
 
 </LinearLayout>
 
@@ -44,6 +44,7 @@ tools:context="com.example.pandrews.shakebake.InstructionsActivity">
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:fitsSystemWindows="true"
+    android:background="@drawable/background"
     app:headerLayout="@layout/nav_header_side"
     app:menu="@menu/activity_side_drawer" />
 
