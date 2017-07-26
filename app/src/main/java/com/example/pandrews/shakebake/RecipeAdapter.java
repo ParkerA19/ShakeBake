@@ -1,5 +1,6 @@
 package com.example.pandrews.shakebake;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,14 +17,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
@@ -367,8 +366,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-                // show the activity
+                // get the activity
+                Activity activity = (Activity) context;
+                // show the new activity
                 context.startActivity(intent);
+                // set the new animation
+                activity.overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
             }
 
         }
