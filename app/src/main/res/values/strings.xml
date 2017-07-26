@@ -30,7 +30,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="snackbar_action">Logout</string>
+    <string name="snackbar_action">LOG OUT</string>
     <string name="snackbar_text">Are You Sure?</string>
     <string name="title_activity_opening">OpeningActivity</string>
 

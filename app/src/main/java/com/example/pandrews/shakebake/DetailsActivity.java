@@ -357,6 +357,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // draw the navigation item
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout2);

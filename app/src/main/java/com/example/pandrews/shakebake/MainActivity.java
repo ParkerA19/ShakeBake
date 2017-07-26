@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitle("");
-        toolbar.setSubtitle("");
 
 //        //set up searchbar
 //        miSearch = (MenuItem) findViewById(R.id.miSearch);

@@ -105,7 +105,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.instructions_drawer_layout);

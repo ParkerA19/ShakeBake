@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
+    @BindView(R.id.tvTitle) TextView tvTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+
+        tvTitle.setText("LOG IN");
         //keyboard only pops up when a user clicks into an EditText
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 

@@ -123,8 +123,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void setNavigationView() {
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("PROFILE");
 
 
         // draw the navigation item
