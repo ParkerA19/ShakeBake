@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // set the navigation view
         setNavigationView();
 
-
-
         // set the adapter for the pager
         adapterViewPager = new RecipesPagerAdapter(getSupportFragmentManager(), this);
         vpPager.setAdapter(adapterViewPager);
@@ -96,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
 
 //        //set up searchbar
 //        miSearch = (MenuItem) findViewById(R.id.miSearch);
@@ -325,7 +326,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setNavHeader() {
         User u1 = new User();
     }
-
 }
 
 
