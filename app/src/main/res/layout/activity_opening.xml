@@ -12,8 +12,8 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginBottom="69dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:background="@color/white"
         android:fontFamily="roboto"
         android:text="Sign Up"
@@ -42,5 +42,45 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteX="198dp"
         tools:layout_editor_absoluteY="438dp" />
+
+    <ImageView
+        android:id="@+id/ivSalt"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:cropToPadding="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/vector_salt_and_pepper"
+        android:layout_above="@+id/btnSignup"
+        android:layout_centerHorizontal="true" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ivChicken"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:layout_alignLeft="@+id/ivChicken"-->
+        <!--android:layout_alignStart="@+id/ivChicken"-->
+        <!--android:layout_alignTop="@+id/ivChicken"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--app:srcCompat="@drawable/vector_chicken" />-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ivBlender"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:layout_alignLeft="@+id/ivChicken"-->
+        <!--android:layout_alignStart="@+id/ivChicken"-->
+        <!--android:layout_alignTop="@+id/ivChicken"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--app:srcCompat="@drawable/vector_blender" />-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ivFrypan"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:layout_alignLeft="@+id/ivChicken"-->
+        <!--android:layout_alignStart="@+id/ivChicken"-->
+        <!--android:layout_alignTop="@+id/ivChicken"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--app:srcCompat="@drawable/vector_frypan" />-->
 
 </RelativeLayout>
