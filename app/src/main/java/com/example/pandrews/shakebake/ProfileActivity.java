@@ -35,7 +35,7 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     // put back into activity_profile.xml
