@@ -35,6 +35,8 @@ public class OpeningActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(i);
+                // set the animation
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
             }
         });
 
@@ -43,6 +45,8 @@ public class OpeningActivity extends AppCompatActivity {
             public void onClick (View v) {
                 Intent i= new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
+                // set the animation
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 

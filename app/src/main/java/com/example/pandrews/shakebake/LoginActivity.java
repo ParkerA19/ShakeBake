@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
+                // set the animation
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
             }
         });
     }
@@ -139,5 +141,13 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        return valid;
 //    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // set the animation
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
 }
 

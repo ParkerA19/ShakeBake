@@ -90,6 +90,11 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
             intent.putExtra("int", fragmentPosition);
             // start activity
             context.startActivity(intent);
+//            // get the Activity
+//            Activity activity = (Activity) context;
+//            // set the animation
+//            activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+
         }
     }
 

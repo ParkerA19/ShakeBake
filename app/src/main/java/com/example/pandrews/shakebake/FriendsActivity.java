@@ -81,7 +81,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -156,6 +156,10 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
             case R.id.nav_help:
                 return true;
             case R.id.nav_settings:
+                // make a new intent
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                // start activity
+                startActivity(intent);
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar
@@ -197,8 +201,14 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
     called in myOnClickListener
      */
     public void logout() {
+        // make a new intent
+        Intent intent = new Intent(getApplicationContext(), OpeningActivity.class);
+        // make sure the BackStack is cleared
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         // start activity with new intent for the login activity
-        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
+        startActivity(intent);
+        // set the new animation
+        overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
     }
 
 

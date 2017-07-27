@@ -275,6 +275,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
                 // start activity with intent
                 context.startActivity(intent);
+                // set the activity
+                Activity activity = (Activity) context;
+                // set the new animation
+                activity.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+
             }
         });
 
@@ -366,12 +371,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-                // get the activity
-                Activity activity = (Activity) context;
                 // show the new activity
                 context.startActivity(intent);
+                // get the activity
+                Activity activity = (Activity) context;
                 // set the new animation
-                activity.overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+                activity.overridePendingTransition(R.anim.shrink_and_rotate_enter, R.anim.shrink_and_rotate_exit);
             }
 
         }

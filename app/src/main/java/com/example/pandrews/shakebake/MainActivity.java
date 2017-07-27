@@ -243,6 +243,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(id) {
             case R.id.nav_home:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                // set the new animation
+                overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
@@ -256,6 +258,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_help:
                 return true;
             case R.id.nav_settings:
+                // make a new intent
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                // start activity
+                startActivity(intent);
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar
@@ -297,8 +303,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     called in myOnClickListener
      */
     public void logout() {
+        // make a new intent
+        Intent intent = new Intent(getApplicationContext(), OpeningActivity.class);
+        // make sure the BackStack is cleared
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         // start activity with new intent for the login activity
-        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
+        startActivity(intent);
+        // set the new animation
+        overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+        // clear the backstack
+
     }
 
 
@@ -323,6 +337,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setNavHeader() {
         User u1 = new User();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // set the new animation
+        overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
     }
 }
 
