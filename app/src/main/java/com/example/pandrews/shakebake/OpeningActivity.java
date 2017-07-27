@@ -63,9 +63,9 @@ public class OpeningActivity extends AppCompatActivity {
         //imageIndex <-- index of the first image to show in images[]
         //forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop.
 
-        int fadeInDuration = 800; // Configure time values here
-        int timeBetween = 250;
-        int fadeOutDuration = 800;
+        int fadeInDuration = 500; // Configure time values here
+        int timeBetween = 100;
+        int fadeOutDuration = 500;
 
         imageView.setVisibility(View.INVISIBLE);    //Visible or invisible by default - this will apply when the animation ends
         imageView.setImageResource(images[imageIndex]);
