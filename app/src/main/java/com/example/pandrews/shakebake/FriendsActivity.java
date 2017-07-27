@@ -1,10 +1,13 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.FriendsPagerAdapter;
 import com.example.pandrews.shakebake.models.User;
 
@@ -25,7 +29,6 @@ import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class FriendsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,6 +42,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
 
     @BindView(R.id.viewpager) ViewPager vpPager;
     @BindView(R.id.sliding_tabs) TabLayout tabLayout;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +103,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         View header = navigationView.getHeaderView(0);
         TextView name = (TextView) header.findViewById(R.id.tvName);
         TextView username = (TextView) header.findViewById(R.id.tvUsername);
-        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+        final ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
 
         // set text
         name.setText(profile.name);
@@ -108,9 +112,17 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // set profile image
         Glide.with(getApplicationContext())
                 .load(profile.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
-                .into(Image);
-
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(Image) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        Image.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +133,10 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
                 // start activity
                 startActivity(intent);
-                // set the new animation
-                overridePendingTransition(R.anim.scale_from_corner, R.anim.scale_towards_corner);
+                // set the animation
+                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
     }
@@ -149,11 +163,13 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 // set the new animation
                 overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_search:
                 return true;
@@ -176,8 +192,8 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
 
                 return true;
             default:
-                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
         }
     }
