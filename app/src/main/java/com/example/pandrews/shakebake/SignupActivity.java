@@ -26,12 +26,15 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.btn_signup) Button _signupButton;
     @BindView(R.id.link_login) TextView _loginLink;
     @BindView(R.id.input_username) EditText _usernameText;
+//    @BindView(R.id.tvTitle) TextView tvTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+
+//        tvTitle.setText("SIGN UP");
 
         //keyboard only pops up when user clicks into an EditText
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -48,6 +51,8 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i= new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
+                // set the animation
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
@@ -171,5 +176,12 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // set the animation
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
 }

@@ -35,7 +35,7 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     // put back into activity_profile.xml
@@ -123,8 +123,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void setNavigationView() {
         // set the toolbar at the top
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("PROFILE");
 
 
         // draw the navigation item
@@ -172,6 +174,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
                 // start activity
                 startActivity(intent);
+                // set the new animation
+                overridePendingTransition(R.anim.scale_from_corner, R.anim.scale_towards_corner);
             }
         });
     }
@@ -213,6 +217,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         switch(id) {
             case R.id.nav_home:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                // set the new animation
+                overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
@@ -226,6 +232,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             case R.id.nav_help:
                 return true;
             case R.id.nav_settings:
+                // make a new intent
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                // start activity
+                startActivity(intent);
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar
@@ -268,8 +278,14 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     called in myOnClickListener
      */
     public void logout() {
+        // make a new intent
+        Intent intent = new Intent(getApplicationContext(), OpeningActivity.class);
+        // make sure the BackStack is cleared
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         // start activity with new intent for the login activity
-        startActivity(new Intent(getApplicationContext(), OpeningActivity.class));
+        startActivity(intent);
+        // set the new animation
+        overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
     }
 
     /**
@@ -300,5 +316,15 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         intent.putExtra("int", position);
         // start activity
         startActivity(intent);
+    }
+
+    /**
+     * Method to say what to do when back is pressed
+     * Override in this class if just to set the animations for the transitions between activities
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
     }
 }

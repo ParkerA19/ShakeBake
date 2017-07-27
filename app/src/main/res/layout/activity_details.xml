@@ -9,7 +9,7 @@
     android:id="@+id/drawer_layout2"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@color/appBackground"
+    android:background="@color/off_white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,7 +29,6 @@
             android:padding="0dp"
             android:scrollbars="none">
 
-
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -38,152 +37,154 @@
                 android:layout_height="match_parent"
                 tools:context="com.example.pandrews.shakebake.DetailsActivity">
 
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cvRecipe"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ivProfileImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/Main_profile_image_margin"
+                    android:layout_marginTop="@dimen/Main_profile_image_margin"
+                    android:layout_marginBottom="@dimen/Main_profile_image_margin"
+                    android:layout_marginRight="@dimen/Main_profile_image_margin"
+                    app:srcCompat="@drawable/ic_menu_camera" />
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/Main_horizontal_margin"
+                    android:layout_alignTop="@+id/ivProfileImage"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/ivProfileImage"
+                    android:layout_toRightOf="@+id/ivProfileImage"
+                    android:hint="Username"
+                    android:text="TextView"
+                    android:textColor="@color/appBackground"
+                    android:textSize="18sp" />
+
+                <VideoView
+                    android:id="@+id/vvMedia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/ivProfileImage"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/ic_menu_gallery" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/vvMedia"
+                    android:layout_marginLeft="@dimen/Main_horizontal_margin_small"
+                    android:layout_marginTop="@dimen/Main_vertical_margin"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="24sp"
+                    android:hint="Title"
+                    android:textColor="@color/appBackground"
+                    android:text="TextView" />
+
+                <ImageButton
+                    android:id="@+id/ibFork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/vvMedia"
                     android:layout_marginRight="@dimen/Main_horizontal_margin"
-                    android:layout_centerHorizontal="true"
-                    card_view:cardCornerRadius="@dimen/Main_card_corner_radius"
-                    card_view:cardElevation="@dimen/Main_card_elevation"
-                    android:layout_weight="1">
+                    android:layout_marginTop="@dimen/Main_vertical_margin"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/vector_real_fork" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tvForks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvTitle"
+                    android:layout_marginTop="7dp"
+                    android:layout_toLeftOf="@+id/ibFork"
+                    android:layout_toStartOf="@+id/ibFork"
+                    android:text="TextView"
+                    android:textColor="@color/appBackground"
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/tvTag1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tvTitle"
+                    android:layout_alignStart="@+id/tvTitle"
+                    android:layout_below="@+id/tvTitle"
+                    android:layout_marginRight="10dp"
+                    android:text="TextView"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
 
-                        <ImageView
-                            android:id="@+id/ivProfileImage"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            app:srcCompat="@drawable/ic_menu_camera" />
+                <TextView
+                    android:id="@+id/tvTag2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvTag1"
+                    android:layout_marginRight="10dp"
+                    android:layout_toEndOf="@+id/tvTag1"
+                    android:layout_toRightOf="@+id/tvTag1"
+                    android:text="TextView"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
 
-                        <TextView
-                            android:id="@+id/tvUsername"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/ivProfileImage"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toEndOf="@+id/ivProfileImage"
-                            android:layout_toRightOf="@+id/ivProfileImage"
-                            android:textColor="@color/appFont2"
-                            android:hint="Username"
-                            android:text="TextView" />
+                <TextView
+                    android:id="@+id/tvTag3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvTag2"
+                    android:layout_toEndOf="@+id/tvTag2"
+                    android:layout_toRightOf="@+id/tvTag2"
+                    android:text="TextView"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp" />
 
-                        <VideoView
-                            android:id="@+id/vvMedia"
-                            android:layout_width="wrap_content"
-                            android:layout_height="250dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/ivProfileImage"
-                            android:layout_marginTop="5dp"
-                            app:srcCompat="@drawable/ic_menu_gallery" />
-
-                        <TextView
-                            android:id="@+id/tvTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/vvMedia"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:hint="Title"
-                            android:textColor="@color/appFont2"
-                            android:text="TextView" />
-
-                        <TextView
-                            android:id="@+id/tvForks"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@+id/vvMedia"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginTop="5dp"
-                            android:textColor="@color/appFont2"
-                            android:hint="Forks"
-                            android:text="TextView" />
-
-                        <TextView
-                            android:id="@+id/tvTag1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/tvTitle"
-                            android:layout_alignStart="@+id/tvTitle"
-                            android:layout_below="@+id/tvTitle"
-                            android:layout_marginRight="10dp"
-                            android:text="TextView"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/tvTag2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/tvTag1"
-                            android:layout_marginRight="10dp"
-                            android:layout_toEndOf="@+id/tvTag1"
-                            android:layout_toRightOf="@+id/tvTag1"
-                            android:text="TextView"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/tvTag3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/tvTag2"
-                            android:layout_toEndOf="@+id/tvTag2"
-                            android:layout_toRightOf="@+id/tvTag2"
-                            android:text="TextView"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/tvDescription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignEnd="@+id/tvForks"
-                            android:layout_alignLeft="@+id/tvTitle"
-                            android:layout_alignRight="@+id/tvForks"
-                            android:layout_alignStart="@+id/tvTitle"
-                            android:layout_below="@+id/tvTag1"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:hint="Description"
-                            android:textColor="@color/appFont2"
-                            android:text="TextView" />
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/tvForks"
+                    android:layout_alignLeft="@+id/tvTitle"
+                    android:layout_alignRight="@+id/tvForks"
+                    android:layout_alignStart="@+id/tvTitle"
+                    android:layout_below="@+id/tvTag1"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="Description"
+                    android:text="TextView"
+                    android:textColor="@color/appBackground"
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/ivLine1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@id/cvRecipe"
+                    android:layout_below="@id/tvDescription"
                     android:src="@android:color/darker_gray"/>
 
                 <FrameLayout
                     android:id="@+id/flIngredients"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_alignLeft="@id/cvRecipe"
-                    android:layout_alignStart="@id/cvRecipe"
+                    android:layout_alignLeft="@id/tvDescription"
+                    android:layout_alignStart="@id/tvDescription"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"
@@ -219,7 +220,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@drawable/background"
         app:headerLayout="@layout/nav_header_side"
         app:menu="@menu/activity_side_drawer" />
-    
+
 </android.support.v4.widget.DrawerLayout>

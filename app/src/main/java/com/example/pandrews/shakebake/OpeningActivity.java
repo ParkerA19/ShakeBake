@@ -35,6 +35,8 @@ public class OpeningActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i=new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(i);
+                // set the animation
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
             }
         });
 
@@ -43,13 +45,15 @@ public class OpeningActivity extends AppCompatActivity {
             public void onClick (View v) {
                 Intent i= new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
+                // set the animation
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
-        ImageView demoImage = (ImageView) findViewById(R.id.ivSalt);
-        int imagesToShow[] = {R.drawable.vector_salt_and_pepper, R.drawable.vector_blender,R.drawable.vector_frypan, R.drawable.vector_cup, R.drawable.vector_mixer, R.drawable.vector_pot };
+        ImageView demoImage = (ImageView) findViewById(R.id.ivToaster);
+        int imagesToShow[] = {R.drawable.vector_toaster, R.drawable.vector_blender,R.drawable.vector_frypan, R.drawable.vector_cup, R.drawable.vector_mixer, R.drawable.vector_pot };
 
-        animate(demoImage, imagesToShow, 0,false);
+        animate(demoImage, imagesToShow, 0, true);
     }
 
     private void animate(final ImageView imageView, final int images[], final int imageIndex, final boolean forever) {
@@ -57,11 +61,11 @@ public class OpeningActivity extends AppCompatActivity {
         //imageView <-- The View which displays the images
         //images[] <-- Holds R references to the images to display
         //imageIndex <-- index of the first image to show in images[]
-        //forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop. You have been warned.
+        //forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop.
 
-        int fadeInDuration = 1000; // Configure time values here
-        int timeBetween = 500;
-        int fadeOutDuration = 1000;
+        int fadeInDuration = 500; // Configure time values here
+        int timeBetween = 100;
+        int fadeOutDuration = 500;
 
         imageView.setVisibility(View.INVISIBLE);    //Visible or invisible by default - this will apply when the animation ends
         imageView.setImageResource(images[imageIndex]);

@@ -1,5 +1,6 @@
 package com.example.pandrews.shakebake;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,14 +17,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
@@ -33,8 +32,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
+import static com.example.pandrews.shakebake.R.drawable.vector_forked;
+import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -83,7 +82,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvUsername.setText(recipe.user.username);
 
         // based on the forked boolean choose the vector resource for ibFork
-        int forkResource = (recipe.forked) ? vector_fork_fill: vector_fork_stroke;
+        int forkResource = (recipe.forked) ? vector_forked: vector_real_fork;
         holder.ibFork.setImageResource(forkResource);
 
         // set the forkCount text
@@ -99,7 +98,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     // change the boolean
                     recipe.forked = false;
                     // set new image resource
-                    holder.ibFork.setImageResource(vector_fork_stroke);
+                    holder.ibFork.setImageResource(vector_real_fork);
                     // set the new forkCount
                     recipe.forkCount = recipe.forkCount - 1;
                     // set the new forkCount text
@@ -114,7 +113,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     // change the boolean
                     recipe.forked = true;
                     // set the new image resource
-                    holder.ibFork.setImageResource(vector_fork_fill);
+                    holder.ibFork.setImageResource(vector_forked);
                     // set teh new forkCount
                     recipe.forkCount = recipe.forkCount + 1;
                     // set the new forkCount text
@@ -233,9 +232,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                             holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
                         }
                     });
-
-
         }
+
         if (recipe.mediaurl != null) {
             holder.vvMedia.setVisibility(View.VISIBLE);
 //            Uri mediaUri = Uri.parse(recipe.mediaurl);
@@ -276,6 +274,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
                 // start activity with intent
                 context.startActivity(intent);
+                // set the activity
+                Activity activity = (Activity) context;
+                // set the new animation
+                activity.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+
             }
         });
 
@@ -367,8 +370,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 Intent intent = new Intent(context, DetailsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-                // show the activity
+                // show the new activity
                 context.startActivity(intent);
+                // get the activity
+                Activity activity = (Activity) context;
+                // set the new animation
+                activity.overridePendingTransition(R.anim.shrink_and_rotate_enter, R.anim.shrink_and_rotate_exit);
             }
 
         }

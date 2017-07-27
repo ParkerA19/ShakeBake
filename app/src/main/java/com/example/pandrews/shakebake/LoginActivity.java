@@ -19,14 +19,19 @@ public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
-    @BindView(R.id.btn_login) Button _loginButton;
-    @BindView(R.id.link_signup) TextView _signupLink;
+    @BindView(R.id.btn_login)
+    Button _loginButton;
+    @BindView(R.id.link_signup)
+    TextView _signupLink;
+//    @BindView(R.id.tvTitle) TextView tvTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+//        tvTitle.setText("LOG IN");
 
         //keyboard only pops up when a user clicks into an EditText
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -35,7 +40,15 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                // make a new intent
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                // make sure the BackStack is cleared
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                // start activity with new intent for the login activity
+                startActivity(intent);
+                // set the new animation
+                overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+                // make Toast
                 Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
                 //login();
             }
@@ -48,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
+                // set the animation
+                overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
             }
         });
     }
@@ -136,5 +151,12 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        return valid;
 //    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // set the animation
+        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    }
 }
 

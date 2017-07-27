@@ -90,6 +90,8 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
 
         // setup the TabLayout to use the viewPager
         tabLayout.setupWithViewPager(vpPager);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.white));
+
 
         // set the current tab based on which tab was pressed (fragPosition)
         // set the current tab based on which container was pressed (fragPosition)
@@ -103,7 +105,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         // set the toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.instructions_drawer_layout);

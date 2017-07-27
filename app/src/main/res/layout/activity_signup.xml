@@ -21,39 +21,41 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="150dp"
+            android:layout_below="@+id/tvTitle"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_menu_camera"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/logo" />
 
         <!--  Name Label -->
         <ImageView
             android:id="@+id/signupBackground"
             android:layout_width="290dp"
-            android:layout_height="270dp"
-            android:layout_weight="1"
+            android:layout_height="250dp"
             android:layout_below="@id/logo"
             android:layout_centerInParent="true"
-            app:srcCompat="@android:color/white" />
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:alpha="0.05"
+            app:srcCompat="@android:drawable/screen_background_dark_transparent" />
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilName"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignTop="@id/signupBackground"
             android:layout_alignEnd="@id/signupBackground"
             android:layout_alignStart="@id/signupBackground"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
             android:layout_alignRight="@id/signupBackground"
             android:layout_alignLeft="@id/signupBackground">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
+                android:background="@android:color/white"
                 android:layout_alignRight="@id/signupBackground"
                 android:layout_alignLeft="@id/signupBackground"/>
 
@@ -71,21 +73,20 @@
 
         <!--  Username Label -->
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilUsername"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignStart="@id/signupBackground"
-            android:layout_below="@id/tilName"
+            android:layout_below="@id/name"
             android:layout_alignEnd="@id/signupBackground"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_alignLeft="@id/signupBackground"
             android:layout_alignRight="@id/signupBackground">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/white"/>
 
             <EditText
                 android:id="@+id/input_username"
@@ -104,33 +105,32 @@
             android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignStart="@id/signupBackground"
-            android:layout_marginTop="8dp"
             android:layout_alignEnd="@id/signupBackground"
-            android:layout_below="@id/tilUsername"
+            android:layout_below="@id/password"
             android:layout_alignLeft="@id/signupBackground"
-            android:layout_alignRight="@id/signupBackground"
-            android:layout_marginBottom="8dp" >
+            android:layout_alignRight="@id/signupBackground" >
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginBottom="8dp"
                 android:layout_alignLeft="@id/signupBackground"
                 android:layout_alignRight="@id/signupBackground"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/white"/>
 
 
-
-            <EditText android:id="@+id/input_email"
+            <EditText
+                android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:backgroundTint="@android:color/transparent"
-                android:inputType="textEmailAddress"
                 android:fontFamily="roboto"
+                android:hint="Email"
                 android:imeOptions="actionNext"
-                android:hint="Email" />
+                android:inputType="textEmailAddress" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -139,13 +139,20 @@
             android:id="@+id/tilPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_alignStart="@id/signupBackground"
             android:layout_alignEnd="@id/signupBackground"
-            android:layout_marginTop="8dp"
             android:layout_below="@id/tilEmail"
-            android:layout_marginBottom="8dp"
             android:layout_alignLeft="@id/signupBackground"
             android:layout_alignRight="@id/signupBackground">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignLeft="@id/signupBackground"
+                android:layout_alignRight="@id/signupBackground"
+                android:background="@android:color/white"/>
 
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
@@ -163,8 +170,8 @@
             android:layout_height="60dp"
             android:layout_below="@id/signupBackground"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:fontFamily="roboto"
             android:padding="12dp"
@@ -179,10 +186,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_signup"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="roboto"
             android:gravity="center"
-            android:text="ALREADY HAVE AN ACCOUNT? LOG IN!"
+            android:text="@string/login_message"
             android:textColor="@color/white"
             android:textSize="15dip" />
 
