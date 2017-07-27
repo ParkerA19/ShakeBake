@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -35,10 +37,12 @@ public class HomeTimelineFragment extends RecipesListFragment {
     public SwipeRefreshLayout swipeContainer;
     public ArrayList<String> recipeTitles;
 
+    private StorageReference storageReference;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        storageReference = FirebaseStorage.getInstance().getReference("videos");
     }
 
     @Nullable
@@ -81,13 +85,19 @@ public class HomeTimelineFragment extends RecipesListFragment {
         DatabaseReference myRef = database.getReference();
 
 
-        //create listener. this one adds all recipes currently in database w/fork count above 300
+        //create listener. this one adds all recipes currently in database
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+                    //LinkedHashMap<String, String> stepsVid = postSnapshot.getValue(Recipe.class).stepVideo;
+                    if (newRecipe.stepVideo == null) {
+                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+
+                        //newRecipe.mediaurl = "https://firebasestorage.googleapis.com/v0/b/shake-n-bake-5d01f.appspot.com/o/videos%2F251?alt=media&token=7918ec93-b700-456a-9e15-e12eefe7d4a1";
+                    }
+                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
                     appendRecipe(newRecipe);
                     //keep track of recipes already added
                     recipeTitles.add(newRecipe.title);
@@ -116,7 +126,14 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+                    //if stepVideo == null then set to cat video. else get values from stepVideo and loop through
+                    if (newRecipe.stepVideo == null) {
+                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+                    } else {
+                        newRecipe.mediaurl = "https://firebasestorage.googleapis.com/v0/b/shake-n-bake-5d01f.appspot.com/o/videos%2F251?alt=media&token=7918ec93-b700-456a-9e15-e12eefe7d4a1";
+                    }
+
+                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
                     //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
                     if (!recipeTitles.contains(newRecipe.title)) {

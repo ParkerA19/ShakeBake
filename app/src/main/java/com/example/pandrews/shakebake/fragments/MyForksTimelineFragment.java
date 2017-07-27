@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.example.pandrews.shakebake.MyForksAdapter;
 import com.example.pandrews.shakebake.R;
 import com.example.pandrews.shakebake.models.Recipe;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 
 public class MyForksTimelineFragment extends RecipesListFragment implements MyForksAdapter.ForkAdapterListener {
 
-    private FirebaseAnalytics mFirebaseAnalytics;
+    //private FirebaseAnalytics mFirebaseAnalytics;
 
     // Instance variables
     static MyForksAdapter forksAdapter;
@@ -40,7 +39,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
     }
 

@@ -68,7 +68,7 @@ public class SearchActivity extends AppCompatActivity implements ResultAdapter.R
             DatabaseReference myRef = database.getReference();
 
             //create listener. this one adds all recipes currently in database w/fork count above 300
-            myRef.addValueEventListener(new ValueEventListener() {
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -108,7 +108,7 @@ public class SearchActivity extends AppCompatActivity implements ResultAdapter.R
                     DatabaseReference myRef = database.getReference();
 
                     //create listener. this one adds all recipes currently in database w/fork count above 300
-                    myRef.addValueEventListener(new ValueEventListener() {
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvStep"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Step/Ingredient"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/light_font"/>
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignLeft="@+id/tvStep"
-        android:layout_alignStart="@+id/tvStep"
-        android:layout_below="@+id/tvStep"
-        android:layout_alignEnd="@+id/tvStep"
-        android:layout_alignRight="@+id/tvStep"
-        app:srcCompat="@android:color/darker_gray"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                app:srcCompat="@drawable/noun_202830_cc" />
+
+            <TextView
+                android:id="@+id/tvNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="##" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/ibDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="onDeleteStep"
+            app:srcCompat="@android:drawable/ic_delete" />
+
+    </LinearLayout>
+
 </RelativeLayout>

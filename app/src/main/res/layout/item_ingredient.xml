@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -18,28 +20,24 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/noun_202830_cc" />
-
-            <TextView
-                android:id="@+id/tvNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="##"
-                android:textSize="16sp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                app:srcCompat="@drawable/vector_knife" />
 
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tvIngredient"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="34dp"
-            android:layout_marginStart="34dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:text="TextView"
             android:textSize="16sp" />

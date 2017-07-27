@@ -45,6 +45,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     Context context;
     User profile;
     ScrollView view;
+    Uri uri;
 
 
 
@@ -204,7 +205,12 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 //                    .into(vvMedia);
 //        }
 
-        Uri uri=Uri.parse(recipe.mediaurl);
+
+        if (recipe.mediaurl != null) {
+            uri = Uri.parse(recipe.mediaurl);
+        } else {
+            uri = Uri.parse("android.resource://com.example.pandrews.shakebake/" + R.raw.cat);
+        }
 
         vvMedia.setVideoURI(uri);
         vvMedia.requestFocus();

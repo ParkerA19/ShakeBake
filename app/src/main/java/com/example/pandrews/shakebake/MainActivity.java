@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
@@ -34,6 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -55,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //for shake listener
     private SensorManager mSensorManager;
     private ShakeEventListener mSensorListener;
+    ArrayList<MediaStore.Video> videoArrayList;
+    VideoView vvVideo;
+
+    //private StorageReference storageReference;
+
 
     @BindView(R.id.viewpager) ViewPager vpPager;
     @BindView(R.id.sliding_tabs) TabLayout tabLayout;
@@ -84,8 +92,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.white));
 
+        //init storage
+        //storageReference = FirebaseStorage.getInstance().getReference("videos");
+
         //initialize analytics
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         // set up the shake feature
         setShake();
@@ -319,6 +330,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FirebaseDatabase database =  FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(recipe.title);
             myRef.setValue(recipe);
+            //Toast.makeText(getApplicationContext(), recipe.title, Toast.LENGTH_LONG).show();
+//            for (String downloadUrl : recipe.stepVideo.values()) {
+//
+//                FirebaseStorage storage = FirebaseStorage.getInstance();
+//                StorageReference storageRef = storage.getReferenceFromUrl(downloadUrl);
+//                //possibly instead of 3GP use mp4
+//                try {
+//                    final File localFile = File.createTempFile("videos", "3GP");
+//                    storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Bitmap bitmap = BitmapFactory
+//                            MediaStore.Video video = VideoBitmapDecoder;
+//                            vvVideo.setVideoURI();
+//                        }
+//                    })
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                //Uri download = Uri.parse(downloadUrl);
+//
+//
+//
+//
+////                StorageReference httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(downloadUrl);
+////                httpsReference.getStream()
+////                httpsReference.getStream().addOnSuccessListener(new OnSuccessListener<StreamDownloadTask.TaskSnapshot>() {
+////                    @Override
+////                    public void onSuccess(StreamDownloadTask.TaskSnapshot taskSnapshot) {
+////
+////                    }
+////                }).addOnFailureListener(new OnFailureListener() {
+////                    @Override
+////                    public void onFailure(@NonNull Exception e) {
+////                        Toast.makeText(getApplicationContext(), "file didn't download", Toast.LENGTH_LONG).show();
+////                    }
+////                });
+//            }
         }
     }
 
