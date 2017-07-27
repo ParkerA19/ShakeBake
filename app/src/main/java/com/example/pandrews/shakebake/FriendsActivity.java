@@ -62,6 +62,8 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // setup the TabLayout to use the viewPager -- bound with butterknife
         //  TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(vpPager);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.white));
+
         // get the position from the intent to see which tab to go to
         fragmentPosition = getIntent().getIntExtra("int", 0);
 
@@ -119,6 +121,8 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
                 // start activity
                 startActivity(intent);
+                // set the new animation
+                overridePendingTransition(R.anim.scale_from_corner, R.anim.scale_towards_corner);
             }
         });
     }
@@ -143,6 +147,8 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         switch(id) {
             case R.id.nav_home:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                // set the new animation
+                overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
