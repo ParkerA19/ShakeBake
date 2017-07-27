@@ -41,8 +41,8 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
+import static com.example.pandrews.shakebake.R.drawable.vector_forked;
+import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
 
 public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -185,7 +185,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
      */
     public void populateForkButton() {
         // based on the forked boolean choose the vector resource for ibFork
-        int forkResource = (recipe.forked) ? vector_fork_fill : vector_fork_stroke;
+        int forkResource = (recipe.forked) ? vector_forked : vector_real_fork;
         ibFork.setImageResource(forkResource);
 
         // set the forkCount text
@@ -201,7 +201,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                     // change the boolean
                     recipe.forked = false;
                     // set new image resource
-                    ibFork.setImageResource(vector_fork_stroke);
+                    ibFork.setImageResource(vector_real_fork);
                     // set the new forkCount
                     recipe.forkCount = recipe.forkCount - 1;
                     // set the new forkCount text
@@ -214,7 +214,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                     // change the boolean
                     recipe.forked = true;
                     // set the new image resource
-                    ibFork.setImageResource(vector_fork_fill);
+                    ibFork.setImageResource(vector_forked);
                     // set teh new forkCount
                     recipe.forkCount = recipe.forkCount + 1;
                     // set the new forkCount text
