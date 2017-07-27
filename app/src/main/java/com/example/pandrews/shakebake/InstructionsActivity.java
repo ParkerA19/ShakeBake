@@ -3,12 +3,15 @@ package com.example.pandrews.shakebake;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.InstructionsPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
@@ -36,7 +40,6 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class InstructionsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,6 +60,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
     // set up for ButterKnife
     @BindView(R.id.instruction_viewpager) ViewPager vpPager;
     @BindView(R.id.instruction_tabs) TabLayout tabLayout;
+    @BindView(R.id.instructions_drawer_layout) DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +127,7 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         View header = navigationView.getHeaderView(0);
         TextView name = (TextView) header.findViewById(R.id.tvName);
         TextView username = (TextView) header.findViewById(R.id.tvUsername);
-        ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
+        final ImageView Image = (ImageView) header.findViewById(R.id.ivProfileImage);
 
         // set text
         name.setText(profile.name);
@@ -132,8 +136,17 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         // set profile image
         Glide.with(getApplicationContext())
                 .load(profile.profileImageUrl)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 25, 0))
-                .into(Image);
+                .asBitmap()
+                .centerCrop()
+                .into(new BitmapImageViewTarget(Image) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        Image.setImageDrawable(circularBitmapDrawable);
+                    }
+                });
 
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +158,10 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
                 // start activity
                 startActivity(intent);
+                // set the animation
+                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
     }
@@ -157,11 +174,13 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         switch(id) {
             case R.id.nav_home:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.instructions_drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_search:
                 return true;
@@ -180,8 +199,8 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
 
                 return true;
             default:
-                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
         }
     }
