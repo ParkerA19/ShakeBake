@@ -9,7 +9,7 @@
     android:id="@+id/drawer_layout2"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@color/off_white"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
