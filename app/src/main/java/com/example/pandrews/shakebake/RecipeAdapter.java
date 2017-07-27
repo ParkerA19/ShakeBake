@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
+import static com.example.pandrews.shakebake.R.drawable.vector_forked;
+import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -82,7 +82,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvUsername.setText(recipe.user.username);
 
         // based on the forked boolean choose the vector resource for ibFork
-        int forkResource = (recipe.forked) ? vector_fork_fill: vector_fork_stroke;
+        int forkResource = (recipe.forked) ? vector_forked: vector_real_fork;
         holder.ibFork.setImageResource(forkResource);
 
         // set the forkCount text
@@ -98,7 +98,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     // change the boolean
                     recipe.forked = false;
                     // set new image resource
-                    holder.ibFork.setImageResource(vector_fork_stroke);
+                    holder.ibFork.setImageResource(vector_real_fork);
                     // set the new forkCount
                     recipe.forkCount = recipe.forkCount - 1;
                     // set the new forkCount text
@@ -113,7 +113,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     // change the boolean
                     recipe.forked = true;
                     // set the new image resource
-                    holder.ibFork.setImageResource(vector_fork_fill);
+                    holder.ibFork.setImageResource(vector_forked);
                     // set teh new forkCount
                     recipe.forkCount = recipe.forkCount + 1;
                     // set the new forkCount text
@@ -232,9 +232,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                             holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
                         }
                     });
-
-
         }
+
         if (recipe.mediaurl != null) {
             holder.vvMedia.setVisibility(View.VISIBLE);
 //            Uri mediaUri = Uri.parse(recipe.mediaurl);

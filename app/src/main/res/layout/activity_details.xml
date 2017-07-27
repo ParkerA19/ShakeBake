@@ -29,7 +29,6 @@
             android:padding="0dp"
             android:scrollbars="none">
 
-
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,11 +56,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/ivProfileImage"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toEndOf="@+id/ivProfileImage"
                     android:layout_toRightOf="@+id/ivProfileImage"
-                    android:textColor="@color/appBackground"
                     android:hint="Username"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textColor="@color/appBackground"
+                    android:textSize="18sp" />
 
                 <VideoView
                     android:id="@+id/vvMedia"
@@ -92,25 +93,28 @@
 
                 <ImageButton
                     android:id="@+id/ibFork"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/vvMedia"
-                    android:layout_marginLeft="@dimen/Main_horizontal_margin_small"
                     android:layout_marginRight="@dimen/Main_horizontal_margin"
                     android:layout_marginTop="@dimen/Main_vertical_margin"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="15dp"
                     android:paddingTop="5dp"
-                    android:scaleType="fitStart"
-                    app:srcCompat="@drawable/vector_fork_stroke_fill" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/vector_real_fork" />
 
                 <TextView
                     android:id="@+id/tvForks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/tvTitle"
+                    android:layout_marginTop="7dp"
                     android:layout_toLeftOf="@+id/ibFork"
                     android:layout_toStartOf="@+id/ibFork"
                     android:text="TextView"

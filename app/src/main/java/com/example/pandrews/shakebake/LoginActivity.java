@@ -40,7 +40,15 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                // make a new intent
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                // make sure the BackStack is cleared
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                // start activity with new intent for the login activity
+                startActivity(intent);
+                // set the new animation
+                overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+                // make Toast
                 Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
                 //login();
             }
