@@ -12,8 +12,8 @@
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="facebook">#3b5998</color>
-    <color name="appBackground">#e17e46</color>
-    <color name="appFont">#ec9453</color>
+    <color name="appBackground">#e48f5f</color>
+    <color name="appFont">#e99b62</color>
     <color name="appFont2">@color/white</color>
     <color name="appFontLogout">#FF0000</color>
     <color name="temporaryOrange">#FF8C00</color>
