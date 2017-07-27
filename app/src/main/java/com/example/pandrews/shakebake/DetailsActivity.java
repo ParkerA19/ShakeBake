@@ -69,6 +69,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvTag2) TextView tvTag2;
     @BindView(R.id.tvTag3) TextView tvTag3;
     @BindView(R.id.ibFork) ImageButton ibFork;
+    @BindView(R.id.drawer_layout2) DrawerLayout drawerLayout;
 
 
     @Override
@@ -160,6 +161,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
                 // set the animation
                 overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
 
@@ -404,8 +407,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
                 // start activity
                 startActivity(intent);
-                // set the new animation
-                overridePendingTransition(R.anim.scale_from_corner, R.anim.scale_towards_corner);
+                // set the animation
+                overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             }
         });
 
@@ -421,11 +424,13 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 // set the new animation
                 overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             case R.id.nav_search:
                 return true;
@@ -448,8 +453,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
                 return true;
             default:
-                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                // close the navigation view
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
         }
     }
