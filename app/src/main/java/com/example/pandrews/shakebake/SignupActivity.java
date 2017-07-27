@@ -26,7 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.btn_signup) Button _signupButton;
     @BindView(R.id.link_login) TextView _loginLink;
     @BindView(R.id.input_username) EditText _usernameText;
-    @BindView(R.id.tvTitle) TextView tvTitle;
+//    @BindView(R.id.tvTitle) TextView tvTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
 
-        tvTitle.setText("SIGN UP");
+//        tvTitle.setText("SIGN UP");
 
         //keyboard only pops up when user clicks into an EditText
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
