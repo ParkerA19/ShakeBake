@@ -150,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(profile));
                 // start activity
                 startActivity(intent);
+                // set the new animation
+                overridePendingTransition(R.anim.scale_from_corner, R.anim.scale_towards_corner);
             }
         });
     }
