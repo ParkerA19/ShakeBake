@@ -190,7 +190,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
      */
     public void populateForkButton() {
         // based on the forked boolean choose the vector resource for ibFork
-        int forkResource = (recipe.forked) ? vector_forked : vector_real_fork;
+        int forkResource = (recipe.forked) ? R.drawable.vector_forked : R.drawable.vector_real_fork;
         ibFork.setImageResource(forkResource);
 
         // set the forkCount text
