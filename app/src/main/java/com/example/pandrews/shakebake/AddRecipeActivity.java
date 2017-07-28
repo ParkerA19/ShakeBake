@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -109,6 +110,9 @@ public class AddRecipeActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference("videos");
 
         stepVideo = new HashMap<>();
+
+        //keyboard only pops up when a user clicks into an EditText
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 //    public void onAddIngredient(View v) {

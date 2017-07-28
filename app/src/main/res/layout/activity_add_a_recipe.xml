@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/ivPicture"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="250dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -41,23 +41,26 @@
                 android:id="@+id/bAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/linearLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="67dp"
                 android:background="@null"
                 android:fontFamily="roboto"
                 android:onClick="onAddImage"
-                android:text="Add Image"
-                android:textColor="@color/light_font" />
+                android:text="Upload Your Photo"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/light_font"
+                android:layout_above="@+id/linearLayout"
+                android:layout_centerHorizontal="true" />
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="50dp"
+                android:id="@+id/ivCamera"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/noun_862303_cc"
+                android:layout_alignBottom="@+id/bAddImage"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="23dp"
-                app:srcCompat="@drawable/noun_862303_cc" />
+                android:layout_marginBottom="36dp" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -70,6 +73,18 @@
                 android:orientation="vertical"
                 android:weightSum="1">
 
+                <TextView
+                    android:id="@+id/textviewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="roboto"
+                    android:text="TITLE"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
+
                 <EditText
                     android:id="@+id/etRecipeTitle"
                     android:layout_width="match_parent"
@@ -77,30 +92,42 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="12dp"
                     android:layout_weight="0.19"
                     android:background="@android:color/transparent"
                     android:ems="10"
                     android:fontFamily="roboto"
-                    android:hint="Add Recipe Title"
+                    android:hint="Write a title"
                     android:inputType="textPersonName"
                     android:textColor="@color/light_font"
                     android:textColorHint="@color/grey_font"
-                    android:textSize="27sp" />
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:id="@+id/tvKeywords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="roboto"
+                    android:text="KEYWORDS"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/etKey1"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@drawable/textbox_outline"
                         android:drawableLeft="@drawable/key_1"
@@ -140,6 +167,18 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tvDescriptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="roboto"
+                    android:text="DESCRIPTION"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
+
                 <EditText
                     android:id="@+id/etRecipeDescription"
                     android:layout_width="wrap_content"
@@ -147,7 +186,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/textbox_outline"
                     android:ems="10"
@@ -159,23 +198,25 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvIngredientsTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
-                    android:text="Ingredients"
-                    android:textColor="@color/Main_text_color_black"
-                    android:textSize="20sp" />
+                    android:text="INGREDIENTS"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:id="@+id/llIngredientList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="roboto"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llIngredients"
@@ -187,6 +228,7 @@
 
                     <ImageButton
                         android:id="@+id/bAddIngredients"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -205,16 +247,16 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvStepsTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
-                    android:text="Steps"
-                    android:textColor="@color/Main_text_color_black"
-                    android:textSize="20sp" />
+                    android:text="STEPS"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:id="@+id/llSteps"
@@ -227,7 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_below="@+id/flIngredients"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:fontFamily="roboto"
@@ -258,7 +300,7 @@
             android:background="@drawable/background"
             android:fontFamily="roboto"
             android:onClick="onAdd"
-            android:text="Add"
+            android:text="PUBLISH"
             android:textColor="@color/light_font" />
     </RelativeLayout>
 

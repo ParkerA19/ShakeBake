@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/vector_new_logo" />
 
         <!-- Email Label -->
 

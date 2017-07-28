@@ -52,14 +52,15 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="200dp"
+        android:id="@+id/logo"
+        android:layout_width="250dp"
         android:layout_height="200dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/logo" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/vector_new_logo" />
 
     <!--<ImageView-->
         <!--android:id="@+id/ivChicken"-->
