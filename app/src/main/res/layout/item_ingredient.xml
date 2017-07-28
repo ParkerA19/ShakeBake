@@ -8,6 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -20,36 +22,33 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-            <TextView
-                android:id="@+id/tvNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="##" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                app:srcCompat="@drawable/vector_knife" />
 
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tvIngredient"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="34dp"
-            android:layout_marginStart="34dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textSize="16sp" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/ibDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/button_onoff_indicator_on" />
+            android:background="@null"
+            android:onClick="onDelete"
+            app:srcCompat="@android:drawable/ic_delete" />
 
     </LinearLayout>
 

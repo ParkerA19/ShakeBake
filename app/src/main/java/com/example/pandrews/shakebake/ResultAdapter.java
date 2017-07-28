@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -99,7 +98,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                     holder.tvForks.setText(tempString);
                     //change forked value on database
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
-
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
                 }
 
                 else {
@@ -114,7 +113,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                     holder.tvForks.setText(tempString);
                     //change forked value on database
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
-
+                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
                 }
             }
         });
@@ -129,7 +128,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                 holder.tvTag1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(0), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(0));
+                        context.startActivity(i);
                     }
                 });
 
@@ -143,7 +144,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                 holder.tvTag2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(1));
+                        context.startActivity(i);
                     }
                 });
 
@@ -157,7 +160,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                 holder.tvTag3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, recipe.keywords.get(2), Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(context, SearchActivity.class);
+                        i.putExtra("query", recipe.keywords.get(2));
+                        context.startActivity(i);
                     }
                 });
 

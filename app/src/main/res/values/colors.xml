@@ -20,5 +20,6 @@
     <color name="hintColor">#808080</color>
     <color name="Main_text_color_black">#191919</color>
     <color name="Main_text_color_light_black">#323232</color>
+    <color name="light_grey">#dbdada</color>
     <color name="off_black">#868585</color>
 </resources>

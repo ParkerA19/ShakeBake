@@ -40,6 +40,7 @@ import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.example.pandrews.shakebake.R.drawable.vector_forked;
 import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
@@ -53,6 +54,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     Context context;
     User profile;
     ScrollView view;
+    Uri uri;
 
 
 
@@ -188,7 +190,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
      */
     public void populateForkButton() {
         // based on the forked boolean choose the vector resource for ibFork
-        int forkResource = (recipe.forked) ? vector_forked : vector_real_fork;
+        int forkResource = (recipe.forked) ? R.drawable.vector_forked : R.drawable.vector_real_fork;
         ibFork.setImageResource(forkResource);
 
         // set the forkCount text
@@ -298,6 +300,45 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
             tvTag2.setVisibility(View.GONE);
             tvTag3.setVisibility(View.GONE);
         }
+
+        if (recipe.user.profileImageUrl != null) {
+            Glide.with(context)
+                    .load(recipe.user.profileImageUrl)
+                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
+                    .into(ivProfileImage);
+        }
+
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // set the user
+                User user = recipe.user;
+                // set intent
+                Intent intent = new Intent(context, ProfileActivity.class);
+                // populate intent
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+                // start activity
+                startActivity(intent);
+            }
+        });
+
+//        if (recipe.mediaurl != null) {
+//            Glide.with(context)
+//                    .load(recipe.mediaurl)
+//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+//                    .into(vvMedia);
+//        }
+
+
+        if (recipe.mediaurl != null) {
+            uri = Uri.parse(recipe.mediaurl);
+        } else {
+            uri = Uri.parse("android.resource://com.example.pandrews.shakebake/" + R.raw.cat);
+        }
+
+        vvMedia.setVideoURI(uri);
+        vvMedia.requestFocus();
+        vvMedia.start();
     }
 
     /**
