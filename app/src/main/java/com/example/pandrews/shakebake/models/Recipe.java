@@ -61,9 +61,8 @@ public class Recipe {
         }
         recipe.user = new User();
         if (bundle.getSerializable("stepVideo") != null) {
-
             recipe.stepVideo = (HashMap<String, String>) bundle.getSerializable("stepVideo");
-            recipe.mediaurl = ((HashMap<String, String>) bundle.getSerializable("stepVideo")).keySet().iterator().next();
+            recipe.mediaurl = ((HashMap<String, String>) bundle.getSerializable("stepVideo")).entrySet().iterator().next().getValue();
         } else {
             recipe.stepVideo = null;
         }

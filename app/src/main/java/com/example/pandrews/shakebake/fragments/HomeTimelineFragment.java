@@ -96,9 +96,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
 
-                        //newRecipe.mediaurl = "https://firebasestorage.googleapis.com/v0/b/shake-n-bake-5d01f.appspot.com/o/videos%2F251?alt=media&token=7918ec93-b700-456a-9e15-e12eefe7d4a1";
                     }
-                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
                     appendRecipe(newRecipe);
                     //keep track of recipes already added
                     recipeTitles.add(newRecipe.title);
@@ -129,12 +127,9 @@ public class HomeTimelineFragment extends RecipesListFragment {
                     //if stepVideo == null then set to cat video. else get values from stepVideo and loop through
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
-                    } else {
-                        newRecipe.mediaurl = "https://firebasestorage.googleapis.com/v0/b/shake-n-bake-5d01f.appspot.com/o/videos%2F251?alt=media&token=7918ec93-b700-456a-9e15-e12eefe7d4a1";
+
                     }
 
-                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
-                    //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
                     if (!recipeTitles.contains(newRecipe.title)) {
                         appendRecipe(newRecipe);

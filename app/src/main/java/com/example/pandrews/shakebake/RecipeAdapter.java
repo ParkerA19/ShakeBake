@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -45,6 +46,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     ArrayList<Recipe> mRecipes = new ArrayList<>();
     Context context;
     private RecipeAdapterListener mlistener;
+    Uri uri;
+    ArrayList<String> videos;
+    Integer currentVideo;
 
 
     // define an interface required by the viewholder
@@ -189,32 +193,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             holder.tvTag3.setVisibility(View.GONE);
         }
 
-//        holder.tvDescription.setText(recipe.description);
-
-
-
-
-//        if (recipe.mediaurl != null) {
-//            Glide.with(context)
-//                    .load(recipe.mediaurl)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-//                    .into(holder.vvMedia);
-//
-//
-//        }
-//        else if (recipe.targetUri != null){
-//            Uri targetUri = Uri.parse(recipe.targetUri);
-//            Bitmap bitmap = null;
-//            try {
-//                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            holder.ivMedia.setImageBitmap(bitmap);
-//        } else {
-//            holder.ivMedia.setVisibility(View.GONE);
-//
-//        }
 
         // Use Glide to load Profile Image
         if (recipe.user.profileImageUrl != null) {
@@ -236,30 +214,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         if (recipe.mediaurl != null) {
             holder.vvMedia.setVisibility(View.VISIBLE);
-//            Uri mediaUri = Uri.parse(recipe.mediaurl);
-//            holder.vvMedia.setVideoURI(mediaUri);
-//            holder.vvMedia.requestFocus();
-//            holder.vvMedia.start();
-
-            //introduce some onCLick method to start video once user clicks vvMedia
-//            Glide.with(context)
-//                    .load(recipe.mediaurl)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-//                    .into(holder.vvMedia);
-
-
         }
-        //set videos instead of images
-//        else if (recipe.targetUri != null){
-//            Uri targetUri = Uri.parse(recipe.targetUri);
-//            Bitmap bitmap = null;
-//            try {
-//                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            holder.vvMedia.setImageBitmap(bitmap);
-//        }
+
         else {
             holder.vvMedia.setVisibility(View.GONE);
         }
@@ -287,21 +243,47 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
+        //init videos list
+        videos = new ArrayList<>();
+        currentVideo = 0;
         if (recipe.mediaurl != null) {
-            Uri uri = Uri.parse(recipe.mediaurl);
+            if (recipe.stepVideo != null){
+                for (String value : recipe.stepVideo.values()) {
+                    videos.add(value);
+                }
+                uri = Uri.parse(videos.get(currentVideo));
+
+            } else {
+                uri = Uri.parse(recipe.mediaurl);
+            }
             holder.vvMedia.setVisibility(View.VISIBLE);
+
             holder.vvMedia.setVideoURI(uri);
+
             holder.vvMedia.requestFocus();
             holder.vvMedia.start();
         } else {
             Log.d("null video" , "Null video");
         }
+        holder.vvMedia.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                currentVideo += 1;
+                if (recipe.stepVideo != null && currentVideo < videos.size()) {
+                    uri = Uri.parse(videos.get(currentVideo));
+                    holder.vvMedia.setVideoURI(uri);
+                    holder.vvMedia.start();
+
+                } else if (recipe.stepVideo != null && currentVideo >= videos.size()) {
+                    currentVideo = 0;
+                    uri = Uri.parse(videos.get(currentVideo));
+                    holder.vvMedia.setVideoURI(uri);
+                    holder.vvMedia.start();
+                }
+            }
+        });
     }
 
-
-//    Bitmap bitmap;
-//            try {
-//        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
 
 
     @Override

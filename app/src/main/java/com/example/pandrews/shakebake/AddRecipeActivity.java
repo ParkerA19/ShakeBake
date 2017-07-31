@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,38 +29,44 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AddRecipeActivity extends AppCompatActivity {
-    //Button bAddIngredient;
-    ImageButton bAddIngredient;
-    Button bRecipeSteps;
-    Button bAddImage;
-    TextView etRecipeTitle;
-    TextView etRecipeDescription;
-    EditText etKey1;
-    EditText etKey2;
-    EditText etKey3;
 
-    ArrayList<String> keywords;
-    //from inflated view
+    @BindView(R.id.bAddIngredients) ImageButton bAddIngredients;
+    @BindView(R.id.bRecipeSteps) Button bRecipeSteps;
+    @BindView(R.id.bAddImage) Button bAddImage;
+    @BindView(R.id.etRecipeTitle) EditText etRecipeTitle;
+    @BindView(R.id.etRecipeDescription) EditText etRecipeDescription;
+    @BindView(R.id.etKey1) EditText etKey1;
+    @BindView(R.id.etKey2) EditText etKey2;
+    @BindView(R.id.etKey3) EditText etKey3;
+    @BindView(R.id.ivPicture) ImageView ivPicture;
+    @BindView(R.id.llSteps) LinearLayout llSteps;
+    @BindView(R.id.etIngredient) EditText etIngredient;
+    @BindView(R.id.llIngredientList) LinearLayout llIngredientList;
+
+    //view inflated in add ingredient
+//    @BindView(R.id.tvIngredient) TextView tvIngredient;
+//    @BindView(R.id.tvStep) TextView tvStep;
+//    @BindView(R.id.tvNumber) TextView tvNumber;
+
     TextView tvIngredient;
-
     TextView tvStep;
     TextView tvNumber;
 
-    EditText etIngredient;
-    LinearLayout llIngredientList;
-    LinearLayout llSteps;
-
+    //params for ingredient/step inflated views
     LinearLayout.LayoutParams layoutParams;
 
-    ImageView ivPicture;
 
-    RecyclerView.Adapter adapter;
+
+    ArrayList<String> keywords;
     ArrayList<String> supplyList;
     ArrayList<String> stepList;
-    static Context context;
+
+    Context context;
     Uri targetUri;
-    Integer ingredientCount = 0;
     Integer stepsCount = 0;
     private StorageReference mStorageRef;
     Uri videoUri;
@@ -70,54 +74,26 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     //variables for step:video dictionary
     public HashMap<String, String> stepVideo;
-    ObjectMapper mapper = new ObjectMapper();
-    String jsonFromStepVideo;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_a_recipe);
+        ButterKnife.bind(this);
+
         context = getApplicationContext();
-        //bAddIngredient = (Button) findViewById(R.id.bAddIngredients);
-        bAddIngredient = (ImageButton) findViewById(R.id.bAddIngredients);
-        bRecipeSteps = (Button) findViewById(R.id.bRecipeSteps);
-        bAddImage = (Button) findViewById(R.id.bAddImage);
-        etRecipeTitle = (TextView) findViewById(R.id.etRecipeTitle);
-        etRecipeDescription = (TextView) findViewById(R.id.etRecipeDescription);
-        etKey1 = (EditText) findViewById(R.id.etKey1);
-        etKey2 = (EditText) findViewById(R.id.etKey2);
-        etKey3 = (EditText) findViewById(R.id.etKey3);
-        //rvIngredients = (RecyclerView) findViewById(R.id.flIngredients);
-        //rvSteps = (RecyclerView) findViewById(R.id.rvSteps);
-        ivPicture = (ImageView) findViewById(R.id.ivPicture);
 
-        llSteps = (LinearLayout) findViewById(R.id.llSteps);
-
-        etIngredient = (EditText) findViewById(R.id.etIngredient);
-        //llIngredients = (LinearLayout) findViewById(R.id.llIngredients);
-        llIngredientList = (LinearLayout) findViewById(R.id.llIngredientList);
-
-        adapter = new AddRecipeAdapter(supplyList, this);
-        //rvIngredients.setAdapter(adapter);
         supplyList = new ArrayList<>();
         stepList = new ArrayList<>();
         keywords = new ArrayList<>();
-
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        //initialize storage
+        //initialize storage reference to videos folder
         mStorageRef = FirebaseStorage.getInstance().getReference("videos");
 
         stepVideo = new HashMap<>();
     }
-
-//    public void onAddIngredient(View v) {
-//        Integer REQUEST_CODE = 20;
-//        Intent i = new Intent(this, AddActivity.class);
-//        i.putExtra("title", "Add Ingredients");
-//        i.putExtra("button", "Add Ingredient");
-//        startActivityForResult(i, REQUEST_CODE);
-//    }
 
     public void onAddStep(View v) {
         stepsCount += 1;
@@ -136,52 +112,38 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode != RESULT_CANCELED) {
-//            if (requestCode == 20) {
-//                //add ingredients to list in add recipe activity
-//                supplyList = data.getExtras().getStringArrayList("supplyList");
-//                //rvIngredients.setLayoutManager(new LinearLayoutManager(this));
-//                AddRecipeAdapter rAdapter = new AddRecipeAdapter(supplyList, this);
-//                //rvIngredients.setAdapter(rAdapter);
-//            }
                 if (requestCode == 21) {
-                final String step = data.getExtras().get("step").toString();
 
-                stepList.add(step);
-                if (data.getExtras().getString("videoUri") == null) {
-                    //display a toast that tells user to delete step and remake with proper video if videoUri is null
-                    Toast.makeText(context, "Step is missing a video. Remake and add a video", Toast.LENGTH_LONG).show();
-                } else {
+                    final String step = data.getExtras().get("step").toString();
+                    //add to steplist and get uri to put into firestorage
+                    stepList.add(step);
                     videoUri = Uri.parse(data.getExtras().getString("videoUri"));
                     videoUriString = data.getExtras().getString("videoUri");
-                }
 
+                    //store video to firebase storage
+                    StorageReference videoRef = mStorageRef.child(videoUri.getLastPathSegment());
 
-                StorageReference videoRef = mStorageRef.child(videoUri.getLastPathSegment());
+                    videoRef.putFile(videoUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                    String downloadString = downloadUrl.toString();
+                                    stepVideo.put(step, downloadString);
+                                    //Toast.makeText(context, downloadUrl.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    //handle unsuccessful uploads
+                                }
+                            });
 
-                videoRef.putFile(videoUri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                                String downloadString = downloadUrl.toString();
-                                stepVideo.put(step, downloadString);
-                                //Toast.makeText(context, downloadUrl.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                //handle unsuccessful uploads
-                            }
-                        });
-
-                llSteps.addView(createNewStep(step, stepsCount));
-
-                AddRecipeAdapter rAdapter = new AddRecipeAdapter(stepList, this);
-
+                    llSteps.addView(createNewStep(step, stepsCount));
 
             } else {
-                //code for adding picture from that intent
+                //code for adding picture from image intent
                 targetUri = data.getData();
                 Bitmap bitmap;
                 try {
@@ -195,50 +157,39 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     public void onAdd(View v) {
-        //bundle all recipe information and send to home timeline fragment via main activity
-        Bundle recipe = new Bundle();
-        recipe.putString("title", etRecipeTitle.getText().toString());
-        recipe.putString("description", etRecipeDescription.getText().toString());
-        recipe.putStringArrayList("keywords", createKeywords());
-        recipe.putString("targetUri", targetUri.toString());
-        recipe.putStringArrayList("stepList", stepList);
-        recipe.putStringArrayList("supplyList", supplyList);
-        //turn hashmap into string before sending as intent
-//        try {
-//            jsonFromStepVideo = mapper.writeValueAsString(stepVideo);
-//            recipe.putString("stepVideo", jsonFromStepVideo);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-        recipe.putSerializable("stepVideo", stepVideo);
-//      check intent is going to correct location
-        Intent i = new Intent(this, MainActivity.class);
-        i.putExtras(recipe);
-        setResult(RESULT_OK, i);
-//        startActivity(i);
-        finish();
+        //check that all fields are filled
+        if (validate()) {
+            //bundle all recipe information and send to home timeline fragment via main activity
+            Bundle recipe = new Bundle();
+            recipe.putString("title", etRecipeTitle.getText().toString());
+            recipe.putString("description", etRecipeDescription.getText().toString());
+            recipe.putStringArrayList("keywords", createKeywords());
+            recipe.putString("targetUri", targetUri.toString());
+            recipe.putStringArrayList("stepList", stepList);
+            recipe.putStringArrayList("supplyList", supplyList);
+            recipe.putSerializable("stepVideo", stepVideo);
+
+            Intent i = new Intent(this, MainActivity.class);
+            i.putExtras(recipe);
+            setResult(RESULT_OK, i);
+            finish();
+        }
     }
 
     public void onAddAnIngredient(View v) {
-        ingredientCount += 1;
         String ingredient = etIngredient.getText().toString();
         supplyList.add(ingredient);
-        //possibly instead of adding to llIngredients, create new vertical linear layout and add view to there
-        llIngredientList.addView(createNewTextView(ingredient, ingredientCount));
+        llIngredientList.addView(createNewIngredientView(ingredient));
         etIngredient.setText("");
-
-        //mLayout.addView(createNewButton());  add and reformat each line. createNewButton is in AddActivity -- TODO
 
     }
 
 
-    public View createNewTextView(String text, Integer count) {
+    public View createNewIngredientView(String text) {
         View view = getLayoutInflater().inflate(R.layout.item_ingredient, null);
         view.setLayoutParams(layoutParams);
         tvIngredient = (TextView) view.findViewById(R.id.tvIngredient);
         tvIngredient.setText(text);
-        ImageButton ibDelete = (ImageButton) view.findViewById(R.id.ibDelete);
-
         return view;
     }
 
@@ -249,16 +200,12 @@ public class AddRecipeActivity extends AppCompatActivity {
         tvNumber = (TextView) view.findViewById(R.id.tvNumber);
         tvStep.setText(text);
         tvNumber.setText(count.toString());
-        ImageButton ibDelete = (ImageButton) view.findViewById(R.id.ibDelete);
-
         return view;
     }
 
+    //make keyword list
     public ArrayList<String> createKeywords(){
         ArrayList<String> keyword_list = new ArrayList<>();
-//        for(String word : keywords.trim().split(" ")) {
-//            keyword_list.add(word);
-//        }
 
         keyword_list.add(etKey1.getText().toString());
         keyword_list.add(etKey2.getText().toString());
@@ -267,6 +214,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         return keyword_list;
     }
 
+    //for deleting ingredients & their views
     public void onDelete(View view) {
         //remove row by calling getParent on button
         View viewParent = (View) view.getParent();
@@ -274,10 +222,77 @@ public class AddRecipeActivity extends AppCompatActivity {
         supplyList.remove(tvIngredient.getText().toString());
     }
 
+    //for deleting steps & their views
     public void onDeleteStep(View view) {
         //remove row by calling getParent on button
         View viewParent = (View) view.getParent();
         llSteps.removeView((ViewGroup) viewParent.getParent());
         stepList.remove(tvStep.getText().toString());
     }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String title = etRecipeTitle.getText().toString();
+        String key1 = etKey1.getText().toString();
+        String key2 = etKey2.getText().toString();
+        String key3 = etKey3.getText().toString();
+        String description = etRecipeDescription.getText().toString();
+        Integer ingredientCount = supplyList.size();
+        Integer stepCount = stepList.size();
+
+
+        if (title.isEmpty() || title.length() < 2) {
+            etRecipeTitle.setError("at least 3 characters");
+            valid = false;
+        } else {
+            etRecipeTitle.setError(null);
+        }
+
+        if (key1.isEmpty() || key1.length() < 1) {
+            etKey1.setError("at least 3 characters");
+            valid = false;
+        } else {
+            etKey1.setError(null);
+        }
+
+        if (key2.isEmpty() || key2.length() < 1) {
+            etKey2.setError("at least 3 characters");
+            valid = false;
+        } else {
+            etKey2.setError(null);
+        }
+
+        if (key3.isEmpty() || key3.length() < 1) {
+            etKey3.setError("at least 3 characters");
+            valid = false;
+        } else {
+            etKey3.setError(null);
+        }
+
+        if (description.isEmpty() || description.length() < 3) {
+            etRecipeDescription.setError("at least 3 characters");
+            valid = false;
+        } else {
+            etRecipeDescription.setError(null);
+        }
+
+        if (targetUri == null) {
+            Toast.makeText(context, "Add an image", Toast.LENGTH_LONG).show();
+            valid = false;
+        }
+
+        if (ingredientCount < 1) {
+            Toast.makeText(context, "Add at least one ingredient", Toast.LENGTH_LONG).show();
+            valid = false;
+        }
+
+        if (stepCount < 1) {
+            Toast.makeText(context, "Add at least one step", Toast.LENGTH_LONG).show();
+            valid = false;
+        }
+
+        return valid;
+    }
+
 }

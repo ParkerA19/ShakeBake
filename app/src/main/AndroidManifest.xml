@@ -10,9 +10,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
-
-
 
     <application
         android:allowBackup="true"
@@ -21,15 +20,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OpeningActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:label= "Shake &amp; Make">
+        <activity
+            android:name=".StepActivity"
+            android:label="Shake &amp; Make"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".AddRecipeActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".MainActivity" />
@@ -43,8 +44,11 @@
         <activity android:name=".FriendsActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".InstructionsActivity" />
-
-        <activity android:name=".AddStepsActivity"></activity>
+        <activity android:name=".AddStepsActivity" />
+        <!--<activity-->
+            <!--android:name=".StepActivity"-->
+            <!--android:label="@string/title_activity_step"-->
+            <!--android:theme="@style/AppTheme"></activity>-->
     </application>
 
 </manifest>

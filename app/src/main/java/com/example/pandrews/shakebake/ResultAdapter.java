@@ -38,7 +38,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     ArrayList<Recipe> mRecipes = new ArrayList<>();
     Context context;
     private ResultAdapterListener mlistener;
-
+    Uri uri;
 
     // define an interface required by the viewholder
     public interface ResultAdapterListener {
@@ -255,7 +255,12 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-        Uri uri=Uri.parse(path);
+        if (recipe.mediaurl != null) {
+            uri = Uri.parse(recipe.mediaurl);
+        } else {
+            uri = Uri.parse(path);
+        }
+
 
         holder.vvMedia.setVideoURI(uri);
         holder.vvMedia.requestFocus();

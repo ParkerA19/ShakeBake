@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fillViewport="true"
+    tools:context="com.example.pandrews.shakebake.StepActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llStepNumbers"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="74dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/noun_202830_edited"
+                android:ems="10"
+                android:paddingTop="8dp"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="67dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/noun_202830_empty"
+                android:ems="10"
+                android:paddingTop="8dp"
+                android:text="2"
+                android:textAlignment="center"
+                android:textColor="@color/off_black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="67dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/noun_202830_empty"
+                android:ems="10"
+                android:paddingTop="8dp"
+                android:text="3"
+                android:textAlignment="center"
+                android:textColor="@color/off_black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="67dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/noun_202830_empty"
+                android:ems="10"
+                android:paddingTop="8dp"
+                android:text="4"
+                android:textAlignment="center"
+                android:textColor="@color/off_black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@+id/llStepNumbers">
+
+            <VideoView
+                android:id="@+id/vvStepVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvStepTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="12dp"
+            android:text="Step ##"
+            android:textColor="@color/white"
+            android:textSize="52sp"
+            android:textStyle="bold"
+            tools:capitalize="words" />
+
+        <TextView
+            android:id="@+id/tvStepDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bNext"
+            android:layout_alignEnd="@+id/bNext"
+            android:layout_alignLeft="@+id/tvStepTitle"
+            android:layout_alignRight="@+id/bNext"
+            android:layout_alignStart="@+id/tvStepTitle"
+            android:layout_below="@+id/tvStepTitle"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_background"
+            android:padding="5dp"
+            android:text="Description"
+            android:textColor="@color/Main_text_color_light_black"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/bNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/round_button"
+            android:elevation="1dp"
+            android:onClick="displayNextStep"
+            android:text="Next Step"
+            android:textColor="@color/appFont" />
+
+        <Button
+            android:id="@+id/bLast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"
+            android:elevation="1dp"
+            android:onClick="displayLastStep"
+            android:text="Last Step"
+            android:textColor="@color/appFont"
+            android:layout_below="@+id/tvStepDescription"
+            android:layout_alignLeft="@+id/tvStepDescription"
+            android:layout_alignStart="@+id/tvStepDescription" />
+
+
+    </RelativeLayout>
+
+</ScrollView>
