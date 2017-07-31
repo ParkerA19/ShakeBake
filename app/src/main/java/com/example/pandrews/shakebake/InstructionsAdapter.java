@@ -2,10 +2,13 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pandrews.shakebake.models.Recipe;
@@ -52,9 +55,20 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         // get the step based on position
         String step = mSteps.get(position);
-
         // set it in the viewholder
         holder.tvStep.setText(step);
+
+        // set the symbol imageView and the number
+        if (fragmentPosition == 0) {
+            holder.ivSymbol.setImageDrawable(context.getResources().getDrawable(R.drawable.vector_knife));
+            holder.tvNumber.setVisibility(View.GONE);
+        } else {
+            holder.ivSymbol.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_chef_hat));
+            holder.tvNumber.setText((position + 1) + "");
+        }
+
+        holder.ibDelete.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -65,6 +79,9 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.tvStep) TextView tvStep;
+        @Nullable@BindView(R.id.tvNumber) TextView tvNumber;
+        @BindView(R.id.ivSymbol) ImageView ivSymbol;
+        @Nullable@BindView(R.id.ibDelete) ImageButton ibDelete;
 
         public ViewHolder(View itemView) {
             // call the super method
@@ -96,6 +113,17 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
 //            activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 
         }
+
+
+//        @Override
+//        public void onClick(View v) {
+//            // make intent
+//            Intent intent = new Intent(context, StepsActivity.class);
+//            // pass in recipe
+//            intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe);
+//            // start the activity
+//            context.startActivity(intent);
+//        }
     }
 
     public void clear() {

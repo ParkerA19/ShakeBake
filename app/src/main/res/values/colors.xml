@@ -23,4 +23,5 @@
     <color name="light_grey">#dfdfdf</color>
     <color name="off_black">#868585</color>
     <color name="Main_text_color_grey">#a12828</color>
+    <color name="colorTextDark">#434B5B</color>
 </resources>

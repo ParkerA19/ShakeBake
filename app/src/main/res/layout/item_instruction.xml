@@ -19,23 +19,24 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ivSymbol"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
-                app:srcCompat="@drawable/noun_202830_cc" />
+                app:srcCompat="@drawable/ic_chef_hat" />
 
             <TextView
                 android:id="@+id/tvNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="8dp"
                 android:text="##" />
 
         </RelativeLayout>
@@ -43,7 +44,7 @@
         <TextView
             android:id="@+id/tvStep"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"

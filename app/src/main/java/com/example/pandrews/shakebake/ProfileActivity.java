@@ -40,13 +40,14 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
     // put back into activity_profile.xml
 //    <android.support.design.widget.NavigationView
-//    android:id="@+id/nav_view"
-//    android:layout_width="wrap_content"
-//    android:layout_height="match_parent"
-//    android:layout_gravity="start"
-//    android:fitsSystemWindows="true"
-//    app:headerLayout="@layout/nav_header_side"
-//    app:menu="@menu/activity_side_drawer" />
+//        android:id="@+id/nav_view"
+//        android:layout_width="wrap_content"
+//        android:layout_height="match_parent"
+//        android:layout_gravity="start"
+//        android:fitsSystemWindows="true"
+//        android:background="@drawable/background"
+//        app:headerLayout="@layout/nav_header_side"
+//        app:menu="@menu/activity_side_drawer" />
 
 
     private final int REQUEST_CODE = 25;

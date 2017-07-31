@@ -110,6 +110,9 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
 
     public void populateTimeline() {
 
+        popularAdapter.clear();
+        popularTitles.clear();
+
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();

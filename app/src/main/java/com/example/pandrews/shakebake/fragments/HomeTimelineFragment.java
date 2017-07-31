@@ -114,6 +114,9 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
     public void populateTimeline() {
 
+        recipeAdapter.clear();
+        recipeTitles.clear();
+
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();

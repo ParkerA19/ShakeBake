@@ -125,6 +125,9 @@ public class UserTimelineFragment extends RecipesListFragment {
 
     public void populateTimeline() {
 
+        recipeAdapter.clear();
+        recipeTitles.clear();
+
         //create listener. this one adds all recipes currently in database w/fork count above 300
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();

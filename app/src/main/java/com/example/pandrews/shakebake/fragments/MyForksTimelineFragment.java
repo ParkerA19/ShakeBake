@@ -113,6 +113,8 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
 
     public void populateTimeline() {
 
+        forksAdapter.clear();
+        forksTitles.clear();
 
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
