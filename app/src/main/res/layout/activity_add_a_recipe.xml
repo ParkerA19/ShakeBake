@@ -5,7 +5,7 @@
     android:id="@+id/activity_add_a_recipe"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background"
+    android:background="@color/cardview_light_background"
     tools:context="com.example.pandrews.shakebake.AddRecipeActivity">
 
     <ScrollView
@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/ivPicture"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="250dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -41,23 +41,26 @@
                 android:id="@+id/bAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/linearLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="67dp"
                 android:background="@null"
                 android:fontFamily="roboto"
                 android:onClick="onAddImage"
-                android:text="Add Image"
-                android:textColor="@color/light_font" />
+                android:text="Upload Your Photo"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/light_font"
+                android:layout_above="@+id/linearLayout"
+                android:layout_centerHorizontal="true" />
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="50dp"
+                android:id="@+id/ivCamera"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_alignParentTop="true"
+                app:srcCompat="@drawable/noun_862303_cc"
+                android:layout_alignBottom="@+id/bAddImage"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="23dp"
-                app:srcCompat="@drawable/noun_862303_cc" />
+                android:layout_marginBottom="36dp" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -70,65 +73,67 @@
                 android:orientation="vertical"
                 android:weightSum="1">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/textviewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="roboto"
+                    android:text="TITLE"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/etRecipeTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_weight="0.19"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:fontFamily="roboto"
+                    android:hint="Write a title"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/light_font"
+                    android:textColorHint="@color/grey_font"
+                    android:textSize="34sp" />
 
-                    <ImageView
-                        android:id="@+id/titleBackground"
-                        android:layout_width="290dp"
-                        android:layout_height="250dp"
-                        android:layout_alignBottom="@+id/etRecipeTitle"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_weight="1"
-                        android:alpha="0.05"
-                        app:srcCompat="@android:drawable/screen_background_dark_transparent" />
-
-                    <EditText
-                        android:id="@+id/etRecipeTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_weight="0.19"
-                        android:background="@android:color/transparent"
-                        android:ems="10"
-                        android:fontFamily="roboto"
-                        android:hint="Add Recipe Title"
-                        android:imeOptions="actionNext"
-                        android:inputType="textCapWords"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey_font"
-                        android:textSize="27sp" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/tvKeywords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="roboto"
+                    android:text="KEYWORDS"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="7dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/etKey1"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginRight="15dp"
-                        android:background="@drawable/textbox_outline"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableLeft="@drawable/key_1"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:textColorHint="@color/hintColor"
                         android:hint="keyword"
-                        android:textColor="@color/white"
                         android:inputType="textPersonName"
                         android:textSize="20sp" />
 
@@ -138,13 +143,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="15dp"
-                        android:background="@drawable/textbox_outline"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableLeft="@drawable/key_2"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:textColorHint="@color/hintColor"
                         android:hint="keyword"
-                        android:textColor="@color/white"
                         android:inputType="textPersonName"
                         android:textSize="20sp" />
 
@@ -154,57 +157,71 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="12dp"
-                        android:background="@drawable/textbox_outline"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableLeft="@drawable/key_3"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:textColorHint="@color/hintColor"
                         android:hint="keyword"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/white"
                         android:inputType="textPersonName"
                         android:textSize="20sp" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tvDescriptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="roboto"
+                    android:text="DESCRIPTION"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
+
                 <EditText
                     android:id="@+id/etRecipeDescription"
-                    android:layout_width="wrap_content"
+                    android:layout_width="339dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/textbox_outline"
+                    android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:fontFamily="roboto"
-                    android:hint="Add Description"
+                    android:hint="Add a Description"
                     android:inputType="textPersonName"
                     android:onClick="onAdd"
                     android:textColorHint="@color/grey_font"
-                    android:textSize="20sp" />
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="20sp"
+                    android:layout_weight="0.08" />
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvIngredientsTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
-                    android:text="Ingredients"
-                    android:textColor="@color/Main_text_color_black"
-                    android:textSize="20sp" />
+                    android:text="INGREDIENTS"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:id="@+id/llIngredientList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
                     android:fontFamily="roboto"
-                    android:orientation="vertical"></LinearLayout>
+                    android:orientation="vertical">
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llIngredients"
@@ -214,8 +231,20 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/floatingActionButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        app:backgroundTint="@android:color/white"
+                        app:fabSize="mini"
+                        app:srcCompat="@android:drawable/ic_input_add" />
+
                     <ImageButton
                         android:id="@+id/bAddIngredients"
+                        android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -230,22 +259,20 @@
                         android:ems="10"
                         android:fontFamily="roboto"
                         android:hint="Add Ingredient"
-                        android:inputType="textPersonName"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="@color/hintColor" />
+                        android:inputType="textPersonName" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvStepsTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
-                    android:text="Steps"
-                    android:textColor="@color/Main_text_color_black"
-                    android:textSize="20sp" />
+                    android:text="STEPS"
+                    android:textStyle="bold"
+                    android:textColor="@color/appBackground"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:id="@+id/llSteps"
@@ -258,7 +285,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_below="@+id/flIngredients"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:fontFamily="roboto"
@@ -286,12 +313,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
-            android:background="@color/white"
+            android:background="@drawable/background"
             android:fontFamily="roboto"
             android:onClick="onAdd"
-            android:text="Add"
-            android:textColor="@color/appFont"
-            android:textSize="20sp" />
+            android:text="PUBLISH"
+            android:textColor="@color/light_font" />
     </RelativeLayout>
 
 </RelativeLayout>
