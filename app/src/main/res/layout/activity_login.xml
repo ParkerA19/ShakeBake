@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/vector_new_logo" />
 
         <!-- Email Label -->
 
@@ -123,7 +123,7 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="65dp"
             android:layout_marginTop="20dp"
-            android:background="@color/white"
+            android:background="@drawable/round_button"
             android:fontFamily="roboto"
             android:padding="12dp"
             android:text="LOG IN"

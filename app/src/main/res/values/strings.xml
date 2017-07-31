@@ -35,5 +35,6 @@
     <string name="title_activity_opening">OpeningActivity</string>
     <string name="signup_message">DON\'T HAVE AN ACCOUNT? <b>SIGN UP!</b> </string>
     <string name="login_message">ALREADY HAVE AN ACCOUNT? <b>LOG IN!</b> </string>
+    <string name="title_activity_step">StepActivity</string>
 
 </resources>

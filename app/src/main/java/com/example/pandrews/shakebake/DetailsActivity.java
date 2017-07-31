@@ -212,7 +212,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                     // set the new forkCount text
                     String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
                     tvForks.setText(tempString);
-                    //change forked value on database
+                    //change forked value in database
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
                 } else {

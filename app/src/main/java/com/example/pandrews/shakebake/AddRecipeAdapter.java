@@ -27,7 +27,6 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
     @Override
     public AddRecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-//        supplyList = new ArrayList<String>();
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.item_instruction, parent, false);
         tvStep = (TextView) parent.findViewById(R.id.tvStep);
@@ -37,9 +36,6 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
 
     @Override
     public void onBindViewHolder(AddRecipeAdapter.ViewHolder holder, int position) {
-        if (supplyList != null) {
-            holder.tvStep.setText(supplyList.get(position));
-        }
     }
 
 
@@ -54,15 +50,13 @@ public class AddRecipeAdapter extends RecyclerView.Adapter<AddRecipeAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvStep;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            tvStep = (TextView) itemView.findViewById(R.id.tvStep);
+
         }
     }
+
 }
-
-
 
 

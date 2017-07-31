@@ -27,7 +27,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/vector_new_logo" />
 
         <!--  Name Label -->
         <ImageView
@@ -172,7 +172,7 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:background="@color/white"
+            android:background="@drawable/round_button"
             android:fontFamily="roboto"
             android:padding="12dp"
             android:text="SIGN UP"
@@ -186,7 +186,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_signup"
             android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="roboto"
             android:gravity="center"
             android:text="@string/login_message"

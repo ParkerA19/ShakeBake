@@ -100,6 +100,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                     // set the new forkCount text
                     String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
                     holder.tvForks.setText(tempString);
+                    //change forked and fork count values in database
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
                 }

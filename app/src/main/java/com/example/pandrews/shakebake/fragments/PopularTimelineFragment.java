@@ -86,7 +86,10 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
+                    if (newRecipe.stepVideo == null) {
+                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
+
+                    }
                     //modify line below for min fork threshold
                     if (newRecipe.forkCount >= 300) {
                         appendRecipe(newRecipe);
@@ -117,7 +120,10 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
+                    if (newRecipe.stepVideo == null) {
+                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
+
+                    }
                     //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
                     if (!popularTitles.contains(newRecipe.title) & newRecipe.forkCount == 220) {
