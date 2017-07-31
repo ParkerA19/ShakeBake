@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -59,19 +60,21 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
 
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-    @Nullable@BindView(R.id.vvMedia) VideoView vvMedia;
     @BindView(R.id.tvTitle) TextView tvTitle;
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvForks) TextView tvForks;
     @BindView(R.id.tvDescription) TextView tvDescription;
     @BindView(R.id.flIngredients) FrameLayout flIngredients;
     @BindView(R.id.flSteps) FrameLayout flSteps;
-    @BindView(R.id.scrollView1) ScrollView scrollView1;
+    @BindView(R.id.scroll) NestedScrollView scrollView1;
     @BindView(R.id.tvTag1) TextView tvTag1;
     @BindView(R.id.tvTag2) TextView tvTag2;
     @BindView(R.id.tvTag3) TextView tvTag3;
     @BindView(R.id.ibFork) ImageButton ibFork;
     @BindView(R.id.drawer_layout2) DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.image) ImageView image;
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
 
 
     @Override
@@ -103,6 +106,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the navigation view
         setNavigationView();
 
+        // set the the collapsing image layout
+        populateCollapsingToolbarLayout();
+
+
 
     }
 
@@ -110,6 +117,14 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline ,menu);
         return true;
+    }
+
+    public void populateCollapsingToolbarLayout(){
+        collapsingToolbarLayout.setTitleEnabled(false);
+
+        Glide.with(this)
+                .load(Uri.parse("https://images.pexels.com/photos/140831/pexels-photo-140831.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"))
+                .into(image);
     }
 
     /**
@@ -167,19 +182,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
-
-//        if (recipe.mediaurl != null) {
-//            Glide.with(context)
-//                    .load(recipe.mediaurl)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-//                    .into(vvMedia);
-//        }
-
-        Uri uri=Uri.parse(recipe.mediaurl);
-
-        vvMedia.setVideoURI(uri);
-        vvMedia.requestFocus();
-        vvMedia.start();
     }
 
     /**
@@ -196,7 +198,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the forkCount text
         String forkString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
         tvForks.setText(forkString);
-
 
         // now set an OnClickListener for the Fork
         ibFork.setOnClickListener(new View.OnClickListener() {
@@ -322,23 +323,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
             }
         });
 
-//        if (recipe.mediaurl != null) {
-//            Glide.with(context)
-//                    .load(recipe.mediaurl)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-//                    .into(vvMedia);
-//        }
-
-
-        if (recipe.mediaurl != null) {
-            uri = Uri.parse(recipe.mediaurl);
-        } else {
-            uri = Uri.parse("android.resource://com.example.pandrews.shakebake/" + R.raw.cat);
-        }
-
-        vvMedia.setVideoURI(uri);
-        vvMedia.requestFocus();
-        vvMedia.start();
     }
 
     /**
@@ -362,9 +346,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         ft.commit();
     }
 
-    /*
-    Method to put the StepsFragment into the second FrameLayout Container
-    Called in onCreate
+    /**
+     * Method to put the StepsFragment into the second FrameLayout Container
+     * Called in onCreate
      */
     public void populateSteps() {
         // Create the StepsFragment and set the recipe and steps
@@ -390,16 +374,20 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         });
     }
 
-    /*
-    method to set the toolbar and activate the navigation view
-    sets the text and images within the navigation view
-    puts a toolbar icon at top left that activates the navigation view
-        - can also be done by swiping screen to the right
-    called in onCreate
+    /**
+     * method to set the toolbar and activate the navigation view
+     * sets the text and images within the navigation view
+     * puts a toolbar icon at top left that activates the navigation view
+     *  - can also be done by swiping screen to the right
+     *  called in onCreate
      */
     public void setNavigationView() {
         // set the toolbar at the top
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.tv_title);
+        toolbarTitle.setText("DETAILS");
+        toolbarTitle.setTextColor(getResources().getColor(R.color.white));
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -501,9 +489,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     }
 
 
-    /*
-    on click listener for the snackbar
-    when you click it will confirm the logout and bring user to the login activity
+    /**
+     * On click listener for the snackbar
+     * When you click it will confirm the logout and bring user to the login activity
      */
     View.OnClickListener myOnClickListener = new View.OnClickListener() {
         @Override
@@ -512,18 +500,18 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         }
     };
 
-    /*
-    starts the AddRecipeActivity for result
-    called in onNavigationSelected
+    /**
+     * starts the AddRecipeActivity for result
+     * called in onNavigationSelected
      */
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    /*
-    takes user back to the logout screen
-    called in myOnClickListener
+    /**
+     * takes user back to the logout screen
+     * called in myOnClickListener
      */
     public void logout() {
         // make a new intent

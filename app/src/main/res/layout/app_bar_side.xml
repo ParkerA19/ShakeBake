@@ -23,10 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="roboto"
                 android:text="SHAKE &amp; MAKE"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                style="@style/header_text"/>
 
         </android.support.v7.widget.Toolbar>
 

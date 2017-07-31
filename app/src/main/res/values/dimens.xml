@@ -15,5 +15,10 @@
     <dimen name="Main_card_corner_radius">0dp</dimen>
     <dimen name="Main_card_elevation">8dp</dimen>
     <dimen name="Main_profile_image_margin">15dp</dimen>
+    <dimen name="space24">24dp</dimen>
+    <dimen name="space16">16dp</dimen>
+    <dimen name="space8">8dp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+    <dimen name="secondary_text_size">20sp</dimen>
 
 </resources>
