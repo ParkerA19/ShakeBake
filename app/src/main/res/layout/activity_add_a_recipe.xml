@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="15dp"
-                        android:background="@drawable/textbox_outline"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableLeft="@drawable/key_1"
                         android:ems="10"
                         android:fontFamily="roboto"
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="15dp"
-                        android:background="@drawable/textbox_outline"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableLeft="@drawable/key_2"
                         android:ems="10"
                         android:fontFamily="roboto"
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="12dp"
-                        android:background="@drawable/textbox_outline"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableLeft="@drawable/key_3"
                         android:ems="10"
                         android:fontFamily="roboto"
@@ -181,21 +181,26 @@
 
                 <EditText
                     android:id="@+id/etRecipeDescription"
-                    android:layout_width="wrap_content"
+                    android:layout_width="339dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/textbox_outline"
+                    android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:fontFamily="roboto"
-                    android:hint="Add Description"
+                    android:hint="Add a Description"
                     android:inputType="textPersonName"
                     android:onClick="onAdd"
                     android:textColorHint="@color/grey_font"
-                    android:textSize="20sp" />
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="20sp"
+                    android:layout_weight="0.08" />
 
                 <TextView
                     android:id="@+id/tvIngredientsTitle"
@@ -225,6 +230,17 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/floatingActionButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        app:backgroundTint="@android:color/white"
+                        app:fabSize="mini"
+                        app:srcCompat="@android:drawable/ic_input_add" />
 
                     <ImageButton
                         android:id="@+id/bAddIngredients"
