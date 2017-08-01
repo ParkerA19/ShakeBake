@@ -131,6 +131,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
                     //checks here if recipe is already being shown & checks forks
                     if (!popularTitles.contains(newRecipe.title) & newRecipe.forkCount >= 300) {
                         appendRecipe(newRecipe);
+                        // keep track of recipes already added
                         popularTitles.add(newRecipe.title);
                     }
                 }
