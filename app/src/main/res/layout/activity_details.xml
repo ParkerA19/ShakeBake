@@ -94,6 +94,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
                     android:orientation="vertical">
 
                     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -266,6 +268,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:onClick="onIngredient"
                         app:srcCompat="@drawable/ic_chef_hat" />
 
                     <TextView
@@ -275,6 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="INGREDIENTS"
+                        android:onClick="onIngredient"
                         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
                     <FrameLayout
@@ -283,6 +287,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_gravity="center"
+                        android:onClick="onIngredient"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="@dimen/activity_vertical_margin" />
@@ -293,6 +298,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/ic_chef_hat"
+                        android:onClick="onPrep"
                         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
                     <TextView
@@ -302,6 +308,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="PREPARATION"
+                        android:onClick="onPrep"
                         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
                     <FrameLayout
@@ -309,6 +316,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:onClick="onPrep"
                         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
 

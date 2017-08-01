@@ -7,6 +7,18 @@
     android:background="@drawable/background"
     tools:context="com.example.pandrews.shakebake.OpeningActivity">
 
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivToaster"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:text="SHAKE &amp; MAKE"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="150dp"
@@ -29,16 +41,17 @@
         android:id="@+id/btnLogin"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginBottom="68dp"
         android:background="@drawable/round_button"
         android:fontFamily="roboto"
         android:text="Log In"
         android:textColor="@color/appBackground"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="198dp"
+        tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="438dp"
-        android:layout_below="@+id/ivToaster"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -46,21 +59,33 @@
         android:id="@+id/ivToaster"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:cropToPadding="true"
-        app:srcCompat="@drawable/vector_toaster"
-        android:layout_above="@+id/btnSignup"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/tvTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/vector_new_logo" />
+        app:srcCompat="@drawable/vector_toaster"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp" />
+
+    <TextView
+        android:id="@+id/tvSlogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hungry? Why wait? Shake &amp; Make."
+        android:textSize="18sp"
+        android:layout_above="@+id/btnSignup"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/logo"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_below="@+id/tvTitle"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--app:srcCompat="@drawable/vector_new_logo" />-->
 
     <!--<ImageView-->
         <!--android:id="@+id/ivChicken"-->

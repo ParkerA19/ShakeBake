@@ -1,25 +1,20 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.pandrews.shakebake.models.Recipe;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
@@ -48,7 +43,6 @@ public class StepActivity extends AppCompatActivity {
     Uri uri;
     String step;
     String videoName;
-    FirebaseDatabase database;
     Context context;
     ArrayList<TextView> tvList;
 
@@ -71,57 +65,27 @@ public class StepActivity extends AppCompatActivity {
             bLast.setVisibility(View.GONE);
         }
 
-        //eventually remove this
-        DatabaseReference dataRef = database.getInstance().getReference();
-        dataRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    if (newRecipe.title.equalsIgnoreCase("Cauliflower Alfredo")) {
-                        recipe = newRecipe;
-                    }
-                }
-                step = recipe.steps.get(stepCount - 1);
-                //get intent, start setting textviews and videos. have entire recipe passed through intent
-                context = getApplicationContext();
+        // get the recipe from the intent
+        recipe = Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
+        Log.d("DetailsActivity", String.format("Showing details for %s", recipe.title));
 
-                //set description, title, and video
-                tvStepTitle.setText("Step " + stepCount.toString());
-                tvStepDescription.setText(step);
+        context = getApplicationContext();
 
-                videoName = recipe.stepVideo.get("step " + stepCount.toString());
+        step = recipe.steps.get(stepCount - 1);
+        //get intent, start setting textviews and videos. have entire recipe passed through intent
+        //recipe = Recipe.fromBundle(getIntent().getExtras());
 
-                //store actual filename in recipe database as value for each step. then append here. since each key is just the step, get step's value
-                uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + videoName);
-                //uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + "cat");
-                vvStepVideo.setVideoURI(uri);
-                vvStepVideo.start();
+        //set description, title, and video
+        tvStepTitle.setText("Step " + stepCount.toString());
+        tvStepDescription.setText(step);
 
-            }
+        videoName = recipe.stepVideo.get("step " + stepCount.toString());
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(StepActivity.this, "no recipe", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //uncomment and delete above database stuff once button on details activity is made
-//        step = recipe.steps.get(stepCount - 1);
-//        //get intent, start setting textviews and videos. have entire recipe passed through intent
-//        //recipe = Recipe.fromBundle(getIntent().getExtras());
-//
-//        //set description, title, and video
-//        tvStepTitle.setText("Step " + stepCount.toString());
-//        //tvStepDescription.setText(step);
-//
-//        videoName = recipe.stepVideo.get(step);
-//
-//        //store actual filename in recipe database as value for each step. then append here. since each key is just the step, get step's value
-//        uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + videoName);
-//        //uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + "cat");
-//        vvStepVideo.setVideoURI(uri);
-//        vvStepVideo.start();
+        //store actual filename in recipe database as value for each step. then append here. since each key is just the step, get step's value
+        uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + videoName);
+        //uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + "cat");
+        vvStepVideo.setVideoURI(uri);
+        vvStepVideo.start();
 
     }
 
@@ -151,11 +115,9 @@ public class StepActivity extends AppCompatActivity {
                 //since last step, change button to DONE
                 bNext.setText("DONE");
             }
-        } //if button reads "done" then send intent to next activity
-        else if (bNext.getText().toString().equalsIgnoreCase("DONE")) {
-            Intent intent = new Intent(this, DetailsActivity.class);
-            intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-            startActivity(intent);
+         //if button reads "done" then send intent to next activity
+        } else if (bNext.getText().toString().equalsIgnoreCase("DONE")) {
+            super.onBackPressed();
         }
     }
 

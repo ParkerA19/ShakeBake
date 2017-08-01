@@ -93,7 +93,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
                     //LinkedHashMap<String, String> stepsVid = postSnapshot.getValue(Recipe.class).stepVideo;
-                    if (newRecipe.stepVideo == null) {
+                    if (true) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
 
                     }

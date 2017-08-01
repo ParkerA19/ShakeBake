@@ -20,5 +20,6 @@
     <dimen name="space8">8dp</dimen>
     <dimen name="title_text_size">18sp</dimen>
     <dimen name="secondary_text_size">20sp</dimen>
+    <dimen name="screen_height">600dp</dimen>
 
 </resources>
