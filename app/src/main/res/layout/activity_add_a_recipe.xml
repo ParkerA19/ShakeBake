@@ -290,7 +290,7 @@
                     android:background="@null"
                     android:fontFamily="roboto"
                     android:onClick="onAddStep"
-                    android:text="Add Recipe Steps"
+                    android:text="Add a step"
                     android:textColor="#000000"
                     android:textColorHighlight="#000000" />
 
