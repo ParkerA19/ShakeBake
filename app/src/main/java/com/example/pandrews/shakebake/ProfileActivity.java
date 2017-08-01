@@ -255,10 +255,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             case R.id.nav_help:
                 return true;
             case R.id.nav_settings:
-                // make a new intent
-                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                // start activity
-                startActivity(intent);
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar

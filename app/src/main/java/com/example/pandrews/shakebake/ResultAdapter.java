@@ -1,19 +1,25 @@
 package com.example.pandrews.shakebake;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,10 +30,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_fill;
-import static com.example.pandrews.shakebake.R.drawable.vector_fork_stroke;
+import static com.example.pandrews.shakebake.R.drawable.vector_forked;
+import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
 
 /**
  * Created by andreagarcia on 7/18/17.
@@ -46,7 +51,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     }
 
     // pass in the Recipes array in the constructor
-    public ResultAdapter(ArrayList<Recipe> recipes, ResultAdapterListener listener) {
+    public ResultAdapter(ArrayList<Recipe> recipes, @Nullable ResultAdapterListener listener) {
         mRecipes = recipes;
         mlistener = listener;
     }
@@ -75,14 +80,15 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         holder.tvUsername.setText(recipe.user.username);
 
         // based on the forked boolean choose the vector resource for ibFork
-        int forkResource = (recipe.forked) ? vector_fork_fill: vector_fork_stroke;
+        int forkResource = (recipe.forked) ? vector_forked: vector_real_fork;
         holder.ibFork.setImageResource(forkResource);
 
         // set the forkCount text
         String forkString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
         holder.tvForks.setText(forkString);
 
-        // now set an OnClickListener
+
+        // now set an OnClickListener for the Fork
         holder.ibFork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +96,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                     // change the boolean
                     recipe.forked = false;
                     // set new image resource
-                    holder.ibFork.setImageResource(vector_fork_stroke);
+                    holder.ibFork.setImageResource(vector_real_fork);
                     // set the new forkCount
                     recipe.forkCount = recipe.forkCount - 1;
                     // set the new forkCount text
@@ -105,7 +111,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                     // change the boolean
                     recipe.forked = true;
                     // set the new image resource
-                    holder.ibFork.setImageResource(vector_fork_fill);
+                    holder.ibFork.setImageResource(vector_forked);
                     // set teh new forkCount
                     recipe.forkCount = recipe.forkCount + 1;
                     // set the new forkCount text
@@ -114,6 +120,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                     //change forked value on database
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
                     FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
+
+
                 }
             }
         });
@@ -199,13 +207,24 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 //
 //        }
 
+        // Use Glide to load Profile Image
         if (recipe.user.profileImageUrl != null) {
             holder.ivProfileImage.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
-                    .bitmapTransform(new RoundedCornersTransformation(context, 200, 0))
-                    .into(holder.ivProfileImage);
+                    .asBitmap()
+                    .centerCrop()
+                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
         }
+
         if (recipe.mediaurl != null) {
             holder.vvMedia.setVisibility(View.VISIBLE);
             //change later -- TODO
@@ -238,7 +257,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         }
 
         // set onClickListener for the profile image to open the profile activity
-        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+        holder.llImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make a new intent
@@ -247,6 +266,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
                 // start activity with intent
                 context.startActivity(intent);
+                // set the activity
+                Activity activity = (Activity) context;
+                // set the new animation
+                activity.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             }
         });
 
@@ -291,6 +314,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
         //        @BindView(R.id.tvDescription) TextView tvDescription;
+        @BindView(R.id.llImage) LinearLayout llImage;
         @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
         @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
         @Nullable@BindView(R.id.tvTag3) TextView tvTag3;

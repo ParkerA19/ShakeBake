@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -220,7 +221,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
 
         // set onClickListener for the profile image to open the profile activity
-        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+        holder.llImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make a new intent
@@ -307,6 +308,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
 //        @BindView(R.id.tvDescription) TextView tvDescription;
+        @BindView(R.id.llImage) LinearLayout llImage;
         @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
         @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
         @Nullable@BindView(R.id.tvTag3) TextView tvTag3;

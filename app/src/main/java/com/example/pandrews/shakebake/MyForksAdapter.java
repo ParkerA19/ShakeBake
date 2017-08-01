@@ -1,5 +1,6 @@
 package com.example.pandrews.shakebake;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -206,7 +208,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         }
 
         // set onClickListener for the profile image to open the profile activity
-        holder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+        holder.llImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // make a new intent
@@ -215,6 +217,10 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                 intent.putExtra(User.class.getSimpleName(), Parcels.wrap(recipe.user));
                 // start activity with intent
                 context.startActivity(intent);
+                // set the activity
+                Activity activity = (Activity) context;
+                // set the new animation
+                activity.overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             }
         });
 
@@ -268,6 +274,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         @BindView(R.id.tvForks) TextView tvForks;
         @BindView(R.id.tvTitle) TextView tvTitle;
 //        @BindView(R.id.tvDescription) TextView tvDescription;
+        @BindView(R.id.llImage) LinearLayout llImage;
         @Nullable@BindView(R.id.tvTag1) TextView tvTag1;
         @Nullable@BindView(R.id.tvTag2) TextView tvTag2;
         @Nullable@BindView(R.id.tvTag3) TextView tvTag3;

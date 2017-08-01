@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class StepActivity extends AppCompatActivity {
     //init stuff in step activity xml
-    Integer stepCount = 1;
+    Integer stepCount = 2;
 
     @BindView(R.id.tvStepTitle) TextView tvStepTitle;
     @BindView(R.id.tvStepDescription) TextView tvStepDescription;
@@ -59,18 +59,24 @@ public class StepActivity extends AppCompatActivity {
 
         tvList = new ArrayList<>(Arrays.asList(tv1, tv2, tv3, tv4));
 
-        //set last button invisible
-        bLast.setVisibility(View.GONE);
+//        //set last button invisible
+//        bLast.setVisibility(View.GONE);
 
         // get the recipe from the intent
         recipe = Parcels.unwrap(getIntent().getParcelableExtra(Recipe.class.getSimpleName()));
-        Log.d("DetailsActivity", String.format("Showing details for %s", recipe.title));
+        Log.d("StepActivity", String.format("Showing details for %s", recipe.title));
+
+        // get the position from the intent
+        stepCount = getIntent().getIntExtra("position", 0) + 1;
 
         context = getApplicationContext();
 
         step = recipe.steps.get(stepCount - 1);
         //get intent, start setting textviews and videos. have entire recipe passed through intent
         //recipe = Recipe.fromBundle(getIntent().getExtras());
+
+        // set which chef hat we are currently on
+        setStepNumbers(tvList.get(stepCount-1));
 
         //set description, title, and video
         tvStepTitle.setText("Step " + stepCount.toString());
@@ -83,6 +89,13 @@ public class StepActivity extends AppCompatActivity {
         //uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + "cat");
         vvStepVideo.setVideoURI(uri);
         vvStepVideo.start();
+
+        if (stepCount != 1) {
+            bLast.setVisibility(View.VISIBLE);
+
+        } else {
+            bLast.setVisibility(View.GONE);
+        }
 
     }
 
@@ -146,5 +159,11 @@ public class StepActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    public void setStepNumbers(TextView tvCurrent) {
+        // change backgrounds of current textview
+        tvCurrent.setBackgroundResource(R.drawable.noun_202830_edited);
+        tvCurrent.setTextColor(ContextCompat.getColor(context, R.color.white));
     }
 }

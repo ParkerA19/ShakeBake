@@ -108,10 +108,14 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
                 // start activity
                 context.startActivity(intent);
             } else {
+                // get the adapter position
+                int position = getAdapterPosition();
                 // make intent
                 Intent intent = new Intent(context, StepActivity.class);
                 // pass in recipe
                 intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe));
+                // pass in the position
+                intent.putExtra("position", position);
                 // setFlags so this activity does not go into the BackStack
                 intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 // start the activity

@@ -28,12 +28,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/noun_202830_edited"
+                android:background="@drawable/noun_202830_empty"
                 android:ems="10"
                 android:paddingTop="8dp"
                 android:text="1"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/off_black"
                 android:textSize="18sp" />
 
             <TextView
