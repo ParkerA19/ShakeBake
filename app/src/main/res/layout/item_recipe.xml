@@ -110,6 +110,7 @@
             android:layout_marginLeft="@dimen/Main_horizontal_margin"
             android:layout_marginBottom="@dimen/Main_vertical_margin"
             android:textSize="24sp"
+            android:maxWidth="220dp"
             android:layout_alignTop="@id/ibFork"
             android:layout_alignLeft="@id/vvMedia"
             android:layout_alignStart="@id/vvMedia" />

@@ -129,8 +129,9 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
                     }
                     //modify line below for min fork threshold.
                     //checks here if recipe is already being shown & checks forks
-                    if (!popularTitles.contains(newRecipe.title) & newRecipe.forkCount == 220) {
+                    if (!popularTitles.contains(newRecipe.title) & newRecipe.forkCount >= 300) {
                         appendRecipe(newRecipe);
+                        // keep track of recipes already added
                         popularTitles.add(newRecipe.title);
                     }
                 }
