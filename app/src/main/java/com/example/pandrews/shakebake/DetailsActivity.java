@@ -70,6 +70,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvTag1) TextView tvTag1;
     @BindView(R.id.tvTag2) TextView tvTag2;
     @BindView(R.id.tvTag3) TextView tvTag3;
+    @BindView(R.id.tvIngredient) TextView tvIngredient;
+    @BindView(R.id.tvPreparation) TextView tvPreparation;
     @BindView(R.id.ibFork) ImageButton ibFork;
     @BindView(R.id.drawer_layout2) DrawerLayout drawerLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -441,6 +443,28 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
             }
         });
 
+    }
+
+    public void onIngredient(View v) {
+        // make intent
+        Intent intent = new Intent(context, InstructionsActivity.class);
+        // pass in recipe
+        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
+        // pass in the fragment position to go to
+        intent.putExtra("int", 0);
+        // start activity
+        context.startActivity(intent);
+    }
+
+    public void onPrep(View v) {
+        // make intent
+        Intent intent = new Intent(context, StepActivity.class);
+        // pass in recipe
+        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
+        // setFlags so this activity does not go into the BackStack
+        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+        // start the activity
+        context.startActivity(intent);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

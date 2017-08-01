@@ -96,34 +96,28 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
             }
         }
 
-
         @Override
         public void onClick(View v) {
-            // make intent
-            Intent intent = new Intent(context, InstructionsActivity.class);
-            // pass in recipe
-            intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe));
-            // pass in the fragment position to go to
-            intent.putExtra("int", fragmentPosition);
-            // start activity
-            context.startActivity(intent);
-//            // get the Activity
-//            Activity activity = (Activity) context;
-//            // set the animation
-//            activity.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
-
+            if (fragmentPosition == 0) {
+                // make intent
+                Intent intent = new Intent(context, InstructionsActivity.class);
+                // pass in recipe
+                intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe));
+                // pass in the fragment position to go to
+                intent.putExtra("int", fragmentPosition);
+                // start activity
+                context.startActivity(intent);
+            } else {
+                // make intent
+                Intent intent = new Intent(context, StepActivity.class);
+                // pass in recipe
+                intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe));
+                // setFlags so this activity does not go into the BackStack
+                intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                // start the activity
+                context.startActivity(intent);
+            }
         }
-
-
-//        @Override
-//        public void onClick(View v) {
-//            // make intent
-//            Intent intent = new Intent(context, StepsActivity.class);
-//            // pass in recipe
-//            intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe);
-//            // start the activity
-//            context.startActivity(intent);
-//        }
     }
 
     public void clear() {
