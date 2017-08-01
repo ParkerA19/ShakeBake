@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +14,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -22,7 +25,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -68,10 +70,14 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvFollowing) TextView tvFollowing;
     @BindView(R.id.tvFollowingCount) TextView tvFollowingCount;
     @BindView(R.id.flContainer) FrameLayout flContainer;
-    @BindView(R.id.scrollView2) ScrollView scrollView2;
+    @BindView(R.id.scroll) NestedScrollView scrollView2;
     @BindView(R.id.rlUserHeader) RelativeLayout rlUserHeader;
     @BindView(R.id.cvCard) CardView cvCard;
+    @BindView(R.id.rootview) CoordinatorLayout rootview;
     @BindView(R.id.drawer_layout3) DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // populate the user headline
         populateUserHeadline(user);
 
+        collapsingToolbarLayout.setTitleEnabled(false);
+
+
     }
 
     @Override
@@ -123,12 +132,22 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
     public void setNavigationView() {
+//        // set the toolbar at the top
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.tv_title);
+//        toolbarTitle.setText("PROFILE");
+
         // set the toolbar at the top
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.tv_title);
+        toolbarTitle.setText("PROFILE");
+        toolbarTitle.setTextColor(getResources().getColor(R.color.white));
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        TextView toolbarTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("PROFILE");
+
 
 
         // draw the navigation item
@@ -194,8 +213,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         tvFollowersCount.setText(user.followersCount + "");
         tvFollowingCount.setText(user.followingCount + "");
 
-
-
         if (user.profileImageUrl != null) {
             Glide.with(this)
                     .load(user.profileImageUrl)
@@ -245,7 +262,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar
-                Snackbar.make(flContainer, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
+                Snackbar.make(drawerLayout, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
                         .setAction(R.string.snackbar_action, myOnClickListener)
                         .setActionTextColor(getResources().getColor(R.color.appFontLogout))
                         .show(); // Don’t forget to show!

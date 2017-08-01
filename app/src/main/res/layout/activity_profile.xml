@@ -12,271 +12,324 @@
     android:background="@color/off_white"
     tools:context="com.example.pandrews.shakebake.ProfileActivity">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true"
+        android:id="@+id/rootview">
 
-        <include
-            layout="@layout/app_bar_side"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/include" />
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
 
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="0dp"
-            android:scrollbars="none">
-
-            <RelativeLayout
-                android:id="@+id/rlUserHeader"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:descendantFocusability="blocksDescendants">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="@drawable/background2"
+                app:collapsedTitleGravity="center_horizontal"
+                app:expandedTitleGravity="center_horizontal"
+                android:fitsSystemWindows="true"
+                android:background="@color/off_white"
+                android:contentInsetStart="0dp"
+                app:contentInsetStart="0dp">
 
-                <ImageView
-                    android:id="@+id/ivFiller"
+                <RelativeLayout
+                    android:id="@+id/rlUserHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_alignParentTop="true"
-                    app:srcCompat="@drawable/background2" />
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants">
 
-                <ImageView
-                    android:id="@+id/ivProfileImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/profile_vertical_margin"
-                    android:layout_marginTop="50dp"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/ic_menu_camera"
-                    app:srcCompat="@drawable/ic_menu_camera" />
-
-                <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivProfileImage"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/profile_vertical_margin"
-                    android:text="Name"
-                    android:textAppearance="@android:style/TextAppearance.Large"
-                    android:textColor="@color/appBackground"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvUsername"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvName"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/profile_vertical_margin_large"
-                    android:text="Username"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/appBackground"
-                    android:textSize="20sp" />
-
-                <android.support.v7.widget.CardView
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/cvCard"
-                    android:layout_width="330dp"
-                    android:layout_height="200dp"
-                    android:layout_below="@+id/tvUsername"
-                    android:layout_centerHorizontal="true"
-                    card_view:cardCornerRadius="@dimen/Main_card_corner_radius"
-                    card_view:cardElevation="@dimen/Main_card_elevation"
-                    android:layout_weight="1">
-
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/ivFiller"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        app:srcCompat="@drawable/background2" />
 
-                        <TextView
-                            android:id="@+id/tvAbout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/Main_vertical_margin"
-                            android:text="About"
-                            android:textColor="@color/appBackground"
-                            android:textSize="20sp" />
+                    <ImageView
+                        android:id="@+id/ivProfileImage"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/profile_vertical_margin"
+                        android:layout_marginTop="100dp"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/ic_menu_camera"
+                        app:srcCompat="@drawable/ic_menu_camera" />
 
-                        <TextView
-                            android:id="@+id/tvAboutInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/ivLine4"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_below="@+id/tvAbout"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:text="Cereal Luvr"
-                            android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivProfileImage"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/profile_vertical_margin"
+                        android:text="Name"
+                        android:textAppearance="@android:style/TextAppearance.Large"
+                        android:textColor="@color/appBackground"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvName"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/profile_vertical_margin_large"
+                        android:text="Username"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                        android:textColor="@color/appBackground"
+                        android:textSize="20sp" />
 
+                    <android.support.v7.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/cvCard"
+                        android:layout_width="330dp"
+                        android:layout_height="200dp"
+                        android:layout_below="@+id/tvUsername"
+                        android:layout_centerHorizontal="true"
+                        card_view:cardCornerRadius="@dimen/Main_card_corner_radius"
+                        card_view:cardElevation="@dimen/Main_card_elevation"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1">
 
-
-                        <LinearLayout
-                            android:id="@+id/llPosts"
-                            android:layout_width="110dp"
-                            android:layout_height="100dp"
-                            android:orientation="vertical"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentLeft="true">
-
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/tvPostCount"
+                                android:id="@+id/tvAbout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:layout_marginBottom="@dimen/profile_vertical_margin"
-                                android:layout_marginTop="20dp"
-                                android:fontFamily="roboto"
-                                android:gravity="center_vertical|center_horizontal"
-                                android:text="5"
-                                android:textColor="@android:color/black"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/Main_vertical_margin"
+                                android:text="About"
+                                android:textColor="@color/appBackground"
                                 android:textSize="20sp" />
 
                             <TextView
-                                android:id="@+id/tvPosts"
+                                android:id="@+id/tvAboutInfo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:fontFamily="roboto"
-                                android:text="Posts" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/llFollowers"
-                            android:layout_width="110dp"
-                            android:layout_height="100dp"
-                            android:onClick="onFollowers"
-                            android:orientation="vertical"
-                            android:layout_alignParentBottom="true"
-                            android:layout_toRightOf="@id/llPosts"
-                            android:layout_toEndOf="@id/llPosts">
-
-                            <TextView
-                                android:id="@+id/tvFollowersCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/profile_vertical_margin"
-                                android:layout_marginTop="20dp"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:textSize="20sp"
-                                android:fontFamily="roboto"
-                                android:textColor="@android:color/black"
-                                android:text="5"/>
-
-                            <TextView
-                                android:id="@+id/tvFollowers"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:text="Followers" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="110dp"
-                            android:layout_height="100dp"
-                            android:onClick="onFollowing"
-                            android:orientation="vertical"
-                            android:id="@+id/llFollowing"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true">
-
-                            <TextView
-                                android:id="@+id/tvFollowingCount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/profile_vertical_margin"
-                                android:layout_marginTop="20dp"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:textSize="20sp"
-                                android:fontFamily="roboto"
-                                android:textColor="@android:color/black"
-                                android:text="5"/>
+                                android:layout_alignBottom="@+id/ivLine4"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_below="@+id/tvAbout"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="Cereal Luvr"
+                                style="@style/profile_info_text_secondary"/>
 
 
-                            <TextView
-                                android:id="@+id/tvFollowing"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:text="Following" />
 
-                        </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/ivLine4"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignTop="@id/llPosts"
-                            app:srcCompat="@android:color/darker_gray" />
+                            <LinearLayout
+                                android:id="@+id/llPosts"
+                                android:layout_width="110dp"
+                                android:layout_height="100dp"
+                                android:orientation="vertical"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true">
 
-                        <ImageView
-                            android:id="@+id/ivLine5"
-                            android:layout_width="1dp"
-                            android:layout_height="50dp"
-                            android:layout_below="@+id/ivLine4"
-                            android:layout_marginTop="24dp"
-                            android:layout_alignEnd="@id/llPosts"
-                            android:layout_alignRight="@id/llPosts"
-                            app:srcCompat="@android:color/darker_gray"
-                            />
 
-                        <ImageView
-                            android:id="@+id/ivLine6"
-                            android:layout_width="1dp"
-                            android:layout_height="50dp"
-                            android:layout_below="@+id/ivLine4"
-                            android:layout_marginTop="24dp"
-                            android:layout_alignEnd="@id/llFollowers"
-                            android:layout_alignRight="@id/llFollowers"
-                            app:srcCompat="@android:color/darker_gray" />
-                    </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/tvPostCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical|center_horizontal"
+                                    android:layout_marginBottom="@dimen/profile_vertical_margin"
+                                    android:layout_marginTop="20dp"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:text="5"
+                                    style="@style/profile_info_text" />
 
-                </android.support.v7.widget.CardView>
+                                <TextView
+                                    android:id="@+id/tvPosts"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical|center_horizontal"
+                                    android:text="Posts"
+                                    style="@style/profile_info_text_secondary"/>
 
-                <FrameLayout
-                    android:id="@+id/flContainer"
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llFollowers"
+                                android:layout_width="110dp"
+                                android:layout_height="100dp"
+                                android:onClick="onFollowers"
+                                android:orientation="vertical"
+                                android:layout_alignParentBottom="true"
+                                android:layout_toRightOf="@id/llPosts"
+                                android:layout_toEndOf="@id/llPosts">
+
+                                <TextView
+                                    android:id="@+id/tvFollowersCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/profile_vertical_margin"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="center_vertical|center_horizontal"
+                                    android:text="5"
+                                    style="@style/profile_info_text"/>
+
+                                <TextView
+                                    android:id="@+id/tvFollowers"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical|center_horizontal"
+                                    android:text="Followers"
+                                    style="@style/profile_info_text_secondary"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="110dp"
+                                android:layout_height="100dp"
+                                android:onClick="onFollowing"
+                                android:orientation="vertical"
+                                android:id="@+id/llFollowing"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true">
+
+                                <TextView
+                                    android:id="@+id/tvFollowingCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/profile_vertical_margin"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="center_vertical|center_horizontal"
+                                    android:text="5"
+                                    style="@style/profile_info_text"/>
+
+
+                                <TextView
+                                    android:id="@+id/tvFollowing"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical|center_horizontal"
+                                    android:text="Following"
+                                    style="@style/profile_info_text_secondary"/>
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/ivLine4"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_alignTop="@id/llPosts"
+                                app:srcCompat="@android:color/darker_gray" />
+
+                            <ImageView
+                                android:id="@+id/ivLine5"
+                                android:layout_width="1dp"
+                                android:layout_height="50dp"
+                                android:layout_below="@+id/ivLine4"
+                                android:layout_marginTop="24dp"
+                                android:layout_alignEnd="@id/llPosts"
+                                android:layout_alignRight="@id/llPosts"
+                                app:srcCompat="@android:color/darker_gray"
+                                />
+
+                            <ImageView
+                                android:id="@+id/ivLine6"
+                                android:layout_width="1dp"
+                                android:layout_height="50dp"
+                                android:layout_below="@+id/ivLine4"
+                                android:layout_marginTop="24dp"
+                                android:layout_alignEnd="@id/llFollowers"
+                                android:layout_alignRight="@id/llFollowers"
+                                app:srcCompat="@android:color/darker_gray" />
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="650dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/cvCard"
-                    android:layout_marginTop="5dp">
+                    android:layout_height="?actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin"
+                    android:layout_margin="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetStart="0dp"
+                    android:padding="0dp"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetStart="0dp">
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/title_text_size"/>
+                </android.support.v7.widget.Toolbar>
 
-                </FrameLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
 
-            </RelativeLayout>
+        </android.support.design.widget.AppBarLayout>
 
-        </ScrollView>
 
-    </LinearLayout>
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/flContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/screen_height"
+                        android:layout_marginTop="5dp">
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/background"
         android:fitsSystemWindows="true"
+        android:background="@drawable/background"
         app:headerLayout="@layout/nav_header_side"
         app:menu="@menu/activity_side_drawer" />
 

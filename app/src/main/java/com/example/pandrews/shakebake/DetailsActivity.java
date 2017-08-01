@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -75,6 +76,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.ibFork) ImageButton ibFork;
     @BindView(R.id.drawer_layout2) DrawerLayout drawerLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.rootview) CoordinatorLayout rootview;
     @BindView(R.id.image) ImageView image;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -421,8 +423,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 .into(new BitmapImageViewTarget(Image) {
                     @Override
                     protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), resource);
                         circularBitmapDrawable.setCircular(true);
                         Image.setImageDrawable(circularBitmapDrawable);
                     }
@@ -499,7 +500,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 return true;
             case R.id.nav_logout:
                 // Pass in the click listener when displaying the Snackbar
-                Snackbar.make(scrollView1, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
+                Snackbar.make(drawerLayout, R.string.snackbar_text, Snackbar.LENGTH_SHORT)
                         .setAction(R.string.snackbar_action, myOnClickListener)
                         .setActionTextColor(getResources().getColor(R.color.appFontLogout))
                         .show(); // Don’t forget to show!
