@@ -97,6 +97,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
 
                     }
+
                     appendRecipe(newRecipe);
                     //keep track of recipes already added
                     recipeTitles.add(newRecipe.title);

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -247,15 +246,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         videos = new ArrayList<>();
         currentVideo = 0;
         if (recipe.mediaurl != null) {
-            if (recipe.stepVideo != null){
-                for (String value : recipe.stepVideo.values()) {
-                    videos.add(value);
-                }
-                uri = Uri.parse(videos.get(currentVideo));
-
-            } else {
-                uri = Uri.parse(recipe.mediaurl);
-            }
+//            if (recipe.stepVideo != null){
+//                for (String value : recipe.stepVideo.values()) {
+//                    videos.add(value);
+//                }
+//                uri = Uri.parse(videos.get(currentVideo));
+//
+//            } else {
+//                uri = Uri.parse(recipe.mediaurl);
+//            }
+            uri = Uri.parse(recipe.mediaurl);
             holder.vvMedia.setVisibility(View.VISIBLE);
 
             holder.vvMedia.setVideoURI(uri);
@@ -265,23 +265,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         } else {
             Log.d("null video" , "Null video");
         }
-        holder.vvMedia.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                currentVideo += 1;
-                if (recipe.stepVideo != null && currentVideo < videos.size()) {
-                    uri = Uri.parse(videos.get(currentVideo));
-                    holder.vvMedia.setVideoURI(uri);
-                    holder.vvMedia.start();
-
-                } else if (recipe.stepVideo != null && currentVideo >= videos.size()) {
-                    currentVideo = 0;
-                    uri = Uri.parse(videos.get(currentVideo));
-                    holder.vvMedia.setVideoURI(uri);
-                    holder.vvMedia.start();
-                }
-            }
-        });
+//        holder.vvMedia.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                currentVideo += 1;
+//                if (recipe.stepVideo != null && currentVideo < videos.size()) {
+//                    uri = Uri.parse(videos.get(currentVideo));
+//                    holder.vvMedia.setVideoURI(uri);
+//                    holder.vvMedia.start();
+//
+//                } else if (recipe.stepVideo != null && currentVideo >= videos.size()) {
+//                    currentVideo = 0;
+//                    uri = Uri.parse(videos.get(currentVideo));
+//                    holder.vvMedia.setVideoURI(uri);
+//                    holder.vvMedia.start();
+//                }
+//            }
+//        });
     }
 
 

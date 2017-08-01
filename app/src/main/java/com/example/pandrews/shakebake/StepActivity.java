@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class StepActivity extends AppCompatActivity {
     //init stuff in step activity xml
-    Integer stepCount = 1;
+    Integer stepCount = 2;
 
     @BindView(R.id.tvStepTitle) TextView tvStepTitle;
     @BindView(R.id.tvStepDescription) TextView tvStepDescription;
@@ -41,7 +41,6 @@ public class StepActivity extends AppCompatActivity {
     @BindView(R.id.tv1) TextView tv1;
     @BindView(R.id.tv2) TextView tv2;
     @BindView(R.id.tv3) TextView tv3;
-    @BindView(R.id.tv4) TextView tv4;
     @BindView(R.id.bLast) TextView bLast;
 
 
@@ -62,10 +61,15 @@ public class StepActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        tvList = new ArrayList<>(Arrays.asList(tv1, tv2, tv3, tv4));
+        tvList = new ArrayList<>(Arrays.asList(tv1, tv2, tv3));
 
-        //set last button invisible
-        bLast.setVisibility(View.GONE);
+        //set top toolbar
+        setStepNumbers(tvList.get(stepCount - 1));
+
+        //set last button invisible if on first step
+        if (stepCount > 1) {
+            bLast.setVisibility(View.GONE);
+        }
 
         //eventually remove this
         DatabaseReference dataRef = database.getInstance().getReference();
@@ -122,7 +126,7 @@ public class StepActivity extends AppCompatActivity {
     }
 
     public void displayNextStep(View view) {
-        //probably send intent to same activity with next info in list. make public counter that goes through each key in stepVideos and then displays the value in the videoview
+        //reset title, description, top bar, and video displayed
         stepCount += 1;
         if (stepCount <= recipe.steps.size()) {
             step = recipe.steps.get(stepCount - 1);
@@ -136,15 +140,19 @@ public class StepActivity extends AppCompatActivity {
             //display LAST button
             bLast.setVisibility(View.VISIBLE);
 
+            //set video uri and start video
             videoName = recipe.stepVideo.get("step " + stepCount.toString());
             uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + videoName);
             vvStepVideo.setVideoURI(uri);
             vvStepVideo.start();
+
+            //if last step, set button to done
             if (stepCount == recipe.steps.size()) {
                 //since last step, change button to DONE
                 bNext.setText("DONE");
             }
-        } else if (bNext.getText().toString().equalsIgnoreCase("DONE")) {
+        } //if button reads "done" then send intent to next activity
+        else if (bNext.getText().toString().equalsIgnoreCase("DONE")) {
             Intent intent = new Intent(this, DetailsActivity.class);
             intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
             startActivity(intent);
@@ -152,6 +160,7 @@ public class StepActivity extends AppCompatActivity {
     }
 
     public void changeStepNumbers(TextView tvLast, TextView tvCurrent) {
+        //change backgrounds of textviews to match whether it is the current step or not
         tvLast.setBackgroundResource(R.drawable.noun_202830_empty);
         tvLast.setTextColor(ContextCompat.getColor(context, R.color.off_black));
 
@@ -184,4 +193,12 @@ public class StepActivity extends AppCompatActivity {
         }
 
     }
+
+    public void setStepNumbers(TextView tvCurrent) {
+        //change backgrounds of current textview
+        tvCurrent.setBackgroundResource(R.drawable.noun_202830_edited);
+        tvCurrent.setTextColor(ContextCompat.getColor(context, R.color.white));
+
+    }
+
 }

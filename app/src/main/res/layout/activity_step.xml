@@ -20,7 +20,8 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv1"
@@ -28,12 +29,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/noun_202830_edited"
+                android:background="@drawable/noun_202830_empty"
                 android:ems="10"
                 android:paddingTop="8dp"
                 android:text="1"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/off_black"
                 android:textSize="18sp" />
 
             <TextView
@@ -61,20 +62,6 @@
                 android:ems="10"
                 android:paddingTop="8dp"
                 android:text="3"
-                android:textAlignment="center"
-                android:textColor="@color/off_black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tv4"
-                android:layout_width="67dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/noun_202830_empty"
-                android:ems="10"
-                android:paddingTop="8dp"
-                android:text="4"
                 android:textAlignment="center"
                 android:textColor="@color/off_black"
                 android:textSize="18sp" />
