@@ -256,7 +256,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
         if (recipe.mediaurl != null) {
-            uri = Uri.parse(recipe.mediaurl);
+            uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
         } else {
             uri = Uri.parse(path);
         }

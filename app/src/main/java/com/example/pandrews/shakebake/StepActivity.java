@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.example.pandrews.shakebake.models.Recipe;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -81,9 +80,8 @@ public class StepActivity extends AppCompatActivity {
 
         videoName = recipe.stepVideo.get("step " + stepCount.toString());
 
-        //store actual filename in recipe database as value for each step. then append here. since each key is just the step, get step's value
+        //parse uri for each step's video using value in step dictionary
         uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + videoName);
-        //uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + "cat");
         vvStepVideo.setVideoURI(uri);
         vvStepVideo.start();
 

@@ -93,10 +93,8 @@ public class HomeTimelineFragment extends RecipesListFragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
                     //LinkedHashMap<String, String> stepsVid = postSnapshot.getValue(Recipe.class).stepVideo;
-                    if (true) {
-                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + newRecipe.mediaurl;
 
-                    }
 
                     appendRecipe(newRecipe);
                     //keep track of recipes already added
@@ -129,10 +127,10 @@ public class HomeTimelineFragment extends RecipesListFragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
                     //if stepVideo == null then set to cat video. else get values from stepVideo and loop through
-                    if (newRecipe.stepVideo == null) {
-                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
-
-                    }
+//                    if (newRecipe.stepVideo == null) {
+//                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+//
+//                    }
 
                     //checks here if recipe is already being shown & checks forks
                     if (!recipeTitles.contains(newRecipe.title)) {

@@ -126,8 +126,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public void populateCollapsingToolbarLayout(){
         collapsingToolbarLayout.setTitleEnabled(false);
 
+
         Glide.with(this)
-                .load(Uri.parse("https://images.pexels.com/photos/140831/pexels-photo-140831.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"))
+                .load(Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.targetUri))
                 .into(image);
     }
 

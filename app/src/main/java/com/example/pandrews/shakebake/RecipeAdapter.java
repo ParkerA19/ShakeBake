@@ -255,7 +255,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 //            } else {
 //                uri = Uri.parse(recipe.mediaurl);
 //            }
-            uri = Uri.parse(recipe.mediaurl);
+            uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
             holder.vvMedia.setVisibility(View.VISIBLE);
 
             holder.vvMedia.setVideoURI(uri);

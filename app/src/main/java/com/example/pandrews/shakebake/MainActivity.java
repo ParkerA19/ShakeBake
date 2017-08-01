@@ -362,46 +362,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FirebaseDatabase database =  FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference(recipe.title);
             myRef.setValue(recipe);
-            //Toast.makeText(getApplicationContext(), recipe.title, Toast.LENGTH_LONG).show();
-//            for (String downloadUrl : recipe.stepVideo.values()) {
-//
-//                FirebaseStorage storage = FirebaseStorage.getInstance();
-//                StorageReference storageRef = storage.getReferenceFromUrl(downloadUrl);
-//                //possibly instead of 3GP use mp4
-//                try {
-//                    final File localFile = File.createTempFile("videos", "3GP");
-//                    storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Bitmap bitmap = BitmapFactory
-//                            MediaStore.Video video = VideoBitmapDecoder;
-//                            vvVideo.setVideoURI();
-//                        }
-//                    })
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//
-//                //Uri download = Uri.parse(downloadUrl);
-//
-//
-//
-//
-////                StorageReference httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(downloadUrl);
-////                httpsReference.getStream()
-////                httpsReference.getStream().addOnSuccessListener(new OnSuccessListener<StreamDownloadTask.TaskSnapshot>() {
-////                    @Override
-////                    public void onSuccess(StreamDownloadTask.TaskSnapshot taskSnapshot) {
-////
-////                    }
-////                }).addOnFailureListener(new OnFailureListener() {
-////                    @Override
-////                    public void onFailure(@NonNull Exception e) {
-////                        Toast.makeText(getApplicationContext(), "file didn't download", Toast.LENGTH_LONG).show();
-////                    }
-////                });
-//            }
+
         }
     }
 

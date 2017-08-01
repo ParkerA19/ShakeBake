@@ -113,7 +113,7 @@ public class SearchActivity extends AppCompatActivity implements ResultAdapter.R
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                                if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {            //later add | newRecipe.keywords.contains(query) into logic to search keywords
+                                if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {
                                     resultRecipes.add(newRecipe);
                                 }
                             }
