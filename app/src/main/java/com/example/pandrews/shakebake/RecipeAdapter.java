@@ -266,23 +266,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         } else {
             Log.d("null video" , "Null video");
         }
-//        holder.vvMedia.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mp) {
-//                currentVideo += 1;
-//                if (recipe.stepVideo != null && currentVideo < videos.size()) {
-//                    uri = Uri.parse(videos.get(currentVideo));
-//                    holder.vvMedia.setVideoURI(uri);
-//                    holder.vvMedia.start();
-//
-//                } else if (recipe.stepVideo != null && currentVideo >= videos.size()) {
-//                    currentVideo = 0;
-//                    uri = Uri.parse(videos.get(currentVideo));
-//                    holder.vvMedia.setVideoURI(uri);
-//                    holder.vvMedia.start();
-//                }
-//            }
-//        });
+
+
     }
 
 
