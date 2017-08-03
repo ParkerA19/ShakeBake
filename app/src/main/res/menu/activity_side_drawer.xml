@@ -7,32 +7,32 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="HOME" />
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
         <item
             android:id="@+id/nav_activity_add_recipe"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="ADD A RECIPE" />
+            android:icon="@drawable/ic_add_to_photos_black_24dp"
+            android:title="Add a Recipe" />
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="SEARCH" />
+            android:icon="@drawable/ic_search"
+            android:title="Search" />
         <item
             android:id="@+id/nav_find_friends"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="FIND FRIENDS" />
+            android:icon="@drawable/ic_friends"
+            android:title="Find Friends" />
         <item
             android:id="@+id/nav_help"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="HELP" />
+            android:icon="@drawable/ic_help"
+            android:title="Help" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="SETTINGS" />
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
     </group>
     <item
         android:id="@+id/nav_logout"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="LOG OUT" />
+        android:icon="@drawable/ic_logout"
+        android:title="Log Out" />
 
 </menu>
