@@ -8,31 +8,31 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Home" />
+            android:title="HOME" />
         <item
             android:id="@+id/nav_activity_add_recipe"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Add a Recipe" />
+            android:title="ADD A RECIPE" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Search" />
+            android:title="SEARCH" />
         <item
             android:id="@+id/nav_find_friends"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Find Friends" />
+            android:title="FIND FRIENDS" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Help" />
+            android:title="HELP" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Settings" />
+            android:title="SETTINGS" />
     </group>
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_menu_slideshow"
-        android:title="Log Out" />
+        android:title="LOG OUT" />
 
 </menu>
