@@ -114,6 +114,7 @@
             android:background="@drawable/rounded_background"
             android:padding="5dp"
             android:text="Description"
+            android:isScrollContainer="true"
             android:textColor="@color/Main_text_color_light_black"
             android:textSize="18sp" />
 

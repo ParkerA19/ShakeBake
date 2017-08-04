@@ -39,7 +39,6 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
     }
 

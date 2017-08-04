@@ -1,6 +1,9 @@
 package com.example.pandrews.shakebake.models;
 
 import android.os.Bundle;
+import android.view.View;
+
+import com.volokh.danylo.visibility_utils.items.ListItem;
 
 import org.parceler.Parcel;
 
@@ -12,7 +15,7 @@ import java.util.HashMap;
  */
 
 @Parcel
-public class Recipe {
+public class Recipe implements ListItem{
 
     public String title;
     public String description;
@@ -89,4 +92,18 @@ public class Recipe {
 //        keywords = new String[];
     }
 
+    @Override
+    public int getVisibilityPercents(View view) {
+        return 0;
+    }
+
+    @Override
+    public void setActive(View newActiveView, int newActiveViewPosition) {
+
+    }
+
+    @Override
+    public void deactivate(View currentView, int position) {
+
+    }
 }

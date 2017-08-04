@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -67,7 +68,6 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         ViewHolder viewHolder = new ViewHolder(recipeView);
         return viewHolder;
     }
-
 
     // bind the values based on the position of the element
     @Override
@@ -184,7 +184,6 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
             holder.tvTag3.setVisibility(View.GONE);
         }
 
-//        holder.tvDescription.setText(recipe.description);
 
         holder.tvForks.setText(recipe.forkCount + "");
 
@@ -224,35 +223,29 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
             }
         });
 
-//        if (recipe.mediaurl != null) {
-//            holder.ivMedia.setVisibility(View.VISIBLE);
-//            Glide.with(context)
-//                    .load(recipe.mediaurl)
-//                    .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-//                    .into(holder.ivMedia);
-//        } else if (recipe.targetUri != null){
-//            holder.ivMedia.setVisibility(View.VISIBLE);
-//            Uri targetUri = Uri.parse(recipe.targetUri);
-//            Bitmap bitmap = null;
-//            try {
-//                bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//            holder.ivMedia.setImageBitmap(bitmap);
-//        } else {
-//            holder.ivMedia.setVisibility(View.GONE);
-//        }
-
         // set the video view and video url
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-        Uri uri=Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
+        //Uri uri=Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
+        Uri uri = Uri.parse(path);
 
+//        holder.vvMedia.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//
+//            }
+//        });
         holder.vvMedia.setVideoURI(uri);
         holder.vvMedia.requestFocus();
         holder.vvMedia.start();
+        holder.vvMedia.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                holder.vvMedia.start();
+            }
+        });
+
     }
 
 
@@ -291,19 +284,6 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
             // set onClickListener
             itemView.setOnClickListener(this);
 
-            // perform findViewById lookups
-
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if (mlistener != null) {
-//                        // get the position of row element
-//                        int position = getAdapterPosition();
-//                        // fire the listener callback
-//                        mlistener.onItemSelected(view, position);
-//                    }
-//                }
-//            });
         }
 
         @Override

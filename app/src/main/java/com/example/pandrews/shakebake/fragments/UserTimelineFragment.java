@@ -29,12 +29,12 @@ public class UserTimelineFragment extends RecipesListFragment {
     private DatabaseReference mDatabase;
 
     static RecipeAdapter recipeAdapter;
-    //    public static ArrayList<Recipe> recipes = new ArrayList<>(Arrays.asList(r1, r2, r3));
     public static ArrayList<Recipe> recipes;
     static RecyclerView rvRecipes;
     public SwipeRefreshLayout swipeContainer;
     public ArrayList<String> userTitles;
     public ArrayList<String> recipeTitles;
+    public static String userName;
 
 
 
@@ -42,6 +42,9 @@ public class UserTimelineFragment extends RecipesListFragment {
         UserTimelineFragment userTimelineFragment = new UserTimelineFragment();
         Bundle args = new Bundle();
         args.putString("screen_name", screenName);
+
+        //set username
+        userName = screenName;
         userTimelineFragment.setArguments(args);
         return userTimelineFragment;
     }
@@ -95,32 +98,27 @@ public class UserTimelineFragment extends RecipesListFragment {
 
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
-                    appendRecipe(newRecipe);
-                    //keep track of recipes already added
-                    recipeTitles.add(newRecipe.title);
+                    if (newRecipe.user.username.equalsIgnoreCase(userName)) {
+                        appendRecipe(newRecipe);
+                        //keep track of recipes already added
+                        recipeTitles.add(newRecipe.title);
+                    }
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+
             }
         });
 
         return v;
         //return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        populateTimeline();
-        super.onStart();
     }
 
     public void populateTimeline() {
@@ -139,15 +137,9 @@ public class UserTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    appendRecipe(newRecipe);
-                    //keep track of recipes already added
-                    userTitles.add(newRecipe.title);
-
-                    //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
-                    //modify line below for min fork threshold.
-                    //checks here if recipe is already being shown & checks forks
-                    if (!recipeTitles.contains(newRecipe.title)) {
+                    if (newRecipe.user.username.equalsIgnoreCase(userName)) {
                         appendRecipe(newRecipe);
+                        //keep track of recipes already added
                         recipeTitles.add(newRecipe.title);
                     }
                 }
