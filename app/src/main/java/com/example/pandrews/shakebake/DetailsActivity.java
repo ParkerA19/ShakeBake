@@ -2,7 +2,6 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +10,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -28,14 +25,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.IngredientsFragment;
 import com.example.pandrews.shakebake.fragments.StepsFragment;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
@@ -113,8 +109,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the the collapsing image layout
         populateCollapsingToolbarLayout();
 
-
-
     }
 
     @Override
@@ -130,6 +124,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         Glide.with(this)
                 .load(Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.targetUri))
                 .into(image);
+    }
+
+    public void scrollTop() {
+        drawerLayout.scrollTo(0,0);
     }
 
     /**
@@ -155,19 +153,24 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set profile image
         if (recipe.user.profileImageUrl != null) {
 
-            Glide.with(getApplicationContext())
-                    .load(profile.profileImageUrl)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(new BitmapImageViewTarget(ivProfileImage) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+//            Glide.with(getApplicationContext())
+//                    .load(recipe.user.profileImageUrl)
+//                    .asBitmap()
+//                    .centerCrop()
+//                    .into(new BitmapImageViewTarget(ivProfileImage) {
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+
+            Glide.with(this)
+                    .load(recipe.user.profileImageUrl)
+                    .transform(new CircleGlide(this))
+                    .into(ivProfileImage);
         }
 
         ivProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -370,13 +373,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         // commit the transaction
         ft2.commit();
-
-        flSteps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Hey", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     /**
@@ -417,18 +413,23 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         username.setText(profile.username);
 
         // set profile image
-        Glide.with(getApplicationContext())
+//        Glide.with(getApplicationContext())
+//                .load(profile.profileImageUrl)
+//                .asBitmap()
+//                .centerCrop()
+//                .into(new BitmapImageViewTarget(Image) {
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                        circularBitmapDrawable.setCircular(true);
+//                        Image.setImageDrawable(circularBitmapDrawable);
+//                    }
+//                });
+
+        Glide.with(this)
                 .load(profile.profileImageUrl)
-                .asBitmap()
-                .centerCrop()
-                .into(new BitmapImageViewTarget(Image) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        Image.setImageDrawable(circularBitmapDrawable);
-                    }
-                });
+                .transform(new CircleGlide(this))
+                .into(Image);
 
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {
@@ -447,16 +448,16 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
     }
 
-    public void onIngredient(View v) {
-        // make intent
-        Intent intent = new Intent(context, InstructionsActivity.class);
-        // pass in recipe
-        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-        // pass in the fragment position to go to
-        intent.putExtra("int", 0);
-        // start activity
-        context.startActivity(intent);
-    }
+//    public void onIngredient(View v) {
+//        // make intent
+//        Intent intent = new Intent(context, InstructionsActivity.class);
+//        // pass in recipe
+//        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
+//        // pass in the fragment position to go to
+//        intent.putExtra("int", 0);
+//        // start activity
+//        context.startActivity(intent);
+//    }
 
     public void onPrep(View v) {
         // make intent
@@ -467,6 +468,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         // start the activity
         context.startActivity(intent);
+        // scroll to the top of the activity
+        scrollTop();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

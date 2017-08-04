@@ -52,6 +52,8 @@ public class StepsFragment extends Fragment {
         rvSteps.setLayoutManager(new LinearLayoutManager(getContext()));
         // set the adapter
         rvSteps.setAdapter(instructionsAdapter);
+        // populate the adapter
+        populateTimeline();
 
         return v;
     }
@@ -67,11 +69,6 @@ public class StepsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onStart() {
-        populateTimeline();
-        super.onStart();
-    }
 
     public void setSteps(ArrayList<String> steps) {
         this.steps = steps;

@@ -11,20 +11,19 @@
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivToaster"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp"
         android:fontFamily="roboto"
-        android:text="SHAKE &amp; MAKE"
+        android:text="shake &amp; make"
         android:textColor="@color/white"
-        android:textSize="26sp"
-        android:textStyle="bold" />
+        android:textSize="40sp"
+        android:layout_alignBottom="@+id/ivToaster"
+        android:layout_alignRight="@+id/ivToaster"
+        android:layout_alignEnd="@+id/ivToaster" />
 
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="85dp"
         android:background="@drawable/round_button"
         android:fontFamily="roboto"
         android:text="Sign Up"
@@ -44,7 +43,6 @@
         android:layout_height="60dp"
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
-        android:layout_marginBottom="68dp"
         android:background="@drawable/round_button"
         android:fontFamily="roboto"
         android:text="Log In"
@@ -52,7 +50,7 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="438dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tvSlogan"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

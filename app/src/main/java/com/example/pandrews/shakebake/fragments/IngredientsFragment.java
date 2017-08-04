@@ -53,6 +53,8 @@ public class IngredientsFragment extends Fragment {
         rvSteps.setLayoutManager(new LinearLayoutManager(getContext()));
         // set the adapter
         rvSteps.setAdapter(instructionsAdapter);
+        // populate the adapter
+        populateTimeline();
 
         return v;
     }
@@ -60,16 +62,11 @@ public class IngredientsFragment extends Fragment {
     public void populateTimeline() {
          instructionsAdapter.clear();
 
+
         for (int i = 0; i < ingredients.size(); i++) {
             Steps.add(ingredients.get(i));
             instructionsAdapter.notifyItemInserted(Steps.size() -1);
         }
-    }
-
-    @Override
-    public void onStart() {
-        populateTimeline();
-        super.onStart();
     }
 
     public void setIngredients(ArrayList<String> ingredients) {

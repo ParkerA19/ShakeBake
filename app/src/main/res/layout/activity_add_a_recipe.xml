@@ -17,6 +17,8 @@
         android:fitsSystemWindows="true"
         android:isScrollContainer="true"
         android:paddingBottom="5dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:scrollbarStyle="insideOverlay">
 
         <RelativeLayout
@@ -81,9 +83,9 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
                     android:text="TITLE"
-                    android:textStyle="bold"
                     android:textColor="@color/appBackground"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/etRecipeTitle"
@@ -100,7 +102,7 @@
                     android:fontFamily="roboto"
                     android:hint="Write a title"
                     android:inputType="textPersonName"
-                    android:textColor="@color/light_font"
+                    android:textColor="@color/Main_text_color_black"
                     android:textColorHint="@color/grey_font"
                     android:textSize="34sp" />
 
@@ -112,9 +114,9 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
                     android:text="KEYWORDS"
-                    android:textStyle="bold"
                     android:textColor="@color/appBackground"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,42 +130,66 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/rounded_edittext"
-                        android:drawableLeft="@drawable/key_1"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:hint="keyword"
+                        android:hint="#keyword"
                         android:inputType="textPersonName"
-                        android:textSize="20sp" />
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:textColor="@color/Main_text_color_black"
+                        android:textColorHint="@color/grey_font"
+                        android:imeOptions="actionNext"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/etKey2"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="5.5dp"
+                        android:layout_marginRight="5.5dp"
                         android:background="@drawable/rounded_edittext"
-                        android:drawableLeft="@drawable/key_2"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:hint="keyword"
+                        android:hint="#keyword"
                         android:inputType="textPersonName"
-                        android:textSize="20sp" />
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:textColor="@color/Main_text_color_black"
+                        android:textColorHint="@color/grey_font"
+                        android:imeOptions="actionNext"
+                        android:textSize="16sp" />
 
                     <EditText
                         android:id="@+id/etKey3"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginRight="12dp"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/rounded_edittext"
-                        android:drawableLeft="@drawable/key_3"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:hint="keyword"
+                        android:hint="#keyword"
                         android:inputType="textPersonName"
-                        android:textSize="20sp" />
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:textColor="@color/Main_text_color_black"
+                        android:textColorHint="@color/grey_font"
+                        android:imeOptions="actionNext"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -175,32 +201,36 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
                     android:text="DESCRIPTION"
-                    android:textStyle="bold"
                     android:textColor="@color/appBackground"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/etRecipeDescription"
-                    android:layout_width="339dp"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_weight="0.08"
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:fontFamily="roboto"
                     android:hint="Add a Description"
+                    android:imeOptions="actionDone"
                     android:inputType="textPersonName"
                     android:onClick="onAdd"
-                    android:textColorHint="@color/grey_font"
-                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
                     android:paddingEnd="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:textSize="20sp"
-                    android:layout_weight="0.08" />
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:textColorHint="@color/grey_font"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvIngredientsTitle"
@@ -210,14 +240,18 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
                     android:text="INGREDIENTS"
-                    android:textStyle="bold"
                     android:textColor="@color/appBackground"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/llIngredientList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="40dp"
                     android:fontFamily="roboto"
                     android:orientation="vertical">
 
@@ -229,37 +263,34 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="horizontal">
 
                     <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/floatingActionButton3"
+                        android:id="@+id/btnIngredients"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="40dp"
                         android:layout_weight="1"
                         android:clickable="true"
+                        android:onClick="onAddAnIngredient"
                         app:backgroundTint="@android:color/white"
                         app:fabSize="mini"
-                        app:srcCompat="@android:drawable/ic_input_add" />
-
-                    <ImageButton
-                        android:id="@+id/bAddIngredients"
-                        android:layout_marginLeft="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:onClick="onAddAnIngredient"
                         app:srcCompat="@android:drawable/ic_input_add" />
 
                     <EditText
                         android:id="@+id/etIngredient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_weight="0.27"
+                        android:backgroundTint="@android:color/transparent"
                         android:ems="10"
                         android:fontFamily="roboto"
-                        android:hint="Add Ingredient"
-                        android:inputType="textPersonName" />
+                        android:hint="Name of the ingredient"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/Main_text_color_black"
+                        android:textColorHint="@color/grey_font"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <TextView
@@ -270,54 +301,86 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="roboto"
                     android:text="STEPS"
-                    android:textStyle="bold"
                     android:textColor="@color/appBackground"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/llSteps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="35dp"
                     android:orientation="vertical"></LinearLayout>
 
                 <Button
                     android:id="@+id/bRecipeSteps"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_below="@+id/flIngredients"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
                     android:fontFamily="roboto"
                     android:onClick="onAddStep"
+                    android:paddingBottom="20dp"
                     android:text="Add a step"
-                    android:textColor="#000000"
-                    android:textColorHighlight="#000000" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey_font"
+                    android:textColorHighlight="#000000"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/buttonAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background"
+                    android:fontFamily="roboto"
+                    android:onClick="onAdd"
+                    android:text="PUBLISH"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
         </RelativeLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="end"
-        android:orientation="horizontal">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/relativeLayout"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:gravity="end"-->
+        <!--android:background="@drawable/background"-->
+        <!--android:orientation="horizontal">-->
 
-        <Button
-            android:id="@+id/bAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/background"
-            android:fontFamily="roboto"
-            android:onClick="onAdd"
-            android:text="PUBLISH"
-            android:textColor="@color/light_font" />
-    </RelativeLayout>
+        <!--<Button-->
+            <!--android:id="@+id/bAdd"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="@drawable/rounded_transparent2"-->
+            <!--android:fontFamily="roboto"-->
+            <!--android:onClick="onAdd"-->
+            <!--android:text="PUBLISH"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="20sp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:textStyle="bold" />-->
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>

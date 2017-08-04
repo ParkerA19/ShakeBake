@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AddRecipeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">#e48f5f</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -45,6 +49,12 @@
         <item name="android:fontFamily">roboto</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/grey_font</item>
+    </style>
+
+    <style name="tag_text">
+        <item name="android:fontFamily">roboto</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/appBackground</item>
     </style>
 
 </resources>

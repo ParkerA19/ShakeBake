@@ -2,7 +2,6 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,8 +9,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -28,9 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.UserTimelineFragment;
 import com.example.pandrews.shakebake.models.User;
+import com.example.pandrews.shakebake.utils.CircleGlide;
 
 import org.parceler.Parcels;
 
@@ -171,19 +168,25 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         username.setText(profile.username);
 
         // set profile image
-        Glide.with(getApplicationContext())
+//        Glide.with(getApplicationContext())
+//                .load(profile.profileImageUrl)
+//                .asBitmap()
+//                .centerCrop()
+//                .into(new BitmapImageViewTarget(Image) {
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable circularBitmapDrawable =
+//                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                        circularBitmapDrawable.setCircular(true);
+//                        Image.setImageDrawable(circularBitmapDrawable);
+//                    }
+//                });
+
+
+        Glide.with(context)
                 .load(profile.profileImageUrl)
-                .asBitmap()
-                .centerCrop()
-                .into(new BitmapImageViewTarget(Image) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        Image.setImageDrawable(circularBitmapDrawable);
-                    }
-                });
+                .transform(new CircleGlide(context))
+                .into(Image);
 
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {
@@ -214,19 +217,26 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         tvFollowingCount.setText(user.followingCount + "");
 
         if (user.profileImageUrl != null) {
+//            Glide.with(this)
+//                    .load(user.profileImageUrl)
+//                    .asBitmap()
+//                    .centerCrop()
+//                    .into(new BitmapImageViewTarget(ivProfileImage) {
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+
+
+
             Glide.with(this)
                     .load(user.profileImageUrl)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(new BitmapImageViewTarget(ivProfileImage) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+                    .transform(new CircleGlide(this))
+                    .into(ivProfileImage);
         }
     }
 

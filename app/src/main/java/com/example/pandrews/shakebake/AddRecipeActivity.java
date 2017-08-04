@@ -13,13 +13,13 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,7 +42,7 @@ import butterknife.ButterKnife;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
-    @BindView(R.id.bAddIngredients) ImageButton bAddIngredients;
+    @BindView(R.id.btnIngredients) FloatingActionButton btnIngredients;
     @BindView(R.id.bRecipeSteps) Button bRecipeSteps;
     @BindView(R.id.bAddImage) Button bAddImage;
     @BindView(R.id.etRecipeTitle) EditText etRecipeTitle;
@@ -85,6 +85,9 @@ public class AddRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_a_recipe);
         ButterKnife.bind(this);
+
+        //keyboard only pops up when user clicks into an EditText
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         context = getApplicationContext();
 

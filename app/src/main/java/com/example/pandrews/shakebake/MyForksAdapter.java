@@ -3,12 +3,9 @@ package com.example.pandrews.shakebake;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,9 +18,9 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
@@ -191,19 +188,24 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
 
         // Use Glide to load Profile Image
         if (recipe.user.profileImageUrl != null) {
+//            Glide.with(context)
+//                    .load(recipe.user.profileImageUrl)
+//                    .asBitmap()
+//                    .centerCrop()
+//                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+                    .transform(new CircleGlide(context))
+                    .into(holder.ivProfileImage);
 
 
         }

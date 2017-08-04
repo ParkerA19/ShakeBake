@@ -3,7 +3,6 @@ package com.example.pandrews.shakebake;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -11,8 +10,6 @@ import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -28,11 +25,11 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.RecipesPagerAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -148,20 +145,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         name.setText(profile.name);
         username.setText(profile.username);
 
-        // set profile image
-        Glide.with(getApplicationContext())
+//        // set profile image
+//        Glide.with(getApplicationContext())
+//                .load(profile.profileImageUrl)
+//                .asBitmap()
+//                .centerCrop()
+//                .into(new BitmapImageViewTarget(Image) {
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable circularBitmapDrawable =
+//                                RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
+//                        circularBitmapDrawable.setCircular(true);
+//                        Image.setImageDrawable(circularBitmapDrawable);
+//                    }
+//                });
+
+
+        Glide.with(this)
                 .load(profile.profileImageUrl)
-                .asBitmap()
-                .centerCrop()
-                .into(new BitmapImageViewTarget(Image) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(getApplicationContext().getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        Image.setImageDrawable(circularBitmapDrawable);
-                    }
-                });
+                .transform(new CircleGlide(this))
+                .into(Image);
 
         // setup onClick for the profile view
         header.setOnClickListener(new View.OnClickListener() {
@@ -274,11 +277,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
                 // close the navigation view
                 drawerLayout.closeDrawer(GravityCompat.START);
+                item.setChecked(false);
                 return true;
             case R.id.nav_activity_add_recipe:
                 onCreateRecipeView(item);
                 // close the navigation view
                 drawerLayout.closeDrawer(GravityCompat.START);
+                item.setChecked(false);
+
                 return true;
             case R.id.nav_search:
                 return true;

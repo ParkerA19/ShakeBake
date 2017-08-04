@@ -3,11 +3,14 @@ package com.example.pandrews.shakebake;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -77,6 +80,7 @@ public class StepActivity extends AppCompatActivity {
         //set description, title, and video
         tvStepTitle.setText("Step " + stepCount.toString());
         tvStepDescription.setText(step);
+        tvStepDescription.setMovementMethod(new ScrollingMovementMethod());
 
         videoName = recipe.stepVideo.get("step " + stepCount.toString());
 
@@ -92,15 +96,20 @@ public class StepActivity extends AppCompatActivity {
         });
 
         // set the Last Button visible or not depending on the current Step
-        if (stepCount != 1) {
-            bLast.setVisibility(View.VISIBLE);
-
-        } else {
+        if (stepCount == 1) {
             bLast.setVisibility(View.GONE);
+
+        } else if (stepCount == recipe.steps.size()) {
+            bLast.setVisibility(View.VISIBLE);
+            bNext.setText("DONE");
+        } else {
+            bLast.setVisibility(View.VISIBLE);
         }
+
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void displayNextStep(View view) {
         //reset title, description, top bar, and video displayed
         stepCount += 1;
@@ -109,6 +118,8 @@ public class StepActivity extends AppCompatActivity {
             //set if condition here so if stepcount = length of steps, change button text to done. then set condition that if button text = done, make an intent back to details page
             tvStepTitle.setText("Step " + stepCount.toString());
             tvStepDescription.setText(recipe.steps.get(stepCount - 1));
+            tvStepDescription.scrollTo(0,0);
+
 
             //change chef hats
             changeStepNumbers(tvList.get(stepCount - 2), tvList.get(stepCount - 1));
@@ -129,7 +140,7 @@ public class StepActivity extends AppCompatActivity {
             }
          //if button reads "done" then send intent to next activity
         } else if (bNext.getText().toString().equalsIgnoreCase("DONE")) {
-            super.onBackPressed();
+            finishAfterTransition();
         }
     }
 
@@ -159,7 +170,7 @@ public class StepActivity extends AppCompatActivity {
             vvStepVideo.setVideoURI(uri);
             vvStepVideo.start();
 
-            bNext.setText("NEXT STEP");
+            bNext.setText("NEXT");
 
             if (stepCount - 1 <= 0) {
                 bLast.setVisibility(View.GONE);

@@ -3,11 +3,8 @@ package com.example.pandrews.shakebake;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,12 +15,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
+import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
@@ -33,6 +31,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.pandrews.shakebake.MainActivity.profile;
 import static com.example.pandrews.shakebake.R.drawable.vector_forked;
 import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
 
@@ -57,9 +56,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     // pass in the Recipes array in the constructor
-    public RecipeAdapter(ArrayList<Recipe> recipes, RecipeAdapterListener listener) {
+    public RecipeAdapter(ArrayList<Recipe> recipes) {
         mRecipes = recipes;
-        mlistener = listener;
+//        mlistener = listener;
     }
 
 
@@ -80,6 +79,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         // get the data according to the position
         final Recipe recipe = mRecipes.get(position);
+
+
+        Integer position2 = (Integer) position;
+        Log.d("position", position2.toString());
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
@@ -197,19 +200,25 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         // Use Glide to load Profile Image
         if (recipe.user.profileImageUrl != null) {
             holder.ivProfileImage.setVisibility(View.VISIBLE);
+//            Glide.with(context)
+//                    .load(recipe.user.profileImageUrl)
+//                    .asBitmap()
+//                    .centerCrop()
+//                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+
+
             Glide.with(context)
                     .load(recipe.user.profileImageUrl)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+                    .transform(new CircleGlide(context))
+                    .into(holder.ivProfileImage);
         }
 
         if (recipe.mediaurl != null) {
@@ -264,6 +273,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             holder.vvMedia.requestFocus();
             holder.vvMedia.start();
         } else {
+            Toast.makeText(context, "Null Video", Toast.LENGTH_SHORT).show();
             Log.d("null video" , "Null video");
         }
 
