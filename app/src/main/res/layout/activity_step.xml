@@ -132,7 +132,7 @@
             android:background="@drawable/round_button"
             android:elevation="1dp"
             android:onClick="displayNextStep"
-            android:text="Next Step"
+            android:text="NEXT"
             android:textColor="@color/appFont" />
 
         <Button
@@ -142,7 +142,7 @@
             android:background="@drawable/round_button"
             android:elevation="1dp"
             android:onClick="displayLastStep"
-            android:text="Last Step"
+            android:text="PREVIOUS"
             android:textColor="@color/appFont"
             android:layout_below="@+id/tvStepDescription"
             android:layout_alignLeft="@+id/tvStepDescription"

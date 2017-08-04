@@ -163,7 +163,7 @@ public class StepActivity extends AppCompatActivity {
             vvStepVideo.setVideoURI(uri);
             vvStepVideo.start();
 
-            bNext.setText("NEXT STEP");
+            bNext.setText("NEXT");
 
             if (stepCount - 1 <= 0) {
                 bLast.setVisibility(View.GONE);
