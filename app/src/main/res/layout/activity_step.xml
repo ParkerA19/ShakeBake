@@ -25,7 +25,7 @@
 
             <TextView
                 android:id="@+id/tv1"
-                android:layout_width="74dp"
+                android:layout_width="67dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -93,6 +93,7 @@
             android:layout_marginLeft="21dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="12dp"
+            android:padding="5dp"
             android:text="Step ##"
             android:textColor="@color/white"
             android:textSize="52sp"

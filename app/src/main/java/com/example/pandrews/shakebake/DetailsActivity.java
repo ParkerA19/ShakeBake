@@ -28,7 +28,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -113,8 +112,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the the collapsing image layout
         populateCollapsingToolbarLayout();
 
-
-
     }
 
     @Override
@@ -130,6 +127,10 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         Glide.with(this)
                 .load(Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.targetUri))
                 .into(image);
+    }
+
+    public void scrollTop() {
+        drawerLayout.scrollTo(0,0);
     }
 
     /**
@@ -370,13 +371,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         // commit the transaction
         ft2.commit();
-
-        flSteps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Hey", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     /**
@@ -447,16 +441,16 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
     }
 
-    public void onIngredient(View v) {
-        // make intent
-        Intent intent = new Intent(context, InstructionsActivity.class);
-        // pass in recipe
-        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
-        // pass in the fragment position to go to
-        intent.putExtra("int", 0);
-        // start activity
-        context.startActivity(intent);
-    }
+//    public void onIngredient(View v) {
+//        // make intent
+//        Intent intent = new Intent(context, InstructionsActivity.class);
+//        // pass in recipe
+//        intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(recipe));
+//        // pass in the fragment position to go to
+//        intent.putExtra("int", 0);
+//        // start activity
+//        context.startActivity(intent);
+//    }
 
     public void onPrep(View v) {
         // make intent
@@ -467,6 +461,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         // start the activity
         context.startActivity(intent);
+        // scroll to the top of the activity
+        scrollTop();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

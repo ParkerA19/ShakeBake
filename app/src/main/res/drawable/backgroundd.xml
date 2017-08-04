@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<color android:name="GradientStrokeBorder"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/appBackground">
+    <item android:name="android:startColor">#FFFFFF</item>
+    <item android:name="android:endColor">#00FFFF</item>
+    <item android:name="android:angle">145</item>
+</color>

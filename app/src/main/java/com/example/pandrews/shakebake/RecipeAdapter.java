@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -57,9 +58,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     // pass in the Recipes array in the constructor
-    public RecipeAdapter(ArrayList<Recipe> recipes, RecipeAdapterListener listener) {
+    public RecipeAdapter(ArrayList<Recipe> recipes) {
         mRecipes = recipes;
-        mlistener = listener;
+//        mlistener = listener;
     }
 
 
@@ -80,6 +81,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         // get the data according to the position
         final Recipe recipe = mRecipes.get(position);
+
+
+        Integer position2 = (Integer) position;
+        Log.d("position", position2.toString());
 
         // populate the view according to the position
         holder.tvTitle.setText(recipe.title);
@@ -264,6 +269,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             holder.vvMedia.requestFocus();
             holder.vvMedia.start();
         } else {
+            Toast.makeText(context, "Null Video", Toast.LENGTH_SHORT).show();
             Log.d("null video" , "Null video");
         }
 
