@@ -58,7 +58,7 @@ public class IngredientsFragment extends Fragment {
     }
 
     public void populateTimeline() {
-   //      instructionsAdapter.clear();
+         instructionsAdapter.clear();
 
         for (int i = 0; i < ingredients.size(); i++) {
             Steps.add(ingredients.get(i));

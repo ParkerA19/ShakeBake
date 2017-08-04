@@ -1,11 +1,16 @@
 package com.example.pandrews.shakebake;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +31,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,11 +55,6 @@ public class AddRecipeActivity extends AppCompatActivity {
     @BindView(R.id.etIngredient) EditText etIngredient;
     @BindView(R.id.llIngredientList) LinearLayout llIngredientList;
 
-    //view inflated in add ingredient
-//    @BindView(R.id.tvIngredient) TextView tvIngredient;
-//    @BindView(R.id.tvStep) TextView tvStep;
-//    @BindView(R.id.tvNumber) TextView tvNumber;
-
     TextView tvIngredient;
     TextView tvStep;
     TextView tvNumber;
@@ -61,6 +63,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     LinearLayout.LayoutParams layoutParams;
 
 
+    private Uri outputFileUri;
 
     ArrayList<String> keywords;
     ArrayList<String> supplyList;
@@ -107,9 +110,10 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     public void onAddImage(View v) {
-        Integer REQUEST_CODE = 23;
-        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, REQUEST_CODE);
+//        Integer REQUEST_CODE = 23;
+//        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(i, REQUEST_CODE);
+        openImageIntent();
     }
 
     @Override
@@ -146,17 +150,48 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                     llSteps.addView(createNewStep(step, stepsCount));
 
-            } else {
-                //code for adding picture from image intent
-                targetUri = data.getData();
-                Bitmap bitmap;
-                try {
-                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                    ivPicture.setImageBitmap(bitmap);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+            } else if (resultCode == 30) {
+                    final boolean isCamera;
+                    if (data == null) {
+                        isCamera = true;
+                    } else {
+                        final String action = data.getAction();
+                        if (action == null) {
+                            isCamera = false;
+                        } else {
+                            isCamera = action.equals(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        }
+                    }
+
+                    Uri selectedImageUri;
+                    if (isCamera) {
+                        selectedImageUri = outputFileUri;
+                    } else {
+                        selectedImageUri = data == null ? null : data.getData();
+                    }
+                    //code for adding picture from image intent
+                    //targetUri = data.getData();
+                    //targetUri = selectedImageUri;
+                    Bitmap bitmap;
+                    try {
+                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImageUri));
+                        //ivPicture.setImageBitmap(bitmap);
+                        ivPicture.setImageURI(selectedImageUri);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
+//            else {
+//                //code for adding picture from image intent
+//                targetUri = data.getData();
+//                Bitmap bitmap;
+//                try {
+//                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+//                    ivPicture.setImageBitmap(bitmap);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
     }
 
@@ -297,6 +332,43 @@ public class AddRecipeActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    private void openImageIntent() {
+
+        // Determine Uri of camera image to save.
+        final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
+        root.mkdirs();
+        final String fname = "img_" + System.currentTimeMillis() + ".jpg";
+        final File sdImageMainDirectory = new File(root, fname);
+        outputFileUri = Uri.fromFile(sdImageMainDirectory);
+
+        // Camera.
+        final List<Intent> cameraIntents = new ArrayList<Intent>();
+        final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        final PackageManager packageManager = getPackageManager();
+        final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
+        for(ResolveInfo res : listCam) {
+            final String packageName = res.activityInfo.packageName;
+            final Intent intent = new Intent(captureIntent);
+            intent.setComponent(new ComponentName(packageName, res.activityInfo.name));
+            intent.setPackage(packageName);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+            cameraIntents.add(intent);
+        }
+
+        // Filesystem.
+        final Intent galleryIntent = new Intent();
+        galleryIntent.setType("image/*");
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+        // Chooser of filesystem options.
+        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Source");
+
+        // Add the camera options.
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[cameraIntents.size()]));
+
+        startActivityForResult(chooserIntent, 30);
     }
 
 }

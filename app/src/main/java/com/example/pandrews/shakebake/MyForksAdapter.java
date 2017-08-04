@@ -73,6 +73,8 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
+        Recipe currentRecipe = mForkRecipes.get(position);
+
         // get the data according to the position
         final Recipe recipe = mForkRecipes.get(position);
 
@@ -227,15 +229,9 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         String path="android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
-        //Uri uri=Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
-        Uri uri = Uri.parse(path);
+        Uri uri=Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
 
-//        holder.vvMedia.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//
-//            }
-//        });
+
         holder.vvMedia.setVideoURI(uri);
         holder.vvMedia.requestFocus();
         holder.vvMedia.start();

@@ -11,17 +11,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/off_white">
 
         <LinearLayout
             android:id="@+id/llStepNumbers"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@color/white"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="10dp"
-            android:weightSum="1"
-            android:gravity="center">
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/tv1"
@@ -83,6 +84,15 @@
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            app:srcCompat="@drawable/background2"
+            android:layout_below="@+id/tvStepTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
         <TextView
             android:id="@+id/tvStepTitle"
             android:layout_width="wrap_content"
@@ -90,11 +100,13 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/relativeLayout2"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="21dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="12dp"
+            android:fontFamily="roboto"
             android:text="Step ##"
-            android:textColor="@color/white"
+            android:textColor="@color/temporaryOrange"
             android:textSize="52sp"
             android:textStyle="bold"
             tools:capitalize="words" />
@@ -110,42 +122,53 @@
             android:layout_alignStart="@+id/tvStepTitle"
             android:layout_below="@+id/tvStepTitle"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_background"
-            android:padding="5dp"
-            android:text="Description"
+            android:layout_marginTop="10dp"
+            android:fontFamily="roboto"
             android:isScrollContainer="true"
+            android:text="Description"
             android:textColor="@color/Main_text_color_light_black"
             android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvStepDescription"
+            android:background="@drawable/background">
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/bNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="11dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="@drawable/round_button"
+            android:background="@null"
             android:elevation="1dp"
+            android:fontFamily="roboto"
             android:onClick="displayNextStep"
             android:text="Next Step"
-            android:textColor="@color/appFont" />
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <Button
             android:id="@+id/bLast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_button"
+            android:layout_alignLeft="@+id/tvStepDescription"
+            android:layout_alignStart="@+id/tvStepDescription"
+            android:layout_below="@+id/tvStepDescription"
+            android:background="@null"
             android:elevation="1dp"
+            android:fontFamily="roboto"
             android:onClick="displayLastStep"
             android:text="Last Step"
-            android:textColor="@color/appFont"
-            android:layout_below="@+id/tvStepDescription"
-            android:layout_alignLeft="@+id/tvStepDescription"
-            android:layout_alignStart="@+id/tvStepDescription" />
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>

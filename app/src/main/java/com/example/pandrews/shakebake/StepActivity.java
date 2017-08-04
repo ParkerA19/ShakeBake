@@ -1,6 +1,7 @@
 package com.example.pandrews.shakebake;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -83,6 +84,12 @@ public class StepActivity extends AppCompatActivity {
         uri = Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + videoName);
         vvStepVideo.setVideoURI(uri);
         vvStepVideo.start();
+        vvStepVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                vvStepVideo.start();
+            }
+        });
 
         // set the Last Button visible or not depending on the current Step
         if (stepCount != 1) {

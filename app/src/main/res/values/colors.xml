@@ -16,7 +16,7 @@
     <color name="appFont">#e99b62</color>
     <color name="appFont2">@color/white</color>
     <color name="appFontLogout">#FF0000</color>
-    <color name="temporaryOrange">#ff8c00</color>
+    <color name="temporaryOrange">#ea6702</color>
     <color name="hintColor">#808080</color>
     <color name="Main_text_color_black">#191919</color>
     <color name="Main_text_color_light_black">#323232</color>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -221,27 +222,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
                 }
             });
 
-//            if (recipe.mediaurl != null) {
-//                holder.ivMedia.setVisibility(View.VISIBLE);
-//                Glide.with(context)
-//                        .load(recipe.mediaurl)
-//                        .bitmapTransform(new RoundedCornersTransformation(context, 150, 0))
-//                        .into(holder.ivMedia);
-//            } else if (recipe.targetUri != null){
-//                holder.ivMedia.setVisibility(View.VISIBLE);
-//
-//                Uri targetUri = Uri.parse(recipe.targetUri);
-//                Bitmap bitmap = null;
-//                try {
-//                    bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(targetUri));
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                holder.ivMedia.setImageBitmap(bitmap);
-//            } else {
-//                holder.ivMedia.setVisibility(View.GONE);
-//            }
-
             // set the video view and video url
             String path="android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
             String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
@@ -251,6 +231,12 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
             holder.vvMedia.setVideoURI(uri);
             holder.vvMedia.requestFocus();
             holder.vvMedia.start();
+            holder.vvMedia.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    holder.vvMedia.start();
+                }
+            });
         }
 
 

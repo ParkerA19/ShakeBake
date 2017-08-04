@@ -25,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 int randomRecipePosition = r.nextInt(max);
 
                 Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
-                Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
                 //on shake, get detail page of random recipe
                 Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
                 i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
@@ -212,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         mSensorManager.registerListener(mSensorListener,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_NORMAL);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
+                SensorManager.SENSOR_DELAY_UI);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
     }
 
     @Override
