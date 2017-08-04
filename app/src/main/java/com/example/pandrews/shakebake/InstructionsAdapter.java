@@ -98,16 +98,7 @@ public class InstructionsAdapter extends RecyclerView.Adapter<InstructionsAdapte
 
         @Override
         public void onClick(View v) {
-            if (fragmentPosition == 0) {
-                // make intent
-                Intent intent = new Intent(context, InstructionsActivity.class);
-                // pass in recipe
-                intent.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(mRecipe));
-                // pass in the fragment position to go to
-                intent.putExtra("int", fragmentPosition);
-                // start activity
-                context.startActivity(intent);
-            } else {
+            if (fragmentPosition == 1) {
                 // get the adapter position
                 int position = getAdapterPosition();
                 // make intent

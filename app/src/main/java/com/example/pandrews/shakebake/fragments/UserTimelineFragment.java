@@ -79,7 +79,7 @@ public class UserTimelineFragment extends RecipesListFragment {
         // init the arraylist (data source)
         recipes = new ArrayList<>();
         // construct the adapter from this data source
-        recipeAdapter = new RecipeAdapter(recipes, this);
+        recipeAdapter = new RecipeAdapter(recipes);
         // RecyclerView setup (layout manger, user adapter)
         rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
         // set the adapter
