@@ -30,6 +30,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
+                android:paddingRight="5dp"
                 app:srcCompat="@drawable/vector_knife" />
 
         </RelativeLayout>
