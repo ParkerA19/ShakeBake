@@ -1,16 +1,12 @@
 package com.example.pandrews.shakebake;
 
-import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
@@ -74,105 +70,87 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         query = getIntent().getStringExtra("query");
 
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+//        if (ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//
+//            // Should we show an explanation?
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//
+//            } else {
+//
+//                // No explanation needed, we can request the permission.
+//
+//                ActivityCompat.requestPermissions(this,
+//                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+//                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+//
+//            }
+//        } else {
+//
+//            //create database reference
+//            FirebaseDatabase database =  FirebaseDatabase.getInstance();
+//            DatabaseReference myRef = database.getReference();
+//
+//            //create listener. this one adds all recipes currently in database w/fork count above 300
+//            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                        Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+//                        if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {    //later add | newRecipe.keywords.contains(query) into logic to search keywords
+//                            resultRecipes.add(newRecipe);
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                    //Log.w(TAG, "Failed to read value.", databaseError.toException());
+//                }
+//            });
+//
+//
+//
+//            resultAdapter = new ResultAdapter(resultRecipes, null);
+//            rvResult.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//            rvResult.setAdapter(resultAdapter);
+//        }
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-
-            }
-        } else {
-
-            //create database reference
-            FirebaseDatabase database =  FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference();
-
-            //create listener. this one adds all recipes currently in database w/fork count above 300
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                        if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {    //later add | newRecipe.keywords.contains(query) into logic to search keywords
-                            resultRecipes.add(newRecipe);
-                        }
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {    //later add | newRecipe.keywords.contains(query) into logic to search keywords
+                        appendRecipe(newRecipe);
                     }
                 }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    //Log.w(TAG, "Failed to read value.", databaseError.toException());
-                }
-            });
-
-            resultAdapter = new ResultAdapter(resultRecipes, null);
-            rvResult.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            rvResult.setAdapter(resultAdapter);
-        }
-
-    }
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    //create database reference
-                    FirebaseDatabase database =  FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference();
-
-                    //create listener. this one adds all recipes currently in database w/fork count above 300
-                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                                if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {
-                                    resultRecipes.add(newRecipe);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //Log.w(TAG, "Failed to read value.", databaseError.toException());
-                        }
-                    });
-
-                    resultAdapter = new ResultAdapter(resultRecipes, null);
-                    rvResult.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    rvResult.setAdapter(resultAdapter);
-
-                } else {
-
-                    // permission denied, so dont allow any recipes with a null mediaurl to go into recipe list. see if still a valid check after making database --TODO
-                }
-                return;
             }
 
-            // maybe add other 'case' lines to check for other permissions app might request
-        }
-    }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
+
+
+        resultAdapter = new ResultAdapter(resultRecipes, null);
+        rvResult.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        rvResult.setAdapter(resultAdapter);
+
+    }
 
 
     @Override
@@ -213,22 +191,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-//        //set up searchbar
-//        miSearch = (MenuItem) findViewById(R.id.miSearch);
-//        searchView = (SearchView) miSearch.getActionView();
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        }); ----- delete or change how searchView lines are bc it causes crash -- TODO
 
         // set the drawer layout and button to access it
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -362,4 +324,13 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         // clear the backstack
 
     }
+
+    public void appendRecipe(Recipe recipe){
+        // add a tweet
+        resultRecipes.add(0, recipe);
+        // inserted at position 0
+        resultAdapter.notifyItemInserted(0);
+        rvResult.scrollToPosition(0);
+    }
+
 }

@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         mSensorManager.registerListener(mSensorListener,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_UI);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
+                SensorManager.SENSOR_DELAY_UI);  //changed from .SENSOR_DELAY_UI to NORMAL for a forced pause between shakes registered
     }
 
     @Override

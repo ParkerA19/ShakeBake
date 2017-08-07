@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.IngredientsFragment;
@@ -276,7 +277,7 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
                 tvTag2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, recipe.keywords.get(1), Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(context, SearchActivity.class);
                         i.putExtra("query", recipe.keywords.get(1));
                         context.startActivity(i);

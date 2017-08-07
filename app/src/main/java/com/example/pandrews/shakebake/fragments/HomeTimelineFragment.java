@@ -89,6 +89,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     //LinkedHashMap<String, String> stepsVid = postSnapshot.getValue(Recipe.class).stepVideo;
                     //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + newRecipe.mediaurl;
 
@@ -123,6 +124,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     //if stepVideo == null then set to cat video. else get values from stepVideo and loop through
 //                    if (newRecipe.stepVideo == null) {
 //                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;

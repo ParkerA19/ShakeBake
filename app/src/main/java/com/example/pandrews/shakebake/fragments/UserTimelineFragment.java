@@ -103,6 +103,7 @@ public class UserTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     if (newRecipe.user.username.equalsIgnoreCase(userName)) {
                         appendRecipe(newRecipe);
                         //keep track of recipes already added
@@ -137,6 +138,7 @@ public class UserTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     if (newRecipe.user.username.equalsIgnoreCase(userName)) {
                         appendRecipe(newRecipe);
                         //keep track of recipes already added
