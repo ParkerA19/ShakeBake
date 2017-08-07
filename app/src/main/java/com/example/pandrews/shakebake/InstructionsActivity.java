@@ -120,6 +120,8 @@ public class InstructionsActivity extends AppCompatActivity implements Navigatio
         // set the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+        navigationView.setItemTextColor(null);
 
 
 

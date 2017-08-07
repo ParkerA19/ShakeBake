@@ -35,14 +35,15 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a Step"
-        android:textColor="@color/white"
-        android:textSize="40dp"
+        android:layout_below="@+id/vvStep"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/noun_202830_cc"
         android:drawableRight="@drawable/noun_202830_cc"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/vvStep"
-        android:layout_centerHorizontal="true" />
+        android:text="Create a Step"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="36sp" />
 
     <EditText
         android:id="@+id/etStep"

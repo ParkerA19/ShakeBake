@@ -401,6 +401,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set up the navigation view
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+        navigationView.setItemTextColor(null);
 
         // access the header view to set the text according to the user details
         View header = navigationView.getHeaderView(0);
