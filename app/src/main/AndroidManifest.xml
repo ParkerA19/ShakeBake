@@ -39,7 +39,7 @@
         <activity
             android:name=".SideActivity"
             android:label="@string/title_activity_side"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/NavTheme" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignupActivity" />

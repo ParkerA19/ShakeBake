@@ -10,7 +10,7 @@
     <VideoView
         android:id="@+id/vvStep"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="360dp"
         android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
@@ -31,6 +31,21 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/bAddVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:fontFamily="roboto"
+        android:onClick="onAddImage"
+        android:text="Record video for this step"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/light_font"
+        android:layout_below="@+id/ibVideo"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -43,19 +58,6 @@
         android:textAlignment="center"
         android:textColor="@color/appBackground"
         android:textSize="40dp" />
-
-    <TextView
-        android:id="@+id/textviewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etStep"
-        android:layout_alignStart="@+id/etStep"
-        android:layout_alignTop="@+id/etStep"
-        android:fontFamily="roboto"
-        android:text="INSTRUCTION"
-        android:textColor="@color/appBackground"
-        android:textSize="13sp"
-        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etStep"
@@ -73,7 +75,7 @@
         android:layout_marginTop="12dp"
         android:background="@null"
         android:ems="10"
-        android:hint="Step Instruction here."
+        android:hint="Enter step instructions here."
         android:inputType="textMultiLine"
         android:lines="8"
         android:singleLine="false"
@@ -85,9 +87,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="141dp"
         android:background="@null"
         android:onClick="dispatchTakeVideoIntent"
+        android:tint="@color/white"
         app:srcCompat="@drawable/noun_862303_cc" />
 
     <Button
