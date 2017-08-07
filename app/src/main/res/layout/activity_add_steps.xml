@@ -10,16 +10,32 @@
     <VideoView
         android:id="@+id/vvStep"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="360dp"
         android:layout_alignParentTop="true"
+        android:background="@color/light_grey"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/bAddVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:fontFamily="roboto"
+        android:onClick="onAddImage"
+        android:text="Record video for this step"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/light_font"
+        android:layout_below="@+id/ibVideo"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create A Step"
+        android:text="Create a Step"
         android:textColor="@color/white"
         android:textSize="40dp"
         android:drawableLeft="@drawable/noun_202830_cc"
@@ -44,7 +60,7 @@
         android:layout_marginTop="12dp"
         android:background="@null"
         android:ems="10"
-        android:hint="Enter step instructions or description here."
+        android:hint="Enter step instructions here."
         android:inputType="textMultiLine"
         android:lines="8"
         android:singleLine="false"
@@ -54,11 +70,11 @@
         android:id="@+id/ibVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
+        android:layout_marginTop="149dp"
         android:onClick="dispatchTakeVideoIntent"
-        app:srcCompat="@drawable/ic_menu_camera" />
+        app:srcCompat="@drawable/ic_menu_camera"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/bAddStep"
