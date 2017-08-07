@@ -3,10 +3,7 @@ package com.example.pandrews.shakebake;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.pandrews.shakebake.models.User;
+import com.example.pandrews.shakebake.utils.CircleGlide;
 
 import org.parceler.Parcels;
 
@@ -72,19 +69,24 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
         if (user.profileImageUrl != null) {
             holder.ivProfileImage.setVisibility(View.VISIBLE);
+//            Glide.with(context)
+//                    .load(user.profileImageUrl)
+//                    .asBitmap()
+//                    .centerCrop()
+//                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
+//                        @Override
+//                        protected void setResource(Bitmap resource) {
+//                            RoundedBitmapDrawable circularBitmapDrawable =
+//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                            circularBitmapDrawable.setCircular(true);
+//                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
+//                        }
+//                    });
+
             Glide.with(context)
                     .load(user.profileImageUrl)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(new BitmapImageViewTarget(holder.ivProfileImage) {
-                        @Override
-                        protected void setResource(Bitmap resource) {
-                            RoundedBitmapDrawable circularBitmapDrawable =
-                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-                            circularBitmapDrawable.setCircular(true);
-                            holder.ivProfileImage.setImageDrawable(circularBitmapDrawable);
-                        }
-                    });
+                    .transform(new CircleGlide(context))
+                    .into(holder.ivProfileImage);
         }
         else {
             holder.ivProfileImage.setVisibility(View.VISIBLE);

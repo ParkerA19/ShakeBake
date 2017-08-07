@@ -86,6 +86,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
 
@@ -123,6 +124,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
 

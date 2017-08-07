@@ -87,6 +87,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     if (newRecipe.forked) {
                         appendRecipe(newRecipe);
                         //keep track of recipes already added
@@ -125,6 +126,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.dog;
 

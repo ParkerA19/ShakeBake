@@ -19,9 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -55,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     User user;
     Context context;
     User profile;
+    Boolean follow;
 
     // set up view for butterknife
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
@@ -66,9 +68,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.tvFollowersCount) TextView tvFollowersCount;
     @BindView(R.id.tvFollowing) TextView tvFollowing;
     @BindView(R.id.tvFollowingCount) TextView tvFollowingCount;
+    @Nullable@BindView(R.id.ibFollow) Button ibFollow;
     @BindView(R.id.flContainer) FrameLayout flContainer;
     @BindView(R.id.scroll) NestedScrollView scrollView2;
-    @BindView(R.id.rlUserHeader) RelativeLayout rlUserHeader;
+    @BindView(R.id.llUserHeader) LinearLayout llUserHeader;
     @BindView(R.id.cvCard) CardView cvCard;
     @BindView(R.id.rootview) CoordinatorLayout rootview;
     @BindView(R.id.drawer_layout3) DrawerLayout drawerLayout;
@@ -217,26 +220,25 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         tvFollowingCount.setText(user.followingCount + "");
 
         if (user.profileImageUrl != null) {
-//            Glide.with(this)
-//                    .load(user.profileImageUrl)
-//                    .asBitmap()
-//                    .centerCrop()
-//                    .into(new BitmapImageViewTarget(ivProfileImage) {
-//                        @Override
-//                        protected void setResource(Bitmap resource) {
-//                            RoundedBitmapDrawable circularBitmapDrawable =
-//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-//                            circularBitmapDrawable.setCircular(true);
-//                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
-//                        }
-//                    });
-
-
-
             Glide.with(this)
                     .load(user.profileImageUrl)
                     .transform(new CircleGlide(this))
                     .into(ivProfileImage);
+        }
+
+        if (profile.equals(user)) {
+            ibFollow.setVisibility(View.GONE);
+        }
+        else if (profile.following.contains(user)) {
+            ibFollow.setVisibility(View.VISIBLE);
+            ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button));
+            ibFollow.setText("FOLLOWING");
+            follow = true;
+        }
+        else {
+            ibFollow.setVisibility(View.VISIBLE);
+            ibFollow.setText("FOLLOW");
+            follow = false;
         }
     }
 
@@ -283,8 +285,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
 
     /**
-    on click listener for the snackbar
-    when you click it will confirm the logout and bring user to the login activity
+     * on click listener for the snackbar
+     * when you click it will confirm the logout and bring user to the login activity
      */
     View.OnClickListener myOnClickListener = new View.OnClickListener() {
         @Override
@@ -294,8 +296,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     };
 
     /**
-    starts the AddRecipeActivity for result
-    called in onNavigationSelected
+     * starts the AddRecipeActivity for result
+     * called in onNavigationSelected
      */
     public void onCreateRecipeView(MenuItem item) {
         Intent i = new Intent(this, AddRecipeActivity.class);
@@ -303,8 +305,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
     /**
-    takes user back to the logout screen
-    called in myOnClickListener
+     * takes user back to the logout screen
+     * called in myOnClickListener
      */
     public void logout() {
         // make a new intent
@@ -326,6 +328,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         int position = 1;
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
+        // put the user into the intent
+        intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
         // put position into the intent
         intent.putExtra("int", position);
         // start activity
@@ -333,9 +337,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
     /**
-   when followers is pressed take user to view users who follow them
-   goes to a tab layout where they can switch between followers and following
-    */
+     * when followers is pressed take user to view users who follow them
+     * goes to a tab layout where they can switch between followers and following
+     */
     public void onFollowers(View v) {
         // set the tab position for FriendsActivity
         int position = 0;
@@ -345,6 +349,35 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         intent.putExtra("int", position);
         // start activity
         startActivity(intent);
+    }
+
+    /**
+     * onClick method for the follow button
+     * causes the button to change its text and color
+     * allows user to follow other users
+     */
+    public void Follow(View v) {
+        if (follow) {
+            // change the button color
+            ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button_orange));
+            // change the text
+            ibFollow.setText("FOLLOW");
+            ibFollow.setTextColor(getResources().getColor(R.color.white));
+            // update the following list
+            profile.following.remove(user);
+            // change the boolean
+            follow = false;
+        } else {
+            // change the button color
+            ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button));
+            // set the text
+            ibFollow.setText("FOLLOWING");
+            ibFollow.setTextColor(getResources().getColor(R.color.appBackground));
+            // update the following list
+            profile.following.add(0, user);
+            // change the boolean
+            follow = true;
+        }
     }
 
     /**

@@ -25,10 +25,7 @@
         <LinearLayout
             android:id="@+id/llImage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/ivProfileImage"
@@ -56,12 +53,6 @@
             android:id="@+id/vvMedia"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/llImage"
-            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/Main_vertical_margin"
             android:layout_marginLeft="@dimen/Main_horizontal_margin"
             android:layout_marginRight="@dimen/Main_horizontal_margin"
@@ -69,7 +60,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -78,11 +70,10 @@
 
                 <TextView
                     android:id="@+id/tvTitle"
-                    android:layout_width="210dp"
+                    android:layout_width="270dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/Main_horizontal_margin_large"
                     android:layout_marginStart="@dimen/Main_horizontal_margin_large"
-                    android:layout_marginTop="5dp"
                     android:fontFamily="roboto"
                     android:maxWidth="220dp"
                     android:text="TextView"
@@ -92,9 +83,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/Main_vertical_margin_large"
                     android:layout_marginLeft="@dimen/Main_vertical_margin_large"
-                    android:paddingBottom="@dimen/Main_vertical_margin_large" >
+                    android:layout_marginStart="@dimen/Main_vertical_margin_large"
+                    android:paddingBottom="@dimen/Main_vertical_margin_large">
 
                     <TextView
                         android:id="@+id/tvTag1"
@@ -108,51 +99,60 @@
 
                     <TextView
                         android:id="@+id/tvTag2"
+                        style="@style/tag_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/Main_horizontal_margin_small"
-                        android:padding="5dp"
-                        android:text="Tag2"
-                        style="@style/tag_text" />
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Tag2" />
 
                     <TextView
                         android:id="@+id/tvTag3"
+                        style="@style/tag_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="Tag3"
-                        style="@style/tag_text" />
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="Tag3" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvForks"
-                android:layout_width="70dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:fontFamily="roboto"
-                android:gravity="end"
-                android:minWidth="30dp"
-                android:text="3000000"
-                android:textColor="@color/Main_text_color_black"
-                android:textSize="16sp" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/ibFork"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:paddingBottom="15dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:scaleType="fitCenter"
-                android:scaleX="1.3"
-                android:scaleY="1.3"
-                app:srcCompat="@drawable/vector_real_fork" />
+                <ImageButton
+                    android:id="@+id/ibFork"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:scaleType="fitCenter"
+                    android:scaleX="1.3"
+                    android:scaleY="1.3"
+                    app:srcCompat="@drawable/vector_real_fork" />
+
+                <TextView
+                    android:id="@+id/tvForks"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-5dp"
+                    android:fontFamily="roboto"
+                    android:gravity="center"
+                    android:minWidth="30dp"
+                    android:text="3000000"
+                    android:textColor="@color/Main_text_color_black"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
