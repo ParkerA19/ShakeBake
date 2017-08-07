@@ -232,7 +232,7 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
         Uri uri=Uri.parse("android.resource://com.example.pandrews.shakebake/raw/" + recipe.mediaurl);
-
+//        Uri uri = Uri.parse(path);
 
         holder.vvMedia.setVideoURI(uri);
         holder.vvMedia.requestFocus();
@@ -243,6 +243,9 @@ public class MyForksAdapter  extends RecyclerView.Adapter<MyForksAdapter.ViewHol
                 holder.vvMedia.start();
             }
         });
+
+
+
 
     }
 

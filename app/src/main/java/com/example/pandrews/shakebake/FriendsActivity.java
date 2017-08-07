@@ -35,8 +35,9 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
     private final int REQUEST_CODE = 25;
 
     // Instance variables
-    User profile;
+    User profile = MainActivity.profile;
     int fragmentPosition;
+    User user;
 
     FriendsPagerAdapter adapterViewPager;
 
@@ -52,12 +53,11 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         // bind with butterknife
         ButterKnife.bind(this);
 
-        // set the profile user
-        profile = MainActivity.profile;
-
         // set the navigation view
         setNavigationView();
 
+        // set the user
+        user = Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
 
         // set the adapter for the pager
         adapterViewPager = new FriendsPagerAdapter(getSupportFragmentManager(), this);
