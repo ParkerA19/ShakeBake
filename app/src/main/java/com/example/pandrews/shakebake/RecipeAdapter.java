@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.pandrews.shakebake.MainActivity.profile;
 import static com.example.pandrews.shakebake.R.drawable.vector_forked;
 import static com.example.pandrews.shakebake.R.drawable.vector_real_fork;
 
@@ -249,7 +248,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
 
         // set the video view and video url
-        String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
+//        String path="android.resource://com.example.pandrews.shakebake/" + R.raw.cat;
         String path1="http://www.youtube.com/v/VA770wpLX-Q?version=3&f=videos&app=youtube_gdata";
 
         //init videos list
