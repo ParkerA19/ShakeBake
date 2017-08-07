@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -87,11 +86,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "cat";
-                    newRecipe.stepVideo = new HashMap<String, String>();
-                    newRecipe.stepVideo.put("step 1", "cat");
-                    newRecipe.stepVideo.put("step 2", "cat");
-                    newRecipe.stepVideo.put("step 3", "cat");
+
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
 
@@ -129,11 +124,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "cat";
-                    newRecipe.stepVideo = new HashMap<String, String>();
-                    newRecipe.stepVideo.put("step 1", "cat");
-                    newRecipe.stepVideo.put("step 2", "cat");
-                    newRecipe.stepVideo.put("step 3", "cat");
+
                     if (newRecipe.stepVideo == null) {
                         newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.elephant;
 

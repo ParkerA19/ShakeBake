@@ -36,7 +36,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,11 +132,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-                    newRecipe.mediaurl = "cat";
-                    newRecipe.stepVideo = new HashMap<String, String>();
-                    newRecipe.stepVideo.put("step 1", "cat");
-                    newRecipe.stepVideo.put("step 2", "cat");
-                    newRecipe.stepVideo.put("step 3", "cat");
                     if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {    //later add | newRecipe.keywords.contains(query) into logic to search keywords
                         appendRecipe(newRecipe);
                     }
