@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@null"
     tools:context="com.example.pandrews.shakebake.AddStepsActivity">
 
     <VideoView
@@ -15,18 +15,49 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/textView"
+
+    <Button
+        android:id="@+id/bAddImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create A Step"
-        android:textColor="@color/white"
-        android:textSize="40dp"
+        android:background="@null"
+        android:fontFamily="roboto"
+        android:onClick="onAddImage"
+        android:text="Upload Your Photo"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/light_font"
+        android:layout_below="@+id/ibVideo"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/vvStep"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/noun_202830_cc"
         android:drawableRight="@drawable/noun_202830_cc"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/vvStep"
-        android:layout_centerHorizontal="true" />
+        android:text="Create A Step"
+        android:textColor="@color/appBackground"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/textviewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etStep"
+        android:layout_alignStart="@+id/etStep"
+        android:layout_alignTop="@+id/etStep"
+        android:fontFamily="roboto"
+        android:text="INSTRUCTION"
+        android:textColor="@color/appBackground"
+        android:textSize="13sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etStep"
@@ -44,7 +75,7 @@
         android:layout_marginTop="12dp"
         android:background="@null"
         android:ems="10"
-        android:hint="Enter step instructions or description here."
+        android:hint="Step Instruction here."
         android:inputType="textMultiLine"
         android:lines="8"
         android:singleLine="false"
@@ -66,11 +97,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="@color/white"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/background"
         android:elevation="0dp"
         android:onClick="onAddingStep"
         android:text="Add Step"
-        android:textColor="@color/appFont" />
+        android:textColor="@color/white" />
 </RelativeLayout>
 
