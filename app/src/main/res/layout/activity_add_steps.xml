@@ -20,30 +20,16 @@
         android:id="@+id/bAddImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ibVideo"
-        android:layout_centerHorizontal="true"
         android:background="@null"
         android:fontFamily="roboto"
         android:text="Upload Your Video"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/light_font"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/bAddVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:fontFamily="roboto"
-        android:onClick="onAddImage"
-        android:text="Record video for this step"
         android:textStyle="bold"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/light_font"
-        android:layout_below="@+id/ibVideo"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/ibVideo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:id="@+id/textView"
