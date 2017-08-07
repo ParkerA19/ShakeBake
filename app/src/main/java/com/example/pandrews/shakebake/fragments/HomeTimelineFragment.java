@@ -22,6 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by pandrews on 7/10/17.
@@ -92,6 +93,11 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "cat";
+                    newRecipe.stepVideo = new HashMap<String, String>();
+                    newRecipe.stepVideo.put("step 1", "cat");
+                    newRecipe.stepVideo.put("step 2", "cat");
+                    newRecipe.stepVideo.put("step 3", "cat");
                     //LinkedHashMap<String, String> stepsVid = postSnapshot.getValue(Recipe.class).stepVideo;
                     //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + newRecipe.mediaurl;
 
@@ -126,6 +132,11 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+                    newRecipe.mediaurl = "cat";
+                    newRecipe.stepVideo = new HashMap<String, String>();
+                    newRecipe.stepVideo.put("step 1", "cat");
+                    newRecipe.stepVideo.put("step 2", "cat");
+                    newRecipe.stepVideo.put("step 3", "cat");
                     //if stepVideo == null then set to cat video. else get values from stepVideo and loop through
 //                    if (newRecipe.stepVideo == null) {
 //                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;

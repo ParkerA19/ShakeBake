@@ -122,79 +122,56 @@ public class AddRecipeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != RESULT_CANCELED) {
-                if (requestCode == 21) {
+        if (resultCode != RESULT_CANCELED) {
+            if (requestCode == 21) {
 
-                    final String step = data.getExtras().get("step").toString();
-                    //add to steplist and get uri to put into firestorage
-                    stepList.add(step);
-                    videoUri = Uri.parse(data.getExtras().getString("videoUri"));
-                    videoUriString = data.getExtras().getString("videoUri");
+                final String step = data.getExtras().get("step").toString();
+                //add to steplist and get uri to put into firestorage
+                stepList.add(step);
+                videoUri = Uri.parse(data.getExtras().getString("videoUri"));
+                videoUriString = data.getExtras().getString("videoUri");
 
-                    //store video to firebase storage
-                    StorageReference videoRef = mStorageRef.child(videoUri.getLastPathSegment());
+                //store video to firebase storagegit 
+                StorageReference videoRef = mStorageRef.child(videoUri.getLastPathSegment());
 
-                    videoRef.putFile(videoUri)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                                    String downloadString = downloadUrl.toString();
-                                    stepVideo.put(step, downloadString);
-                                    //Toast.makeText(context, downloadUrl.toString(), Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    //handle unsuccessful uploads
-                                }
-                            });
+                videoRef.putFile(videoUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                String downloadString = downloadUrl.toString();
+                                stepVideo.put(step, downloadString);
+                                //Toast.makeText(context, downloadUrl.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                //handle unsuccessful uploads
+                            }
+                        });
 
-                    llSteps.addView(createNewStep(step, stepsCount));
+                llSteps.addView(createNewStep(step, stepsCount));
 
-            } else if (resultCode == 30) {
-                    final boolean isCamera;
-                    if (data == null) {
-                        isCamera = true;
-                    } else {
-                        final String action = data.getAction();
-                        if (action == null) {
-                            isCamera = false;
-                        } else {
-                            isCamera = action.equals(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        }
-                    }
+            } else if (requestCode == 30) {
+                final boolean isCamera;
+                if (data != null) { //camera was not used
+                    targetUri = data.getData();
 
-                    Uri selectedImageUri;
-                    if (isCamera) {
-                        selectedImageUri = outputFileUri;
-                    } else {
-                        selectedImageUri = data == null ? null : data.getData();
-                    }
-                    //code for adding picture from image intent
-                    //targetUri = data.getData();
-                    //targetUri = selectedImageUri;
                     Bitmap bitmap;
                     try {
-                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImageUri));
-                        //ivPicture.setImageBitmap(bitmap);
-                        ivPicture.setImageURI(selectedImageUri);
+                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                        ivPicture.setImageBitmap(bitmap);
+                        //ivPicture.setImageURI(selectedImageUri);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                        Toast.makeText(context, "set picture failed", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    targetUri = data.getData();
+                    ivPicture.setImageURI(targetUri);
                 }
-//            else {
-//                //code for adding picture from image intent
-//                targetUri = data.getData();
-//                Bitmap bitmap;
-//                try {
-//                    bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-//                    ivPicture.setImageBitmap(bitmap);
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            }
         }
     }
 
@@ -375,3 +352,13 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
