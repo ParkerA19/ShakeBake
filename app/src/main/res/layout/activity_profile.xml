@@ -73,11 +73,9 @@
                         android:layout_below="@+id/ivProfileImage"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="@dimen/profile_vertical_margin"
                         android:text="Name"
                         android:textAppearance="@android:style/TextAppearance.Large"
                         android:textColor="@color/appBackground"
-                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -91,14 +89,14 @@
                         android:text="Username"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                         android:textColor="@color/appBackground"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/cvCard"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="15dp"
                         android:layout_weight="1"
                         card_view:cardCornerRadius="@dimen/Main_card_corner_radius"
                         card_view:cardElevation="@dimen/Main_card_elevation">
@@ -117,7 +115,7 @@
                                 android:gravity="center_horizontal"
                                 android:text="About"
                                 android:textColor="@color/appBackground"
-                                android:textSize="20sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/tvAboutInfo"
@@ -155,9 +153,10 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:layout_marginTop="20dp"
+                                        android:layout_marginTop="15dp"
                                         android:gravity="center_vertical|center_horizontal"
-                                        android:text="5" />
+                                        android:text="5"
+                                        android:textSize="16sp" />
 
                                     <TextView
                                         android:id="@+id/tvPosts"
@@ -173,7 +172,7 @@
                                     android:id="@+id/ivLine5"
                                     android:layout_width="1dp"
                                     android:layout_height="40dp"
-                                    android:layout_marginTop="20dp"
+                                    android:layout_marginTop="18dp"
                                     app:srcCompat="@android:color/darker_gray" />
 
                                 <LinearLayout
@@ -189,8 +188,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:layout_marginTop="20dp"
-                                        android:text="5" />
+                                        android:layout_marginTop="15dp"
+                                        android:text="5"
+                                        android:textSize="16sp" />
 
                                     <TextView
                                         android:id="@+id/tvFollowers"
@@ -206,7 +206,7 @@
                                     android:id="@+id/ivLine6"
                                     android:layout_width="1dp"
                                     android:layout_height="40dp"
-                                    android:layout_marginTop="20dp"
+                                    android:layout_marginTop="18dp"
                                     app:srcCompat="@android:color/darker_gray" />
 
                                 <LinearLayout
@@ -222,8 +222,9 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical|center_horizontal"
-                                        android:layout_marginTop="20dp"
-                                        android:text="5" />
+                                        android:layout_marginTop="15dp"
+                                        android:text="5"
+                                        android:textSize="16sp" />
 
 
                                     <TextView
