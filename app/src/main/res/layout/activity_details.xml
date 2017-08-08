@@ -178,8 +178,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/llUser"
-                            android:layout_centerInParent="true"
-                            android:layout_marginTop="@dimen/Main_vertical_margin">
+                            android:layout_centerInParent="true">
 
                             <TextView
                                 android:id="@+id/tvTitle"
@@ -200,7 +199,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/llTitle"
                             android:layout_centerInParent="true"
-                            android:layout_marginTop="@dimen/activity_vertical_margin_small">
+                            android:layout_marginTop="5dp">
 
                             <TextView
                                 android:id="@+id/tvTag1"
@@ -211,7 +210,7 @@
                                 android:layout_marginRight="10dp"
                                 android:text="TextView"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:textSize="20sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/tvTag2"
@@ -223,7 +222,7 @@
                                 android:layout_toRightOf="@+id/tvTag1"
                                 android:text="TextView"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:textSize="20sp" />
+                                android:textSize="18sp" />
 
                             <TextView
                                 android:id="@+id/tvTag3"
@@ -234,7 +233,7 @@
                                 android:layout_toRightOf="@+id/tvTag2"
                                 android:text="TextView"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:textSize="20sp" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -244,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/llTags"
                             android:layout_centerInParent="true"
-                            android:layout_marginTop="@dimen/activity_vertical_margin">
+                            android:layout_marginTop="10dp">
 
                             <TextView
                                 android:id="@+id/tvDescription"
@@ -327,14 +326,14 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@drawable/background"
-        app:headerLayout="@layout/nav_header_side"
-        app:menu="@menu/activity_side_drawer" />
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/nav_view"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--android:background="@drawable/background"-->
+        <!--app:headerLayout="@layout/nav_header_side"-->
+        <!--app:menu="@menu/activity_side_drawer" />-->
 
 </android.support.v4.widget.DrawerLayout>
