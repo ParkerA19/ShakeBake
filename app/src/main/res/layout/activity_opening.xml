@@ -70,10 +70,10 @@
         android:layout_height="wrap_content"
         android:text="Hungry? Why wait? Shake &amp; Make."
         android:textSize="18sp"
-        android:layout_above="@+id/btnSignup"
         android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp" />
+        android:layout_marginBottom="23dp"
+        android:layout_above="@+id/btnSignup"
+        android:layout_centerHorizontal="true" />
 
     <!--<ImageView-->
         <!--android:id="@+id/logo"-->

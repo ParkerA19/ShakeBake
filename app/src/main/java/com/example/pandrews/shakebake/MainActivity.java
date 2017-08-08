@@ -77,6 +77,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // for now just set a mock user to be the profile in the navigation view
         profile = new User();
 
+        User u1 = new User();
+        User u2 = new User("parker", "parksauce", null, 100, 100, 100);
+
+        ArrayList<User> userList = new ArrayList<User>();
+        userList.add(u1);
+        userList.add(u2);
+
+        profile.following = userList;
+
         // set the navigation view
         setNavigationView();
 

@@ -20,33 +20,30 @@
         android:id="@+id/bAddImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ibVideo"
-        android:layout_centerHorizontal="true"
         android:background="@null"
         android:fontFamily="roboto"
         android:text="Upload Your Video"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/light_font"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/bAddVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:fontFamily="roboto"
-        android:onClick="onAddImage"
-        android:text="Record video for this step"
         android:textStyle="bold"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/light_font"
-        android:layout_below="@+id/ibVideo"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/ibVideo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vvStep"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/noun_202830_cc"
+        android:drawableRight="@drawable/noun_202830_cc"
+        android:text="Create a Step"
+        android:textAlignment="center"
+        android:textColor="@color/appBackground"
+        android:textSize="36sp" />
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
@@ -76,7 +73,7 @@
         android:background="@null"
         android:ems="10"
         android:hint="Enter step instructions here."
-        android:inputType="textMultiLine"
+        android:inputType="textCapSentences|textMultiLine"
         android:lines="8"
         android:singleLine="false"
         android:textColor="@color/Main_text_color_black" />
