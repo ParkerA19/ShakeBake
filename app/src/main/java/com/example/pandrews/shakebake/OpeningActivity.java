@@ -51,7 +51,7 @@ public class OpeningActivity extends AppCompatActivity {
         });
 
         ImageView demoImage = (ImageView) findViewById(R.id.ivToaster);
-        int imagesToShow[] = {R.drawable.vector_toaster, R.drawable.vector_blender,R.drawable.vector_frypan, R.drawable.vector_cup, R.drawable.vector_mixer, R.drawable.vector_pot };
+        int imagesToShow[] = {R.drawable.vector_frypan, R.drawable.vector_pot,R.drawable.vector_blender, R.drawable.vector_mixer, R.drawable.vector_cup, R.drawable.vector_toaster };
 
         animate(demoImage, imagesToShow, 0, true);
     }

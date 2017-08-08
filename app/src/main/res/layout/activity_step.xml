@@ -18,7 +18,7 @@
             android:id="@+id/llStepNumbers"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/white"
+            android:background="@null"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingTop="10dp"
@@ -77,21 +77,12 @@
 
             <VideoView
                 android:id="@+id/vvStepVideo"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            app:srcCompat="@drawable/background2"
-            android:layout_below="@+id/tvStepTitle"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/tvStepTitle"
@@ -105,10 +96,13 @@
             android:layout_marginStart="21dp"
             android:layout_marginTop="12dp"
             android:fontFamily="roboto"
-            android:padding="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
             android:text="Step ##"
-            android:textColor="@color/temporaryOrange"
-            android:textSize="40sp"
+            android:textColor="@color/appBackground"
+            android:textSize="32sp"
+            android:textStyle="bold"
             tools:capitalize="words" />
 
         <TextView
@@ -122,12 +116,13 @@
             android:layout_alignStart="@+id/tvStepTitle"
             android:layout_below="@+id/tvStepTitle"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:fontFamily="roboto"
             android:isScrollContainer="true"
             android:text="Description"
             android:textColor="@color/Main_text_color_light_black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -135,8 +130,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/tvStepDescription"
-            android:background="@drawable/background">
+            android:background="@drawable/background"
+            android:id="@+id/relativeLayout3">
 
         </RelativeLayout>
 
@@ -147,6 +142,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="@null"
@@ -161,16 +157,16 @@
             android:id="@+id/bLast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvStepDescription"
-            android:layout_alignStart="@+id/tvStepDescription"
-            android:layout_below="@+id/tvStepDescription"
             android:background="@null"
             android:elevation="1dp"
             android:fontFamily="roboto"
             android:onClick="displayLastStep"
             android:text="PREVIOUS"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@+id/tvStepDescription"
+            android:layout_alignLeft="@+id/tvStepTitle"
+            android:layout_alignStart="@+id/tvStepTitle" />
 
 
     </RelativeLayout>
