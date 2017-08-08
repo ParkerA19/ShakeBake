@@ -84,7 +84,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
 
         //create listener. this one adds all recipes currently in database
@@ -124,7 +124,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,6 +137,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
                     newRecipe.stepVideo.put("step 1", "cat");
                     newRecipe.stepVideo.put("step 2", "cat");
                     newRecipe.stepVideo.put("step 3", "cat");
+
                     //if stepVideo == null then set to cat video. else get values from stepVideo and loop through
 //                    if (newRecipe.stepVideo == null) {
 //                        newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + R.raw.cat;

@@ -4,6 +4,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +40,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +56,10 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 20;
     public String query;
 
+    //for shake listener
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
+
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.rvResult) RecyclerView rvResult;
@@ -66,66 +74,14 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         // set the navigation view
         setNavigationView();
 
+        setShake();
 
         resultRecipes = new ArrayList<>();
         query = getIntent().getStringExtra("query");
 
-        // Here, thisActivity is the current activity
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-//
-//            }
-//        } else {
-//
-//            //create database reference
-//            FirebaseDatabase database =  FirebaseDatabase.getInstance();
-//            DatabaseReference myRef = database.getReference();
-//
-//            //create listener. this one adds all recipes currently in database w/fork count above 300
-//            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                        Recipe newRecipe = postSnapshot.getValue(Recipe.class);
-//                        if (query.toLowerCase().equalsIgnoreCase(newRecipe.title.toLowerCase()) | newRecipe.keywords.contains(query)) {    //later add | newRecipe.keywords.contains(query) into logic to search keywords
-//                            resultRecipes.add(newRecipe);
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                    //Log.w(TAG, "Failed to read value.", databaseError.toException());
-//                }
-//            });
-//
-//
-//
-//            resultAdapter = new ResultAdapter(resultRecipes, null);
-//            rvResult.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-//            rvResult.setAdapter(resultAdapter);
-//        }
-
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -337,6 +293,45 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         // inserted at position 0
         resultAdapter.notifyItemInserted(0);
         rvResult.scrollToPosition(0);
+    }
+
+    public void setShake() {
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
+
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                //bounds for random number. add a min to create bounds
+                int max = HomeTimelineFragment.recipes.size();
+                Random r = new Random();
+
+                //generates random position. change this line to add bounds to random number
+                int randomRecipePosition = r.nextInt(max);
+
+                Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
+                //Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //on shake, get detail page of random recipe
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
+                getApplicationContext().startActivity(i);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_UI);  //changed from .SENSOR_DELAY_UI to NORMAL for a forced pause between shakes registered
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 
 }

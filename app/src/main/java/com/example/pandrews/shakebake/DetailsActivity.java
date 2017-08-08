@@ -2,6 +2,8 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.IngredientsFragment;
 import com.example.pandrews.shakebake.fragments.StepsFragment;
 import com.example.pandrews.shakebake.models.Recipe;
@@ -36,6 +39,8 @@ import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +60,9 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     ScrollView view;
     Uri uri;
 
+    //for shake listener
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
 
 
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
@@ -110,6 +118,8 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         // set the the collapsing image layout
         populateCollapsingToolbarLayout();
 
+        setShake();
+
     }
 
     @Override
@@ -153,20 +163,6 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
 
         // set profile image
         if (recipe.user.profileImageUrl != null) {
-
-//            Glide.with(getApplicationContext())
-//                    .load(recipe.user.profileImageUrl)
-//                    .asBitmap()
-//                    .centerCrop()
-//                    .into(new BitmapImageViewTarget(ivProfileImage) {
-//                        @Override
-//                        protected void setResource(Bitmap resource) {
-//                            RoundedBitmapDrawable circularBitmapDrawable =
-//                                    RoundedBitmapDrawableFactory.create(context.getResources(), resource);
-//                            circularBitmapDrawable.setCircular(true);
-//                            ivProfileImage.setImageDrawable(circularBitmapDrawable);
-//                        }
-//                    });
 
             Glide.with(this)
                     .load(recipe.user.profileImageUrl)
@@ -557,4 +553,44 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         overridePendingTransition(R.anim.shrink_and_rotate_enter, R.anim.shrink_and_rotate_exit);
 
     }
+
+    public void setShake() {
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
+
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                //bounds for random number. add a min to create bounds
+                int max = HomeTimelineFragment.recipes.size();
+                Random r = new Random();
+
+                //generates random position. change this line to add bounds to random number
+                int randomRecipePosition = r.nextInt(max);
+
+                Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
+                //Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //on shake, get detail page of random recipe
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
+                getApplicationContext().startActivity(i);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_UI);  //changed from .SENSOR_DELAY_UI to NORMAL for a forced pause between shakes registered
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
+    }
+
 }

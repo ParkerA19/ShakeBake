@@ -80,7 +80,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
 
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //create listener. this one adds all recipes with forked=true
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -123,7 +123,7 @@ public class MyForksTimelineFragment extends RecipesListFragment implements MyFo
 
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //this listener looks for new recipes added by checking list of titles in populateTimeline so it's called on refresh
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

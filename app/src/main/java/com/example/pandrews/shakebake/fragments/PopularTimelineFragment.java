@@ -79,7 +79,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
 
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -121,7 +121,7 @@ public class PopularTimelineFragment extends RecipesListFragment implements Popu
 
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
