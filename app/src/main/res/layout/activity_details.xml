@@ -316,7 +316,18 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:onClick="onPrep"
-                        android:layout_marginTop="@dimen/activity_vertical_margin" />
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="8dp"/>
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:textSize="14sp"
+                        android:background="@drawable/background"
+                        android:textColor="@color/white"
+                        android:onClick="onPrep"
+                        android:text="Start making!" />
 
 
                 </LinearLayout>
