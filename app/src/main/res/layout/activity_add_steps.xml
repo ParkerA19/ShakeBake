@@ -33,28 +33,35 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/vvStep"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/noun_202830_cc"
         android:drawableRight="@drawable/noun_202830_cc"
-        android:text="Create a Step"
-        android:textAlignment="center"
-        android:textColor="@color/appBackground"
-        android:textSize="36sp" />
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/vvStep"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="10dp"
         android:fontFamily="roboto"
         android:text="Create A Step"
         android:textAlignment="center"
         android:textColor="@color/appBackground"
         android:textSize="40dp" />
+
+
+    <TextView
+        android:id="@+id/textviewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etStep"
+        android:layout_alignLeft="@+id/etStep"
+        android:layout_alignStart="@+id/etStep"
+        android:fontFamily="roboto"
+        android:text="INSTRUCTION"
+        android:textColor="@color/appBackground"
+        android:textSize="13sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etStep"
@@ -69,13 +76,15 @@
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="@null"
         android:ems="10"
-        android:hint="Enter step instructions here."
-        android:inputType="textCapSentences|textMultiLine"
+        android:gravity="top"
+        android:hint="Step Instruction here."
+        android:inputType="textMultiLine"
         android:lines="8"
         android:singleLine="false"
+        android:textAlignment="viewStart"
         android:textColor="@color/Main_text_color_black" />
 
     <ImageButton

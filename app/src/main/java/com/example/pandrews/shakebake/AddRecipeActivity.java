@@ -1,19 +1,15 @@
 package com.example.pandrews.shakebake;
 
-import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,17 +21,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +48,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     @BindView(R.id.llSteps) LinearLayout llSteps;
     @BindView(R.id.etIngredient) EditText etIngredient;
     @BindView(R.id.llIngredientList) LinearLayout llIngredientList;
+    @BindView(R.id.ivCamera) ImageView ivCamera;
 
     TextView tvIngredient;
     TextView tvStep;
@@ -64,6 +59,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
 
     private Uri outputFileUri;
+    Uri imageUri;
+    ContentValues values;
 
     ArrayList<String> keywords;
     ArrayList<String> supplyList;
@@ -76,6 +73,11 @@ public class AddRecipeActivity extends AppCompatActivity {
     Uri videoUri;
     String videoUriString;
 
+    String arrayActions[] = new String[2];
+
+    static Context mContext;
+
+
     //variables for step:video dictionary
     public HashMap<String, String> stepVideo;
 
@@ -86,9 +88,14 @@ public class AddRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_a_recipe);
         ButterKnife.bind(this);
 
+
+        arrayActions[0] = "Camera";
+        arrayActions[1] = "Gallery";
+
         //keyboard only pops up when user clicks into an EditText
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        mContext = getApplicationContext();
         context = getApplicationContext();
 
         supplyList = new ArrayList<>();
@@ -112,13 +119,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         startActivityForResult(i, REQUEST_CODE);
     }
 
-    public void onAddImage(View v) {
-//        Integer REQUEST_CODE = 23;
-//        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(i, REQUEST_CODE);
-        openImageIntent();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -131,7 +131,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 videoUri = Uri.parse(data.getExtras().getString("videoUri"));
                 videoUriString = data.getExtras().getString("videoUri");
 
-                //store video to firebase storagegit 
+                //store video to firebase storage
                 StorageReference videoRef = mStorageRef.child(videoUri.getLastPathSegment());
 
                 videoRef.putFile(videoUri)
@@ -153,28 +153,35 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                 llSteps.addView(createNewStep(step, stepsCount));
 
-            } else if (requestCode == 30) {
-                final boolean isCamera;
-                if (data != null) { //camera was not used
-                    targetUri = data.getData();
+            } else if (requestCode == 23) {
+                targetUri = data.getData();
 
-                    Bitmap bitmap;
-                    try {
-                        bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                        ivPicture.setImageBitmap(bitmap);
-                        //ivPicture.setImageURI(selectedImageUri);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                        Toast.makeText(context, "set picture failed", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    targetUri = data.getData();
-                    ivPicture.setImageURI(targetUri);
-                }
+                Glide
+                        .with(this)
+                        .load(targetUri)
+                        .asBitmap()
+                        .into(ivPicture);
+
+                bAddImage.setVisibility(View.GONE);
+                ivCamera.setVisibility(View.GONE);
+            } else if (requestCode == 24) {
+
+                Glide
+                        .with(this)
+                        .load(imageUri)
+                        .asBitmap()
+                        .centerCrop()
+                        .into(ivPicture);
+
+                bAddImage.setVisibility(View.GONE);
+                ivCamera.setVisibility(View.GONE);
+
             }
         }
     }
 
+
+    //publish recipe
     public void onAdd(View v) {
         //check that all fields are filled
         if (validate()) {
@@ -314,41 +321,33 @@ public class AddRecipeActivity extends AppCompatActivity {
         return valid;
     }
 
-    private void openImageIntent() {
+    public void onAddImage(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddRecipeActivity.this);
+        //add title and buttons
+        builder.setTitle("Pick A Source")
+                .setItems(arrayActions, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == 1) {
+                            Integer REQUEST_CODE = 23;
+                            Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(i, REQUEST_CODE);
+                        } else {
+                            //handle camera intent and image setting here
 
-        // Determine Uri of camera image to save.
-        final File root = new File(Environment.getExternalStorageDirectory() + File.separator + "MyDir" + File.separator);
-        root.mkdirs();
-        final String fname = "img_" + System.currentTimeMillis() + ".jpg";
-        final File sdImageMainDirectory = new File(root, fname);
-        outputFileUri = Uri.fromFile(sdImageMainDirectory);
-
-        // Camera.
-        final List<Intent> cameraIntents = new ArrayList<Intent>();
-        final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        final PackageManager packageManager = getPackageManager();
-        final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
-        for(ResolveInfo res : listCam) {
-            final String packageName = res.activityInfo.packageName;
-            final Intent intent = new Intent(captureIntent);
-            intent.setComponent(new ComponentName(packageName, res.activityInfo.name));
-            intent.setPackage(packageName);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-            cameraIntents.add(intent);
-        }
-
-        // Filesystem.
-        final Intent galleryIntent = new Intent();
-        galleryIntent.setType("image/*");
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-
-        // Chooser of filesystem options.
-        final Intent chooserIntent = Intent.createChooser(galleryIntent, "Select Source");
-
-        // Add the camera options.
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, cameraIntents.toArray(new Parcelable[cameraIntents.size()]));
-
-        startActivityForResult(chooserIntent, 30);
+                            values = new ContentValues();
+                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your camera");
+                            imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                            Integer REQUEST_CODE = 24;
+                            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                            startActivityForResult(i, REQUEST_CODE);
+                        }
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }
