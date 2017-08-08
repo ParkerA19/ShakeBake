@@ -15,10 +15,9 @@
         android:background="@null"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
-        android:isScrollContainer="true"
-        android:paddingBottom="5dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:isScrollContainer="true"
         android:scrollbarStyle="insideOverlay">
 
         <RelativeLayout
@@ -43,26 +42,26 @@
                 android:id="@+id/bAddImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="67dp"
                 android:background="@null"
                 android:fontFamily="roboto"
                 android:onClick="onAddImage"
                 android:text="Upload Your Photo"
-                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/light_font"
-                android:layout_above="@+id/linearLayout"
-                android:layout_centerHorizontal="true" />
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/ivCamera"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/noun_862303_cc"
                 android:layout_alignBottom="@+id/bAddImage"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="36dp" />
+                android:layout_marginBottom="36dp"
+                app:srcCompat="@drawable/noun_862303_cc" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -137,7 +136,7 @@
                         android:fontFamily="roboto"
                         android:hint="#keyword"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="textPersonName"
                         android:paddingBottom="5dp"
                         android:paddingEnd="10dp"
                         android:paddingLeft="10dp"
@@ -159,7 +158,7 @@
                         android:fontFamily="roboto"
                         android:hint="#keyword"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="textPersonName"
                         android:paddingBottom="5dp"
                         android:paddingEnd="10dp"
                         android:paddingLeft="10dp"
@@ -181,7 +180,7 @@
                         android:fontFamily="roboto"
                         android:hint="#keyword"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="textPersonName"
                         android:paddingBottom="5dp"
                         android:paddingEnd="10dp"
                         android:paddingLeft="10dp"
@@ -263,8 +262,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="40dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <android.support.design.widget.FloatingActionButton
@@ -340,7 +339,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerInParent="true"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background"
                     android:fontFamily="roboto"
@@ -355,33 +353,5 @@
 
         </RelativeLayout>
     </ScrollView>
-
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/relativeLayout"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:gravity="end"-->
-        <!--android:background="@drawable/background"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<Button-->
-            <!--android:id="@+id/bAdd"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:background="@drawable/rounded_transparent2"-->
-            <!--android:fontFamily="roboto"-->
-            <!--android:onClick="onAdd"-->
-            <!--android:text="PUBLISH"-->
-            <!--android:textAllCaps="false"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="20sp"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:textStyle="bold" />-->
-    <!--</RelativeLayout>-->
 
 </RelativeLayout>

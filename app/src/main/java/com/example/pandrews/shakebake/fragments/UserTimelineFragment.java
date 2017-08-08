@@ -94,7 +94,7 @@ public class UserTimelineFragment extends RecipesListFragment {
 
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
@@ -130,7 +130,7 @@ public class UserTimelineFragment extends RecipesListFragment {
         //create listener. this one adds all recipes currently in database w/fork count above 300
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //this listener looks for new recipes added by checking list of titles in populateTimeline so it's called on refresh
         myRef.addValueEventListener(new ValueEventListener() {

@@ -1,9 +1,9 @@
 package com.example.pandrews.shakebake;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -48,6 +48,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     @BindView(R.id.llSteps) LinearLayout llSteps;
     @BindView(R.id.etIngredient) EditText etIngredient;
     @BindView(R.id.llIngredientList) LinearLayout llIngredientList;
+    @BindView(R.id.ivCamera) ImageView ivCamera;
 
     TextView tvIngredient;
     TextView tvStep;
@@ -58,6 +59,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
 
     private Uri outputFileUri;
+    Uri imageUri;
+    ContentValues values;
 
     ArrayList<String> keywords;
     ArrayList<String> supplyList;
@@ -128,7 +131,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 videoUri = Uri.parse(data.getExtras().getString("videoUri"));
                 videoUriString = data.getExtras().getString("videoUri");
 
-                //store video to firebase storagegit 
+                //store video to firebase storage
                 StorageReference videoRef = mStorageRef.child(videoUri.getLastPathSegment());
 
                 videoRef.putFile(videoUri)
@@ -158,9 +161,21 @@ public class AddRecipeActivity extends AppCompatActivity {
                         .load(targetUri)
                         .asBitmap()
                         .into(ivPicture);
+
+                bAddImage.setVisibility(View.GONE);
+                ivCamera.setVisibility(View.GONE);
             } else if (requestCode == 24) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                ivPicture.setImageBitmap(photo);
+
+                Glide
+                        .with(this)
+                        .load(imageUri)
+                        .asBitmap()
+                        .centerCrop()
+                        .into(ivPicture);
+
+                bAddImage.setVisibility(View.GONE);
+                ivCamera.setVisibility(View.GONE);
+
             }
         }
     }
@@ -319,8 +334,14 @@ public class AddRecipeActivity extends AppCompatActivity {
                             startActivityForResult(i, REQUEST_CODE);
                         } else {
                             //handle camera intent and image setting here
+
+                            values = new ContentValues();
+                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your camera");
+                            imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                             Integer REQUEST_CODE = 24;
                             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            i.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             startActivityForResult(i, REQUEST_CODE);
                         }
                     }
