@@ -10,7 +10,7 @@
     <VideoView
         android:id="@+id/vvStep"
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="370dp"
         android:layout_alignParentTop="true"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
@@ -32,54 +32,34 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/vvStep"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="roboto"
-        android:text="Create A Step"
-        android:textAlignment="center"
-        android:textColor="@color/appBackground"
-        android:textSize="40dp" />
-
 
     <TextView
         android:id="@+id/textviewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
         android:fontFamily="roboto"
         android:text="INSTRUCTION"
         android:textColor="@color/appBackground"
         android:textSize="13sp"
         android:textStyle="bold"
-        android:layout_above="@+id/etStep"
-        android:layout_alignLeft="@+id/etStep"
-        android:layout_alignStart="@+id/etStep" />
+        android:layout_below="@+id/vvStep"
+        android:layout_toLeftOf="@+id/bAddImage"
+        android:layout_toStartOf="@+id/bAddImage" />
 
     <EditText
         android:id="@+id/etStep"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bAddStep"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_alignLeft="@+id/textviewTitle"
+        android:layout_alignStart="@+id/textviewTitle"
+        android:layout_below="@+id/textviewTitle"
         android:background="@null"
         android:ems="10"
         android:gravity="top"
-        android:hint="Step Instruction here."
-        android:inputType="textMultiLine"
+        android:hint="Write instructions..."
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences|textMultiLine"
         android:lines="8"
         android:singleLine="false"
         android:textAlignment="viewStart"
@@ -111,6 +91,7 @@
         android:elevation="0dp"
         android:onClick="onAddingStep"
         android:text="Add Step"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 </RelativeLayout>
 

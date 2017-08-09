@@ -24,7 +24,7 @@
     <color name="off_black">#868585</color>
     <color name="Main_text_color_grey">#a12828</color>
     <color name="colorTextDark">#434B5B</color>
-    <color name="ColorAccent2">#e48f5f</color>
+    <color name="ColorAccent2">@color/appBackground</color>
     <color name="gradient_start">#F76B1C</color>
     <color name="gradient_end">#FAD961</color>
 </resources>

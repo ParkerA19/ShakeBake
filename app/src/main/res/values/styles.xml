@@ -9,7 +9,7 @@
     </style>
 
     <style name="AddRecipeTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorAccent">#e48f5f</item>
+        <item name="colorAccent">@color/appBackground</item>
     </style>
 
     <style name="NavTheme">
