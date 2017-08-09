@@ -2,6 +2,8 @@ package com.example.pandrews.shakebake;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -25,9 +27,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.pandrews.shakebake.fragments.HomeTimelineFragment;
 import com.example.pandrews.shakebake.fragments.UserTimelineFragment;
+import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.database.DataSnapshot;
@@ -37,9 +42,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
-
 import java.util.ArrayList;
-
+import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -67,6 +71,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     Boolean follow;
     ArrayList<User> followersList;
     ArrayList<User> followingList;
+
+    private SensorManager mSensorManager;
+    private ShakeEventListener mSensorListener;
 
     // set up view for butterknife
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
@@ -122,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         collapsingToolbarLayout.setTitleEnabled(false);
 
-
+        setShake();
     }
 
     @Override
@@ -451,5 +458,44 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+    }
+
+    public void setShake() {
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mSensorListener = new ShakeEventListener();
+
+        mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+
+            public void onShake() {
+                //bounds for random number. add a min to create bounds
+                int max = HomeTimelineFragment.recipes.size();
+                Random r = new Random();
+
+                //generates random position. change this line to add bounds to random number
+                int randomRecipePosition = r.nextInt(max);
+
+                Recipe randomRecipe = HomeTimelineFragment.recipes.get(randomRecipePosition);
+                Toast.makeText(getApplicationContext(), randomRecipe.title, Toast.LENGTH_LONG).show();
+                //on shake, get detail page of random recipe
+                Intent i = new Intent(getApplicationContext(), DetailsActivity.class);
+                i.putExtra(Recipe.class.getSimpleName(), Parcels.wrap(randomRecipe));
+                getApplicationContext().startActivity(i);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);  //changed from .SENSOR_DELAY_UI to normal for a forced pause between shakes registered
+    }
+
+    @Override
+    protected void onPause() {
+        mSensorManager.unregisterListener(mSensorListener);
+        super.onPause();
     }
 }
