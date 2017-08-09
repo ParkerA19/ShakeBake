@@ -46,7 +46,8 @@
         <activity android:name=".FriendsActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".InstructionsActivity" />
-        <activity android:name=".AddStepsActivity" />
+        <activity android:name=".AddStepsActivity"
+            android:theme="@style/AddRecipeTheme"/>
         <activity
             android:name=".StepActivity"
             android:label="@string/title_activity_step"

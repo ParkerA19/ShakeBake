@@ -26,8 +26,8 @@
 
             <TextView
                 android:id="@+id/tv1"
-                android:layout_width="67dp"
-                android:layout_height="match_parent"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/noun_202830_empty"
@@ -40,9 +40,9 @@
 
             <TextView
                 android:id="@+id/tv2"
-                android:layout_width="67dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/noun_202830_empty"
@@ -55,8 +55,8 @@
 
             <TextView
                 android:id="@+id/tv3"
-                android:layout_width="67dp"
-                android:layout_height="match_parent"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/noun_202830_empty"
@@ -73,7 +73,8 @@
             android:id="@+id/relativeLayout2"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_below="@+id/llStepNumbers">
+            android:layout_below="@+id/llStepNumbers"
+            android:layout_marginTop="12dp">
 
             <VideoView
                 android:id="@+id/vvStepVideo"

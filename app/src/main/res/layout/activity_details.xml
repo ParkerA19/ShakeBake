@@ -128,7 +128,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:hint="Username"
                                 android:text="TextView"
-                                android:textColor="@color/appBackground"
+                                android:textColor="@color/off_black"
                                 android:textSize="16sp" />
 
                         </LinearLayout>
@@ -184,11 +184,14 @@
                                 android:id="@+id/tvTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginStart="10dp"
                                 android:gravity="center"
                                 android:hint="Title"
                                 android:text="TextView"
                                 android:textColor="@color/appBackground"
-                                android:textSize="24sp" />
+                                android:textSize="26sp"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -254,7 +257,7 @@
                                 android:maxWidth="360dp"
                                 android:text="TextView"
                                 android:textColor="@color/appBackground"
-                                android:textSize="20sp" />
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -275,21 +278,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:onClick="onIngredient"
                         android:text="INGREDIENTS"
-                        android:textColor="@color/appBackground" />
+                        android:textColor="@color/appBackground"
+                        android:textStyle="bold" />
 
                     <FrameLayout
                         android:id="@+id/flIngredients"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_gravity="center"
-                        android:onClick="onIngredient"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginTop="@dimen/activity_vertical_margin" />
+                        android:layout_marginTop="10dp"
+                        android:onClick="onIngredient" />
 
                     <ImageView
                         android:id="@+id/ivInstructions"
@@ -306,10 +309,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:onClick="onPrep"
-                        android:text="PREPARATION"
-                        android:textColor="@color/appBackground" />
+                        android:text="HOW TO COOK?"
+                        android:textColor="@color/appBackground"
+                        android:textStyle="bold" />
 
                     <FrameLayout
                         android:id="@+id/flSteps"
@@ -328,14 +331,14 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@drawable/background"
-        app:headerLayout="@layout/nav_header_side"
-        app:menu="@menu/activity_side_drawer" />
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/nav_view"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--android:background="@drawable/background"-->
+        <!--app:headerLayout="@layout/nav_header_side"-->
+        <!--app:menu="@menu/activity_side_drawer" />-->
 
 </android.support.v4.widget.DrawerLayout>
