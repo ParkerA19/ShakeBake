@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +30,15 @@ import com.bumptech.glide.Glide;
 import com.example.pandrews.shakebake.fragments.UserTimelineFragment;
 import com.example.pandrews.shakebake.models.User;
 import com.example.pandrews.shakebake.utils.CircleGlide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +65,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     Context context;
     User profile;
     Boolean follow;
+    ArrayList<User> followersList;
+    ArrayList<User> followingList;
 
     // set up view for butterknife
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
@@ -97,6 +107,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         String screenname;
         user = Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
 
+        // get the followers and following lists
+        getFollowers();
+
         screenname = user.username;
 
         setRecipeTimeline(screenname);
@@ -116,6 +129,50 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.timeline, menu);
         return true;
+    }
+
+    /**
+     * Method to find which user matches up with the current user
+     * retrieves the followers and following list
+     */
+    public void getFollowers() {
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users");
+
+
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    User newUser = postSnapshot.getValue(User.class);
+                    Log.d("profile", "profile");
+
+                    if (newUser.equals(user)) {
+
+                        followersList = newUser.followers;
+                        followingList = newUser.following;
+
+                        user.followersCount = followersList.size();
+                        user.followingCount = followingList.size();
+
+                        tvFollowersCount.setText(user.followersCount + "");
+                        tvFollowingCount.setText(user.followingCount + "");
+
+                        user.followers = followersList;
+                        user.following = followingList;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
     }
 
     public void setRecipeTimeline(String screenname) {
@@ -332,6 +389,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         Intent intent = new Intent(context, FriendsActivity.class);
         // put the user into the intent
         intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+        // put the user
+        intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
         // put position into the intent
         intent.putExtra("int", position);
         // start activity
@@ -347,6 +406,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         int position = 0;
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
+        // put the user
+        intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
         // put position into the intent
         intent.putExtra("int", position);
         // start activity

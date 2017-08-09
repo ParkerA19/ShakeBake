@@ -37,7 +37,7 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
     // Instance variables
     User profile = MainActivity.profile;
     int fragmentPosition;
-    User user;
+    public static User user;
 
     FriendsPagerAdapter adapterViewPager;
 
@@ -233,6 +233,10 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         startActivity(intent);
         // set the new animation
         overridePendingTransition(R.anim.fade_in_fast, R.anim.fade_out_fast);
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
 

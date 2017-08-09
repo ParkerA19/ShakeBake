@@ -3,6 +3,7 @@ package com.example.pandrews.shakebake.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.example.pandrews.shakebake.FriendsActivity;
 import com.example.pandrews.shakebake.MainActivity;
 import com.example.pandrews.shakebake.models.User;
 
@@ -13,6 +14,7 @@ import com.example.pandrews.shakebake.models.User;
 public class FollowingFragment extends FriendsListFragment {
 
     User profile = MainActivity.profile;
+    User user = FriendsActivity.user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,9 +39,9 @@ public class FollowingFragment extends FriendsListFragment {
 
         friendAdapter.clear();
 
-        for (int index = 0; index < profile.following.size(); index ++) {
-            users.add(profile.following.get(index));
-            friendAdapter.notifyItemInserted(users.size() -1);
+        for (int index = 0; index < user.following.size(); index++) {
+            users.add(user.following.get(index));
+            friendAdapter.notifyItemInserted(users.size() - 1);
         }
 
 //        users.add(u);
