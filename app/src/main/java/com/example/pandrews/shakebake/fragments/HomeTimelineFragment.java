@@ -80,7 +80,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
         //create database reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
 
         //create listener. this one adds all recipes currently in database
@@ -89,6 +89,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
+
 
                     //LinkedHashMap<String, String> stepsVid = postSnapshot.getValue(Recipe.class).stepVideo;
                     //newRecipe.mediaurl = "android.resource://com.example.pandrews.shakebake/" + newRecipe.mediaurl;
@@ -116,7 +117,7 @@ public class HomeTimelineFragment extends RecipesListFragment {
 
         //new reference
         FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
+        DatabaseReference myRef = database.getReference("Recipes");
 
         //this listener looks for new recipes added by checking list of titles. in populateTimeline so it's called on refresh
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

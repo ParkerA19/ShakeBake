@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pandrews.shakebake.FriendsActivity;
 import com.example.pandrews.shakebake.models.User;
 
 /**
@@ -13,6 +14,8 @@ import com.example.pandrews.shakebake.models.User;
  */
 
 public class FollowersFragment extends FriendsListFragment {
+
+    User user = FriendsActivity.user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,17 +39,25 @@ public class FollowersFragment extends FriendsListFragment {
 
         friendAdapter.clear();
 
-        users.add(u1);
-        friendAdapter.notifyItemInserted(users.size() -1);
+        for (int index = 0; index < user.followers.size(); index++) {
+            users.add(user.followers.get(index));
+            friendAdapter.notifyItemInserted(users.size() - 1);
+        }
 
-        users.add(u2);
-        friendAdapter.notifyItemInserted(users.size() -1);
-
-        users.add(u3);
-        friendAdapter.notifyItemInserted(users.size() -1);
-
-        users.add(u4);
-        friendAdapter.notifyItemInserted(users.size() -1);
+//        users.add(u);
+//        friendAdapter.notifyItemInserted(users.size() -1);
+//
+//        users.add(u1);
+//        friendAdapter.notifyItemInserted(users.size() -1);
+//
+//        users.add(u2);
+//        friendAdapter.notifyItemInserted(users.size() -1);
+//
+//        users.add(u3);
+//        friendAdapter.notifyItemInserted(users.size() -1);
+//
+//        users.add(u4);
+//        friendAdapter.notifyItemInserted(users.size() -1);
 
         swipeContainer.setRefreshing(false);
 

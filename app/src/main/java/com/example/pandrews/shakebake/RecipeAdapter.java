@@ -111,8 +111,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     String tempString = (recipe.forkCount == 0) ? "" : recipe.forkCount.toString();
                     holder.tvForks.setText(tempString);
                     //change forked value on database
-                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
-                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
+                    FirebaseDatabase.getInstance().getReference("Recipes/" + recipe.title + "/forked").setValue(recipe.forked);
+                    FirebaseDatabase.getInstance().getReference("Recipes" + recipe.title + "/forkCount").setValue(recipe.forkCount);
                 }
 
                 else {
@@ -126,8 +126,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     String tempString = (recipe.forkCount == 0) ? "": recipe.forkCount.toString();
                     holder.tvForks.setText(tempString);
                     //change forked value on database
-                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forked").setValue(recipe.forked);
-                    FirebaseDatabase.getInstance().getReference(recipe.title + "/forkCount").setValue(recipe.forkCount);
+                    FirebaseDatabase.getInstance().getReference("Recipes/" + recipe.title + "/forked").setValue(recipe.forked);
+                    FirebaseDatabase.getInstance().getReference("Recipes/" + recipe.title + "/forkCount").setValue(recipe.forkCount);
 
 
                 }
