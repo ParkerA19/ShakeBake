@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pandrews.shakebake.ProfileActivity;
 import com.example.pandrews.shakebake.R;
 import com.example.pandrews.shakebake.RecipeAdapter;
 import com.example.pandrews.shakebake.models.Recipe;
+import com.example.pandrews.shakebake.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
  */
 
 public class UserTimelineFragment extends RecipesListFragment {
+
+    User user = ProfileActivity.user;
 
     private DatabaseReference mDatabase;
 
@@ -98,6 +102,7 @@ public class UserTimelineFragment extends RecipesListFragment {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int numPosts = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
 
@@ -105,8 +110,12 @@ public class UserTimelineFragment extends RecipesListFragment {
                         appendRecipe(newRecipe);
                         //keep track of recipes already added
                         recipeTitles.add(newRecipe.title);
+                        numPosts ++;
                     }
                 }
+                user.forkCount = numPosts;
+                ProfileActivity.setPosts();
+
             }
 
             @Override
@@ -133,6 +142,7 @@ public class UserTimelineFragment extends RecipesListFragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int numPosts = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recipe newRecipe = postSnapshot.getValue(Recipe.class);
 
@@ -140,8 +150,10 @@ public class UserTimelineFragment extends RecipesListFragment {
                         appendRecipe(newRecipe);
                         //keep track of recipes already added
                         recipeTitles.add(newRecipe.title);
+                        numPosts ++;
                     }
                 }
+                user.forkCount = numPosts;
             }
 
             @Override

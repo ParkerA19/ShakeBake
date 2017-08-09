@@ -96,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="45dp"
                         android:layout_weight="1"
                         card_view:cardCornerRadius="@dimen/Main_card_corner_radius"
                         card_view:cardElevation="@dimen/Main_card_elevation">
@@ -249,9 +249,10 @@
                         android:layout_height="@dimen/button_height"
                         android:layout_gravity="center"
                         android:layout_marginBottom="25dp"
+                        android:layout_marginTop="-30dp"
                         android:background="@drawable/round_button_orange"
-                        android:text="FOLLOW"
-                        android:onClick="Follow"/>
+                        android:onClick="Follow"
+                        android:text="FOLLOW" />
 
                 </LinearLayout>
 

@@ -31,11 +31,6 @@ public class FollowersFragment extends FriendsListFragment {
 
     @Override
     public void populateTimeline() {
-        User u1 = new User("Parker", "pandrews", "https://static.pexels.com/photos/404843/pexels-photo-404843.jpeg" , 10, 20, 300);
-        User u2 = new User("Andrea", "agarcia", "https://static.pexels.com/photos/163114/mario-luigi-figures-funny-163114.jpeg", 15, 30, 450);
-        User u3 = new User("Jennifer", "jshin", "https://static.pexels.com/photos/437886/pexels-photo-437886.jpeg", 20, 40, 700);
-        User u4 = new User();
-
 
         friendAdapter.clear();
 

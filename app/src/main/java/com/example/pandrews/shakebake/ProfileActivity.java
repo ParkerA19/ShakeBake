@@ -16,7 +16,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,19 +60,23 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private final int REQUEST_CODE = 25;
 
     // Instance Variables
-    User user;
+    public static User user;
     Context context;
-    User profile;
+    public User profile;
     Boolean follow;
-    ArrayList<User> followersList;
-    ArrayList<User> followingList;
+    ArrayList<User> followersList = new ArrayList<>();
+    ArrayList<User> followingList = new ArrayList<>();
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     // set up view for butterknife
     @Nullable@BindView(R.id.ivProfileImage) ImageView ivProfileImage;
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvPosts) TextView tvPosts;
-    @BindView(R.id.tvPostCount) TextView tvPostCount;
+//    @BindView(R.id.tvPostCount) static TextView tvPostCount;
+    static TextView tvPostCount;
     @BindView(R.id.tvFollowers) TextView tvFollowers;
     @BindView(R.id.tvFollowersCount) TextView tvFollowersCount;
     @BindView(R.id.tvFollowing) TextView tvFollowing;
@@ -96,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // bind with butterknife
         ButterKnife.bind(this);
 
+        tvPostCount = (TextView) findViewById(R.id.tvPostCount);
 
         // set the context
         context = getApplicationContext();
@@ -137,8 +141,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
      */
     public void getFollowers() {
         //create database reference
-        FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users");
+        database =  FirebaseDatabase.getInstance();
+        myRef = database.getReference("Users");
 
 
         //create listener. this one adds all recipes currently in database w/fork count above 300
@@ -146,22 +150,38 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    User newUser = postSnapshot.getValue(User.class);
-                    Log.d("profile", "profile");
+//                    User newUser = postSnapshot.getValue(User.class);
+//                    Log.d("profile", "profile");
+                    String newUserKey = postSnapshot.getKey();
 
-                    if (newUser.equals(user)) {
-
-                        followersList = newUser.followers;
-                        followingList = newUser.following;
-
-                        user.followersCount = followersList.size();
-                        user.followingCount = followingList.size();
-
-                        tvFollowersCount.setText(user.followersCount + "");
-                        tvFollowingCount.setText(user.followingCount + "");
-
-                        user.followers = followersList;
-                        user.following = followingList;
+                    // check if this is the right user
+                    if (newUserKey.equals(user.username)) {
+                        // now look through all the aspects of the user
+                        for (DataSnapshot childSnapshot : postSnapshot.getChildren()) {
+                            // get the key
+                            String tempKey = childSnapshot.getKey();
+                            // if the key is the followers then set accordingly
+                            if (tempKey.equals("followers")) {
+                                // look through each user and add them to the followersList
+                                for (DataSnapshot infantSnapShot : childSnapshot.getChildren()) {
+                                    User tempUser = infantSnapShot.getValue(User.class);
+                                    followersList.add(tempUser);
+                                }
+                                user.followersCount = followersList.size();
+                                tvFollowersCount.setText(user.followersCount+ "");
+                                user.followers = followersList;
+                            }
+                            if (tempKey.equals("following")) {
+                                // loop through each user and add them to the followingList
+                                for (DataSnapshot infantSnapShot : childSnapshot.getChildren()) {
+                                    User tempUser = infantSnapShot.getValue(User.class);
+                                    followingList.add(tempUser);
+                                }
+                                user.followingCount = followingList.size();
+                                tvFollowingCount.setText(user.followingCount + "");
+                                user.following = followingList;
+                            }
+                        }
                     }
                 }
             }
@@ -186,6 +206,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
         // commit the transaction
         ft.commit();
+
+        tvPostCount.setText(user.forkCount + "");
     }
 
     public void setNavigationView() {
@@ -275,8 +297,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 //        tvFollowers.setText("Followers");
 //        tvFollowing.setText("Following");
         tvPostCount.setText(user.forkCount + "");
-        tvFollowersCount.setText(user.followersCount + "");
-        tvFollowingCount.setText(user.followingCount + "");
+//        tvFollowersCount.setText(user.followersCount + "");
+//        tvFollowingCount.setText(user.followingCount + "");
 
         if (user.profileImageUrl != null) {
             Glide.with(this)
@@ -288,16 +310,22 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         if (profile.equals(user)) {
             ibFollow.setVisibility(View.GONE);
         }
-        else if (profile.following.contains(user)) {
-            ibFollow.setVisibility(View.VISIBLE);
-            ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button));
-            ibFollow.setText("FOLLOWING");
-            follow = true;
-        }
         else {
-            ibFollow.setVisibility(View.VISIBLE);
-            ibFollow.setText("FOLLOW");
-            follow = false;
+            for (User tempUser : profile.following) {
+                if (tempUser.equals(user)) {
+                    ibFollow.setVisibility(View.VISIBLE);
+                    ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button));
+                    ibFollow.setText("FOLLOWING");
+                    ibFollow.setTextColor(getResources().getColor(R.color.appBackground));
+                    follow = true;
+                    break;
+                } else {
+                    ibFollow.setVisibility(View.VISIBLE);
+                    ibFollow.setText("FOLLOW");
+                    follow = false;
+                }
+            }
+
         }
     }
 
@@ -379,8 +407,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     }
 
     /**
-    when following is pressed take user to view users they follow
-    goes to a tab layout where they can switch between followers and following
+     * when following is pressed take user to view users they follow
+     * goes to a tab layout where they can switch between followers and following
      */
     public void onFollowing(View v) {
         // set the tab position for FriendsActivity
@@ -388,8 +416,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // make a new intent
         Intent intent = new Intent(context, FriendsActivity.class);
         // put the user into the intent
-        intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
-        // put the user
         intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
         // put position into the intent
         intent.putExtra("int", position);
@@ -421,16 +447,40 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
      */
     public void Follow(View v) {
         if (follow) {
+            // change the database
+            database.getReference("Users/" + profile.username + "/following/" + user.username).removeValue();
+            database.getReference("Users/" + user.username + "/followers/" + profile.username).removeValue();
             // change the button color
             ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button_orange));
             // change the text
             ibFollow.setText("FOLLOW");
             ibFollow.setTextColor(getResources().getColor(R.color.white));
             // update the following list
-            profile.following.remove(user);
+//            profile.following.remove(user);
+
+            for (User tempUser : profile.following) {
+                if (tempUser.equals(user)) {
+                    profile.following.remove(tempUser);
+                    break;
+                }
+            }
+            // update the amount of followers for the user
+            user.followersCount --;
+            // set new followersCount
+            tvFollowersCount.setText(user.followersCount + "");
             // change the boolean
             follow = false;
         } else {
+            // change the database
+            database.getReference("Users/" + profile.username + "/following/" + user.username).setValue(user);
+            database.getReference("Users/" + user.username + "/followers/" + profile.username).setValue(profile);
+
+            database.getReference("Users/" + user.username + "/followers/" + profile.username + "/followers").removeValue();
+            database.getReference("Users/" + user.username + "/followers/" + profile.username + "/following").removeValue();
+
+            database.getReference("Users/" + profile.username + "/following/" + user.username + "/followers").removeValue();
+            database.getReference("Users/" + profile.username + "/following/" + user.username + "/following").removeValue();
+
             // change the button color
             ibFollow.setBackground(getResources().getDrawable(R.drawable.round_button));
             // set the text
@@ -438,6 +488,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             ibFollow.setTextColor(getResources().getColor(R.color.appBackground));
             // update the following list
             profile.following.add(0, user);
+            // update the amount of followers for the user
+            user.followersCount ++;
+            // set new followersCount
+            tvFollowersCount.setText(user.followersCount + "");
             // change the boolean
             follow = true;
         }
@@ -451,5 +505,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.push_down_in, R.anim.push_down_out);
+    }
+
+    public static void setPosts(){
+        tvPostCount.setText(user.forkCount + "");
     }
 }

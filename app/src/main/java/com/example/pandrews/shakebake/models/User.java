@@ -29,12 +29,14 @@ public class User {
     }
 
     public User() {
-        this.name = "Zuck";
+        this.name = "Mark Zuckerberg";
         this.username = "quack_like_a_zuck";
-        this.profileImageUrl = "https://static.pexels.com/photos/326875/pexels-photo-326875.jpeg";
+        this.profileImageUrl = "https://harvardgazette.files.wordpress.com/2017/03/mark-zuckerberg-headshot-11.jpg";
         this.followersCount = 100;
         this.followingCount = 85;
         this.forkCount = 220;
+        this.followers = null;
+        this.following = null;
     }
 
     public void setFollowers(ArrayList<User> users) {
