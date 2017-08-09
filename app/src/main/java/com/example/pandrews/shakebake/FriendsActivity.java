@@ -239,5 +239,4 @@ public class FriendsActivity extends AppCompatActivity implements NavigationView
         return this.user;
     }
 
-
 }

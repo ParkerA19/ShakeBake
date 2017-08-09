@@ -31,8 +31,11 @@ import com.example.pandrews.shakebake.models.Recipe;
 import com.example.pandrews.shakebake.models.User;
 import com.example.pandrews.shakebake.utils.CircleGlide;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
@@ -53,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //SearchView searchView;  ---- maybe delete these lines -- TODO
 
     public static User profile;
+
+
+    ArrayList<User> followersList = new ArrayList<>();
+    ArrayList<User> followingList = new ArrayList<>();
 
     //for shake listener
     private SensorManager mSensorManager;
@@ -77,14 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // for now just set a mock user to be the profile in the navigation view
         profile = new User();
 
-        User u1 = new User();
-        User u2 = new User("parker", "parksauce", null, 100, 100, 100);
-
-        ArrayList<User> userList = new ArrayList<User>();
-        userList.add(u1);
-        userList.add(u2);
-
-        profile.following = userList;
+        // set the followers and following list
+        getFollowers();
 
         // set the navigation view
         setNavigationView();
@@ -109,6 +110,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setShake();
     }
 
+    /**
+     * Method to find which user matches up with the current user
+     * retrieves the followers and following list
+     */
+    public void getFollowers() {
+        //create database reference
+        FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Users");
+
+
+        //create listener. this one adds all recipes currently in database w/fork count above 300
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    User newUser = postSnapshot.getValue(User.class);
+//                    Log.d("profile", "profile");
+                    String newUserKey = postSnapshot.getKey();
+
+                    // check if this is the right user
+                    if (newUserKey.equals(profile.username)) {
+                        // now look through all the aspects of the user
+                        for (DataSnapshot childSnapshot : postSnapshot.getChildren()) {
+                            // get the key
+                            String tempKey = childSnapshot.getKey();
+                            // if the key is the followers then set accordingly
+                            if (tempKey.equals("followers")) {
+                                // look through each user and add them to the followersList
+                                for (DataSnapshot infantSnapShot : childSnapshot.getChildren()) {
+                                    User tempUser = infantSnapShot.getValue(User.class);
+                                    followersList.add(tempUser);
+                                }
+                                profile.followersCount = followersList.size();
+                                profile.followers = followersList;
+                            }
+                            if (tempKey.equals("following")) {
+                                // loop through each user and add them to the followingList
+                                for (DataSnapshot infantSnapShot : childSnapshot.getChildren()) {
+                                    User tempUser = infantSnapShot.getValue(User.class);
+                                    followingList.add(tempUser);
+                                }
+                                profile.followingCount = followingList.size();
+                                profile.following = followingList;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+    }
 
     public void setNavigationView() {
         // set the toolbar
