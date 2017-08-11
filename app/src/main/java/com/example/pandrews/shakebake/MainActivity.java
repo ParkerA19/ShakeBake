@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static User profile;
 
+    FirebaseDatabase database =FirebaseDatabase.getInstance();
+
 
     ArrayList<User> followersList = new ArrayList<>();
     ArrayList<User> followingList = new ArrayList<>();
@@ -116,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     public void getFollowers() {
         //create database reference
-        FirebaseDatabase database =  FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Users");
 
 

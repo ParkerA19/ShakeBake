@@ -22,8 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.pandrews.shakebake.models.Recipe;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +36,8 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.bumptech.glide.Glide.with;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
@@ -156,8 +161,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             } else if (requestCode == 23) {
                 targetUri = data.getData();
 
-                Glide
-                        .with(this)
+                with(this)
                         .load(targetUri)
                         .asBitmap()
                         .into(ivPicture);
@@ -195,19 +199,36 @@ public class AddRecipeActivity extends AppCompatActivity {
             recipe.putStringArrayList("supplyList", supplyList);
             recipe.putSerializable("stepVideo", stepVideo);
 
+//            Recipe recipe = new Recipe();
+//            recipe.title = etRecipeTitle.getText().toString();
+//            recipe.description = etRecipeDescription.getText().toString();
+//            recipe.keywords = createKeywords();
+//            recipe.targetUri = targetUri.toString();
+//            recipe.steps = stepList;
+//            recipe.ingredients = supplyList;
+//            recipe.s
+
+            Recipe newRecipe = Recipe.fromBundle(recipe);
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("Recipes/" + newRecipe.title);
+            myRef.setValue(newRecipe);
+
             Intent i = new Intent(this, MainActivity.class);
-            i.putExtras(recipe);
-            setResult(RESULT_OK, i);
-            finish();
+//            i.putExtras(recipe);
+//            setResult(RESULT_OK, i);
+//            finish();
+
+            startActivity(i);
         }
     }
 
     public void onAddAnIngredient(View v) {
         String ingredient = etIngredient.getText().toString();
-        supplyList.add(ingredient);
-        llIngredientList.addView(createNewIngredientView(ingredient));
         etIngredient.setText("");
 
+        supplyList.add(ingredient);
+        llIngredientList.addView(createNewIngredientView(ingredient));
     }
 
 
@@ -303,7 +324,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             etRecipeDescription.setError(null);
         }
 
-        if (targetUri == null) {
+        if (targetUri == null && imageUri == null) {
             Toast.makeText(context, "Add an image", Toast.LENGTH_LONG).show();
             valid = false;
         }
